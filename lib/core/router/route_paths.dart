@@ -1,6 +1,7 @@
 /// Every route path in the app, defined once so a typo becomes a
 /// compile-time error instead of a runtime 404.
 abstract final class RoutePaths {
+  static const String login = '/login';
   static const String dashboard = '/';
   static const String aiAssistant = '/ai-assistant';
   static const String codeEditor = '/code-editor';

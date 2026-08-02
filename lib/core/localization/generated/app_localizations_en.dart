@@ -134,4 +134,44 @@ class AppLocalizationsEn extends AppLocalizations {
   String codeEditorWordsCount(int count) {
     return '$count words';
   }
+
+  @override
+  String get loginHeadline => 'Connect your GitHub account';
+
+  @override
+  String get loginDescription =>
+      'AetherDesk needs access to your GitHub account to read and modify your repositories.';
+
+  @override
+  String get loginButton => 'Sign in with GitHub';
+
+  @override
+  String get loginPendingTitle => 'Enter this code on GitHub';
+
+  @override
+  String get loginPendingDescription =>
+      'Open the GitHub verification page and enter the code below.';
+
+  @override
+  String get loginCopyCodeTooltip => 'Copy code';
+
+  @override
+  String get loginCodeCopiedMessage => 'Code copied to clipboard.';
+
+  @override
+  String get loginOpenGithubButton => 'Open GitHub';
+
+  @override
+  String get loginWaitingMessage => 'Waiting for your authorization…';
+
+  @override
+  String get loginOpenUrlError => 'Couldn\'t open the browser.';
+
+  @override
+  String get profileLogoutButton => 'Sign out';
+
+  @override
+  String profilePublicReposCount(int count) {
+    return '$count public repos';
+  }
 }

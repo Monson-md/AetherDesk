@@ -57,5 +57,22 @@
     "placeholders": {
       "count": { "type": "int" }
     }
+  },
+  "loginHeadline": "Connectez votre compte GitHub",
+  "loginDescription": "AetherDesk a besoin d'accéder à votre compte GitHub pour lire et modifier vos dépôts.",
+  "loginButton": "Se connecter à GitHub",
+  "loginPendingTitle": "Entrez ce code sur GitHub",
+  "loginPendingDescription": "Ouvrez la page de vérification GitHub et entrez le code ci-dessous.",
+  "loginCopyCodeTooltip": "Copier le code",
+  "loginCodeCopiedMessage": "Code copié dans le presse-papiers.",
+  "loginOpenGithubButton": "Ouvrir GitHub",
+  "loginWaitingMessage": "En attente de votre autorisation…",
+  "loginOpenUrlError": "Impossible d'ouvrir le navigateur.",
+  "profileLogoutButton": "Se déconnecter",
+  "profilePublicReposCount": "{count} dépôts publics",
+  "@profilePublicReposCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
   }
 }

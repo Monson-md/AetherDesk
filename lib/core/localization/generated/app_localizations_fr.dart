@@ -136,4 +136,44 @@ class AppLocalizationsFr extends AppLocalizations {
   String codeEditorWordsCount(int count) {
     return '$count mots';
   }
+
+  @override
+  String get loginHeadline => 'Connectez votre compte GitHub';
+
+  @override
+  String get loginDescription =>
+      'AetherDesk a besoin d\'accéder à votre compte GitHub pour lire et modifier vos dépôts.';
+
+  @override
+  String get loginButton => 'Se connecter à GitHub';
+
+  @override
+  String get loginPendingTitle => 'Entrez ce code sur GitHub';
+
+  @override
+  String get loginPendingDescription =>
+      'Ouvrez la page de vérification GitHub et entrez le code ci-dessous.';
+
+  @override
+  String get loginCopyCodeTooltip => 'Copier le code';
+
+  @override
+  String get loginCodeCopiedMessage => 'Code copié dans le presse-papiers.';
+
+  @override
+  String get loginOpenGithubButton => 'Ouvrir GitHub';
+
+  @override
+  String get loginWaitingMessage => 'En attente de votre autorisation…';
+
+  @override
+  String get loginOpenUrlError => 'Impossible d\'ouvrir le navigateur.';
+
+  @override
+  String get profileLogoutButton => 'Se déconnecter';
+
+  @override
+  String profilePublicReposCount(int count) {
+    return '$count dépôts publics';
+  }
 }
