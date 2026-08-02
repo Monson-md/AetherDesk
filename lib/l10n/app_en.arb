@@ -1,0 +1,58 @@
+{
+  "@@locale": "en",
+  "appTitle": "AetherDesk",
+  "navDashboard": "Dashboard",
+  "navAiAssistant": "AI Assistant",
+  "navCodeEditor": "Code Editor",
+  "navProjectManagement": "Project Management",
+  "navSecureVault": "Secure Vault",
+  "navCyberWorkspace": "Cyber Workspace",
+  "navCreation2d": "2D Creation",
+  "navCreation3d": "3D Creation",
+  "navSettings": "Settings",
+  "navUserProfile": "Profile",
+  "comingSoonTitle": "Coming soon",
+  "comingSoonMessage": "This module is under construction.",
+  "commonRetry": "Retry",
+  "commonCancel": "Cancel",
+  "commonConfirm": "Confirm",
+  "commonSave": "Save",
+  "errorGenericTitle": "Something went wrong",
+  "errorGenericMessage": "Please try again later.",
+  "chatEmptyTitle": "How can I help you?",
+  "chatEmptyMessage": "Ask a question or pick a suggestion to get started.",
+  "chatSuggestionGenerateCode": "Generate code",
+  "chatSuggestionDebug": "Debug a program",
+  "chatSuggestionExplain": "Explain a concept",
+  "chatSuggestionPlan": "Plan a project",
+  "chatInputHint": "Write a message…",
+  "chatSendTooltip": "Send",
+  "chatThinking": "The AI is thinking…",
+  "codeEditorNewFile": "New file",
+  "codeEditorOpen": "Open",
+  "codeEditorSave": "Save",
+  "codeEditorCopy": "Copy",
+  "codeEditorClear": "Clear",
+  "codeEditorEmptyHint": "Start writing your code here…",
+  "codeEditorOpenPlaceholder": "File opening coming soon.",
+  "codeEditorSavePlaceholder": "Saving coming soon.",
+  "codeEditorCopiedMessage": "Code copied to clipboard.",
+  "codeEditorLinesCount": "{count} lines",
+  "@codeEditorLinesCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "codeEditorCharsCount": "{count} characters",
+  "@codeEditorCharsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "codeEditorWordsCount": "{count} words",
+  "@codeEditorWordsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  }
+}

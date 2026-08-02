@@ -1,0 +1,61 @@
+{
+  "@@locale": "fr",
+  "appTitle": "AetherDesk",
+  "@appTitle": {
+    "description": "Nom affiché de l'application"
+  },
+  "navDashboard": "Tableau de bord",
+  "navAiAssistant": "Assistant IA",
+  "navCodeEditor": "Éditeur de code",
+  "navProjectManagement": "Gestion de projets",
+  "navSecureVault": "Vault sécurisé",
+  "navCyberWorkspace": "Cyber Workspace",
+  "navCreation2d": "Création 2D",
+  "navCreation3d": "Création 3D",
+  "navSettings": "Paramètres",
+  "navUserProfile": "Profil",
+  "comingSoonTitle": "Bientôt disponible",
+  "comingSoonMessage": "Ce module est en cours de construction.",
+  "commonRetry": "Réessayer",
+  "commonCancel": "Annuler",
+  "commonConfirm": "Confirmer",
+  "commonSave": "Enregistrer",
+  "errorGenericTitle": "Une erreur est survenue",
+  "errorGenericMessage": "Veuillez réessayer plus tard.",
+  "chatEmptyTitle": "Comment puis-je vous aider ?",
+  "chatEmptyMessage": "Posez une question ou choisissez une suggestion pour commencer.",
+  "chatSuggestionGenerateCode": "Générer du code",
+  "chatSuggestionDebug": "Déboguer un programme",
+  "chatSuggestionExplain": "Expliquer un concept",
+  "chatSuggestionPlan": "Planifier un projet",
+  "chatInputHint": "Écrivez un message…",
+  "chatSendTooltip": "Envoyer",
+  "chatThinking": "L'IA réfléchit…",
+  "codeEditorNewFile": "Nouveau fichier",
+  "codeEditorOpen": "Ouvrir",
+  "codeEditorSave": "Enregistrer",
+  "codeEditorCopy": "Copier",
+  "codeEditorClear": "Effacer",
+  "codeEditorEmptyHint": "Commencez à écrire votre code ici…",
+  "codeEditorOpenPlaceholder": "Ouverture de fichiers disponible prochainement.",
+  "codeEditorSavePlaceholder": "Enregistrement disponible prochainement.",
+  "codeEditorCopiedMessage": "Code copié dans le presse-papiers.",
+  "codeEditorLinesCount": "{count} lignes",
+  "@codeEditorLinesCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "codeEditorCharsCount": "{count} caractères",
+  "@codeEditorCharsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "codeEditorWordsCount": "{count} mots",
+  "@codeEditorWordsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  }
+}
