@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:aetherdesk/core/error/app_exception.dart';
+import 'package:aetherdesk/core/services/github/github_auth_service.dart'
+    show githubUserAgent;
 import 'package:http/http.dart' as http;
 
 /// Thin, reusable wrapper around authenticated `api.github.com` calls.
@@ -41,6 +43,7 @@ class GithubApiClient {
       Uri.parse('$_baseUrl$path'),
       headers: {
         'Accept': 'application/vnd.github+json',
+        'User-Agent': githubUserAgent,
         if (token != null) 'Authorization': 'Bearer $token',
       },
     );

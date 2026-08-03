@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aetherdesk/core/services/github/github_device_code.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 /// Key used to persist the GitHub access token via [SecureStorageService].
@@ -12,6 +13,12 @@ const String githubTokenStorageKey = 'github_access_token';
 /// secret — the flow's security comes from the short-lived user code being
 /// entered on github.com itself, not from a secret embedded in the APK.
 const String githubOAuthClientId = 'Ov23libQB3Mor4GRNeow';
+
+/// GitHub rejects any request with no `User-Agent` header (both
+/// github.com/login/... and api.github.com), independently of
+/// `Accept`/auth — see
+/// https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api#user-agent-required.
+const String githubUserAgent = 'AetherDesk';
 
 /// Errors specific to the device authorization flow, mirroring the
 /// `error` values GitHub's polling endpoint can return.
@@ -34,10 +41,34 @@ final class GithubAuthDeniedException extends GithubAuthException {
   const GithubAuthDeniedException([super.message = 'Connexion refusée.']);
 }
 
-final class GithubAuthUnknownException extends GithubAuthException {
-  const GithubAuthUnknownException([
-    super.message = 'Erreur inattendue lors de la connexion.',
-  ]);
+/// Any other fatal response from GitHub: a non-200 HTTP status, a body
+/// that isn't valid JSON, `incorrect_device_code`, or any `error` value
+/// not otherwise handled. Carries the raw HTTP status and error/message
+/// field so it's diagnosable instead of hidden behind a generic message.
+final class GithubAuthRequestException extends GithubAuthException {
+  GithubAuthRequestException({required this.statusCode, this.errorCode})
+    : super(
+        'Erreur GitHub (HTTP $statusCode)${errorCode != null ? ' : $errorCode' : ''}',
+      );
+
+  final int statusCode;
+  final String? errorCode;
+}
+
+/// Outcome of a single [GithubAuthService.pollOnce] attempt. GitHub answers
+/// HTTP 200 with `{"error":"authorization_pending"}` while the user hasn't
+/// approved yet — that is not an exception, just a "not yet" result.
+class GithubPollResult {
+  const GithubPollResult({this.accessToken, this.nextIntervalSeconds});
+
+  /// Non-null when the user has approved the request.
+  final String? accessToken;
+
+  /// The interval (seconds) to wait before the next attempt when still
+  /// pending — unchanged unless GitHub asked to slow down.
+  final int? nextIntervalSeconds;
+
+  bool get isSuccess => accessToken != null;
 }
 
 /// Contract for GitHub's OAuth Device Authorization Flow
@@ -45,14 +76,24 @@ final class GithubAuthUnknownException extends GithubAuthException {
 /// Defined as an interface — even though only one real implementation makes
 /// sense here — so `core/auth` depends on an abstraction, consistent with
 /// every other service in `core/services/`.
+///
+/// [pollOnce] performs a single HTTP attempt with no internal sleeping —
+/// `core/auth/auth_controller.dart` owns the timing (via a cancelable
+/// `Timer`) so it can poll immediately when the app returns to the
+/// foreground instead of waiting on a timer that may have been suspended
+/// while backgrounded.
 abstract interface class GithubAuthService {
   /// Step 1: requests a fresh [GithubDeviceCode] to start the flow.
   Future<GithubDeviceCode> requestDeviceCode();
 
-  /// Step 2: polls until the user has authorized [deviceCode], respecting
-  /// its `interval` (and GitHub's `slow_down` responses), then returns the
-  /// access token. Throws a [GithubAuthException] on expiry/denial.
-  Future<String> pollForAccessToken(GithubDeviceCode deviceCode);
+  /// Step 2: one polling attempt for [deviceCode]. [currentInterval] is
+  /// echoed back in [GithubPollResult.nextIntervalSeconds] unless GitHub's
+  /// `slow_down` response says otherwise. Throws a [GithubAuthException] on
+  /// a fatal response (expired, denied, or anything else GitHub rejects).
+  Future<GithubPollResult> pollOnce(
+    GithubDeviceCode deviceCode, {
+    required int currentInterval,
+  });
 }
 
 class GithubAuthServiceImpl implements GithubAuthService {
@@ -61,7 +102,10 @@ class GithubAuthServiceImpl implements GithubAuthService {
 
   static const _deviceCodeUrl = 'https://github.com/login/device/code';
   static const _accessTokenUrl = 'https://github.com/login/oauth/access_token';
-  static const _headers = {'Accept': 'application/json'};
+  static const _headers = {
+    'Accept': 'application/json',
+    'User-Agent': githubUserAgent,
+  };
 
   final http.Client _httpClient;
 
@@ -72,15 +116,20 @@ class GithubAuthServiceImpl implements GithubAuthService {
       headers: _headers,
       body: {'client_id': githubOAuthClientId, 'scope': 'repo workflow'},
     );
+    _logResponse('device_code', response);
 
-    if (response.statusCode != 200) {
-      throw const GithubAuthUnknownException();
+    final json = _tryDecodeJson(response.body);
+    final deviceCode = json?['device_code'] as String?;
+    if (response.statusCode != 200 || deviceCode == null) {
+      throw GithubAuthRequestException(
+        statusCode: response.statusCode,
+        errorCode: (json?['error'] ?? json?['message']) as String?,
+      );
     }
 
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
     return GithubDeviceCode(
-      deviceCode: json['device_code'] as String,
-      userCode: json['user_code'] as String,
+      deviceCode: deviceCode,
+      userCode: json!['user_code'] as String,
       verificationUri: json['verification_uri'] as String,
       expiresIn: json['expires_in'] as int,
       interval: json['interval'] as int,
@@ -88,46 +137,78 @@ class GithubAuthServiceImpl implements GithubAuthService {
   }
 
   @override
-  Future<String> pollForAccessToken(GithubDeviceCode deviceCode) async {
-    var interval = deviceCode.interval;
-    final deadline = DateTime.now().add(
-      Duration(seconds: deviceCode.expiresIn),
+  Future<GithubPollResult> pollOnce(
+    GithubDeviceCode deviceCode, {
+    required int currentInterval,
+  }) async {
+    final response = await _httpClient.post(
+      Uri.parse(_accessTokenUrl),
+      headers: _headers,
+      body: {
+        'client_id': githubOAuthClientId,
+        'device_code': deviceCode.deviceCode,
+        'grant_type': 'urn:ietf:params:oauth:grant-type:device_code',
+      },
     );
+    _logResponse('access_token', response);
 
-    while (DateTime.now().isBefore(deadline)) {
-      await Future<void>.delayed(Duration(seconds: interval));
-
-      final response = await _httpClient.post(
-        Uri.parse(_accessTokenUrl),
-        headers: _headers,
-        body: {
-          'client_id': githubOAuthClientId,
-          'device_code': deviceCode.deviceCode,
-          'grant_type': 'urn:ietf:params:oauth:grant-type:device_code',
-        },
-      );
-
-      final json = jsonDecode(response.body) as Map<String, dynamic>;
-      final error = json['error'] as String?;
-
-      if (error == null) {
-        return json['access_token'] as String;
-      }
-
-      if (error == 'authorization_pending') {
-        continue;
-      } else if (error == 'slow_down') {
-        // GitHub's OAuth spec: bump by 5s if it doesn't say the new value.
-        interval = (json['interval'] as int?) ?? (interval + 5);
-      } else if (error == 'expired_token') {
-        throw const GithubAuthExpiredException();
-      } else if (error == 'access_denied') {
-        throw const GithubAuthDeniedException();
-      } else {
-        throw const GithubAuthUnknownException();
-      }
+    final json = _tryDecodeJson(response.body);
+    if (json == null) {
+      throw GithubAuthRequestException(statusCode: response.statusCode);
     }
 
-    throw const GithubAuthExpiredException();
+    final error = json['error'] as String?;
+    if (error == null) {
+      final token = json['access_token'] as String?;
+      if (token == null) {
+        throw GithubAuthRequestException(
+          statusCode: response.statusCode,
+          errorCode: 'missing_access_token',
+        );
+      }
+      return GithubPollResult(accessToken: token);
+    }
+
+    // authorization_pending: the user hasn't approved yet — HTTP 200, not
+    // an error condition. Keep polling at the same interval.
+    if (error == 'authorization_pending') {
+      return GithubPollResult(nextIntervalSeconds: currentInterval);
+    }
+    if (error == 'slow_down') {
+      // GitHub's OAuth spec: bump by 5s if it doesn't say the new value.
+      final newInterval = (json['interval'] as int?) ?? (currentInterval + 5);
+      return GithubPollResult(nextIntervalSeconds: newInterval);
+    }
+    if (error == 'expired_token') {
+      throw const GithubAuthExpiredException();
+    }
+    if (error == 'access_denied') {
+      throw const GithubAuthDeniedException();
+    }
+    // incorrect_device_code, or anything else GitHub might send: fatal,
+    // surfaced with the raw error code.
+    throw GithubAuthRequestException(
+      statusCode: response.statusCode,
+      errorCode: error,
+    );
+  }
+
+  Map<String, dynamic>? _tryDecodeJson(String body) {
+    try {
+      return jsonDecode(body) as Map<String, dynamic>;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  void _logResponse(String label, http.Response response) {
+    // Never log the token itself.
+    final redactedBody = response.body.replaceAll(
+      RegExp(r'"access_token"\s*:\s*"[^"]*"'),
+      '"access_token":"***"',
+    );
+    debugPrint(
+      '[GithubAuthService] $label -> HTTP ${response.statusCode}: $redactedBody',
+    );
   }
 }
