@@ -2,10 +2,12 @@ import 'package:aetherdesk/core/auth/auth_controller.dart';
 import 'package:aetherdesk/core/auth/auth_state.dart';
 import 'package:aetherdesk/core/constants/app_dimensions.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
+import 'package:aetherdesk/core/services/github/github_auth_log.dart';
 import 'package:aetherdesk/core/widgets/core_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Screen shown whenever [AuthStatus] isn't `connected` (see
@@ -43,23 +45,28 @@ class LoginPage extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: ResponsiveContentWrapper(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(AppDimensions.spacingXl),
-              child: switch (authState.status) {
-                AuthStatus.pending => _PendingView(
-                  authState: authState,
-                  onCopyCode: (code) => _copyCode(context, code),
-                  onOpenVerificationUri: (uri) =>
-                      _openVerificationUri(context, uri),
-                ),
-                AuthStatus.disconnected ||
-                AuthStatus.connected => _DisconnectedView(
-                  errorMessage: authState.errorMessage,
-                  onConnect: () =>
-                      ref.read(authControllerProvider.notifier).login(),
-                ),
-              },
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(AppDimensions.spacingXl),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                switch (authState.status) {
+                  AuthStatus.pending => _PendingView(
+                    authState: authState,
+                    onCopyCode: (code) => _copyCode(context, code),
+                    onOpenVerificationUri: (uri) =>
+                        _openVerificationUri(context, uri),
+                  ),
+                  AuthStatus.disconnected ||
+                  AuthStatus.connected => _DisconnectedView(
+                    errorMessage: authState.errorMessage,
+                    onConnect: () =>
+                        ref.read(authControllerProvider.notifier).login(),
+                  ),
+                },
+                const SizedBox(height: AppDimensions.spacingXl),
+                const _DiagnosticsSection(),
+              ],
             ),
           ),
         ),
@@ -121,6 +128,63 @@ class _DisconnectedView extends StatelessWidget {
           label: l10n.loginButton,
           icon: Icons.login,
           onPressed: onConnect,
+        ),
+        const SizedBox(height: AppDimensions.spacingMd),
+        const _PersonalAccessTokenSection(),
+      ],
+    );
+  }
+}
+
+/// Fallback sign-in for when the device flow itself can't be reached: a
+/// collapsed text button that reveals a token field on tap.
+class _PersonalAccessTokenSection extends ConsumerStatefulWidget {
+  const _PersonalAccessTokenSection();
+
+  @override
+  ConsumerState<_PersonalAccessTokenSection> createState() =>
+      _PersonalAccessTokenSectionState();
+}
+
+class _PersonalAccessTokenSectionState
+    extends ConsumerState<_PersonalAccessTokenSection> {
+  bool _expanded = false;
+  final _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    if (!_expanded) {
+      return TextButton(
+        onPressed: () => setState(() => _expanded = true),
+        child: Text(l10n.loginPatButton),
+      );
+    }
+
+    return Column(
+      children: [
+        TextField(
+          controller: _controller,
+          obscureText: true,
+          decoration: InputDecoration(hintText: l10n.loginPatFieldHint),
+        ),
+        const SizedBox(height: AppDimensions.spacingMd),
+        PrimaryButton(
+          label: l10n.loginPatSubmitButton,
+          onPressed: () {
+            final token = _controller.text.trim();
+            if (token.isEmpty) return;
+            ref
+                .read(authControllerProvider.notifier)
+                .loginWithPersonalAccessToken(token);
+          },
         ),
       ],
     );
@@ -208,6 +272,87 @@ class _PendingView extends StatelessWidget {
         ),
         const SizedBox(height: AppDimensions.spacingXl),
         AppLoadingIndicator(message: l10n.loginWaitingMessage),
+      ],
+    );
+  }
+}
+
+/// Collapsible request/response log (see `github_auth_log.dart`) — the only
+/// way to diagnose the device flow on a phone with no PC/adb attached.
+/// Stays mounted regardless of [AuthStatus], so it's still there after an
+/// error sends the screen back to the disconnected state.
+class _DiagnosticsSection extends ConsumerWidget {
+  const _DiagnosticsSection();
+
+  Future<void> _copyLogs(
+    BuildContext context,
+    WidgetRef ref,
+    DateFormat formatter,
+    AppLocalizations l10n,
+  ) async {
+    final entries = ref.read(githubAuthLogProvider);
+    final text = entries
+        .map(
+          (e) =>
+              '${formatter.format(e.timestamp)}  ${e.label} -> HTTP ${e.statusCode}\n${e.body}',
+        )
+        .join('\n\n');
+    await Clipboard.setData(ClipboardData(text: text));
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.loginDiagnosticsCopiedMessage)),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final entries = ref.watch(githubAuthLogProvider);
+    final formatter = DateFormat.Hms();
+    final monospaceStyle = theme.textTheme.bodySmall?.copyWith(
+      fontFamily: 'monospace',
+    );
+
+    return ExpansionTile(
+      title: Text(l10n.loginDiagnosticsTitle),
+      childrenPadding: const EdgeInsets.symmetric(
+        horizontal: AppDimensions.spacingMd,
+        vertical: AppDimensions.spacingSm,
+      ),
+      children: [
+        if (entries.isEmpty)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              l10n.loginDiagnosticsEmpty,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.outline,
+              ),
+            ),
+          )
+        else ...[
+          for (final entry in entries)
+            Padding(
+              padding: const EdgeInsets.only(bottom: AppDimensions.spacingSm),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${formatter.format(entry.timestamp)}  ${entry.label} -> HTTP ${entry.statusCode}\n${entry.body}',
+                  style: monospaceStyle,
+                ),
+              ),
+            ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton.icon(
+              onPressed: () => _copyLogs(context, ref, formatter, l10n),
+              icon: const Icon(Icons.copy_outlined, size: 16),
+              label: Text(l10n.loginDiagnosticsCopyButton),
+            ),
+          ),
+        ],
       ],
     );
   }

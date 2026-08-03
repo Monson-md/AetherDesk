@@ -176,4 +176,26 @@ class AppLocalizationsFr extends AppLocalizations {
   String profilePublicReposCount(int count) {
     return '$count dépôts publics';
   }
+
+  @override
+  String get loginPatButton => 'Utiliser un jeton personnel';
+
+  @override
+  String get loginPatFieldHint => 'Collez votre Personal Access Token';
+
+  @override
+  String get loginPatSubmitButton => 'Valider';
+
+  @override
+  String get loginDiagnosticsTitle => 'Détails techniques';
+
+  @override
+  String get loginDiagnosticsEmpty => 'Aucune requête pour le moment.';
+
+  @override
+  String get loginDiagnosticsCopyButton => 'Copier les logs';
+
+  @override
+  String get loginDiagnosticsCopiedMessage =>
+      'Logs copiés dans le presse-papiers.';
 }

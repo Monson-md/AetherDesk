@@ -6,6 +6,7 @@ import 'package:aetherdesk/core/services/github/github_auth_service_provider.dar
 import 'package:aetherdesk/core/services/storage/secure_storage_service_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
 
 /// Orchestrates the GitHub device flow (via [GithubAuthService]) and token
 /// persistence (via `SecureStorageService`), exposing only the three states
@@ -72,6 +73,42 @@ class AuthController extends Notifier<AuthState> with WidgetsBindingObserver {
       _schedulePoll(Duration(seconds: _pollInterval));
     } on GithubAuthException catch (e) {
       state = AuthState(errorMessage: e.message);
+    } catch (e) {
+      state = AuthState(errorMessage: 'Erreur inattendue : $e');
+    }
+  }
+
+  /// Fallback to the device flow: validates [token] against `GET /user`
+  /// directly (it isn't stored yet, so `GithubApiClient` — which only ever
+  /// reads the already-persisted token — can't be reused here), then
+  /// persists it exactly like [login] does. Once stored, the rest of the
+  /// app can't tell which flow produced the token.
+  Future<void> loginWithPersonalAccessToken(String token) async {
+    _pollTimer?.cancel();
+    state = const AuthState();
+
+    try {
+      final response = await http.get(
+        Uri.parse('https://api.github.com/user'),
+        headers: {
+          'Accept': 'application/vnd.github+json',
+          'User-Agent': githubUserAgent,
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        await ref
+            .read(secureStorageServiceProvider)
+            .write(githubTokenStorageKey, token);
+        state = const AuthState(status: AuthStatus.connected);
+      } else if (response.statusCode == 401) {
+        state = const AuthState(errorMessage: 'Jeton invalide ou expiré.');
+      } else {
+        state = AuthState(
+          errorMessage: 'Erreur GitHub (HTTP ${response.statusCode}).',
+        );
+      }
     } catch (e) {
       state = AuthState(errorMessage: 'Erreur inattendue : $e');
     }

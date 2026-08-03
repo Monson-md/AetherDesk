@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:aetherdesk/core/services/github/github_device_code.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 /// Key used to persist the GitHub access token via [SecureStorageService].
@@ -97,7 +96,7 @@ abstract interface class GithubAuthService {
 }
 
 class GithubAuthServiceImpl implements GithubAuthService {
-  GithubAuthServiceImpl({http.Client? httpClient})
+  GithubAuthServiceImpl({http.Client? httpClient, this.onResponse})
     : _httpClient = httpClient ?? http.Client();
 
   static const _deviceCodeUrl = 'https://github.com/login/device/code';
@@ -108,6 +107,11 @@ class GithubAuthServiceImpl implements GithubAuthService {
   };
 
   final http.Client _httpClient;
+
+  /// Called with every request's label + raw response, so a caller can
+  /// surface it on-screen (see `github_auth_log.dart`) — there's no PC to
+  /// read `debugPrint` output on the phone this runs on.
+  final void Function(String label, http.Response response)? onResponse;
 
   @override
   Future<GithubDeviceCode> requestDeviceCode() async {
@@ -202,13 +206,6 @@ class GithubAuthServiceImpl implements GithubAuthService {
   }
 
   void _logResponse(String label, http.Response response) {
-    // Never log the token itself.
-    final redactedBody = response.body.replaceAll(
-      RegExp(r'"access_token"\s*:\s*"[^"]*"'),
-      '"access_token":"***"',
-    );
-    debugPrint(
-      '[GithubAuthService] $label -> HTTP ${response.statusCode}: $redactedBody',
-    );
+    onResponse?.call(label, response);
   }
 }

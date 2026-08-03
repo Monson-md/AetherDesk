@@ -409,6 +409,48 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'{count} dépôts publics'**
   String profilePublicReposCount(int count);
+
+  /// No description provided for @loginPatButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Utiliser un jeton personnel'**
+  String get loginPatButton;
+
+  /// No description provided for @loginPatFieldHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Collez votre Personal Access Token'**
+  String get loginPatFieldHint;
+
+  /// No description provided for @loginPatSubmitButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Valider'**
+  String get loginPatSubmitButton;
+
+  /// No description provided for @loginDiagnosticsTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Détails techniques'**
+  String get loginDiagnosticsTitle;
+
+  /// No description provided for @loginDiagnosticsEmpty.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune requête pour le moment.'**
+  String get loginDiagnosticsEmpty;
+
+  /// No description provided for @loginDiagnosticsCopyButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Copier les logs'**
+  String get loginDiagnosticsCopyButton;
+
+  /// No description provided for @loginDiagnosticsCopiedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Logs copiés dans le presse-papiers.'**
+  String get loginDiagnosticsCopiedMessage;
 }
 
 class _AppLocalizationsDelegate

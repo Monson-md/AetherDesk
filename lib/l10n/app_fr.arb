@@ -74,5 +74,12 @@
     "placeholders": {
       "count": { "type": "int" }
     }
-  }
+  },
+  "loginPatButton": "Utiliser un jeton personnel",
+  "loginPatFieldHint": "Collez votre Personal Access Token",
+  "loginPatSubmitButton": "Valider",
+  "loginDiagnosticsTitle": "Détails techniques",
+  "loginDiagnosticsEmpty": "Aucune requête pour le moment.",
+  "loginDiagnosticsCopyButton": "Copier les logs",
+  "loginDiagnosticsCopiedMessage": "Logs copiés dans le presse-papiers."
 }

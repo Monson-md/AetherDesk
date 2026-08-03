@@ -71,5 +71,12 @@
     "placeholders": {
       "count": { "type": "int" }
     }
-  }
+  },
+  "loginPatButton": "Use a personal access token",
+  "loginPatFieldHint": "Paste your Personal Access Token",
+  "loginPatSubmitButton": "Validate",
+  "loginDiagnosticsTitle": "Technical details",
+  "loginDiagnosticsEmpty": "No request yet.",
+  "loginDiagnosticsCopyButton": "Copy logs",
+  "loginDiagnosticsCopiedMessage": "Logs copied to clipboard."
 }

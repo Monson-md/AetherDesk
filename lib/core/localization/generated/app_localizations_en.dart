@@ -174,4 +174,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String profilePublicReposCount(int count) {
     return '$count public repos';
   }
+
+  @override
+  String get loginPatButton => 'Use a personal access token';
+
+  @override
+  String get loginPatFieldHint => 'Paste your Personal Access Token';
+
+  @override
+  String get loginPatSubmitButton => 'Validate';
+
+  @override
+  String get loginDiagnosticsTitle => 'Technical details';
+
+  @override
+  String get loginDiagnosticsEmpty => 'No request yet.';
+
+  @override
+  String get loginDiagnosticsCopyButton => 'Copy logs';
+
+  @override
+  String get loginDiagnosticsCopiedMessage => 'Logs copied to clipboard.';
 }
