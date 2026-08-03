@@ -145,56 +145,67 @@ class GithubAuthServiceImpl implements GithubAuthService {
     GithubDeviceCode deviceCode, {
     required int currentInterval,
   }) async {
-    final response = await _httpClient.post(
-      Uri.parse(_accessTokenUrl),
-      headers: _headers,
-      body: {
-        'client_id': githubOAuthClientId,
-        'device_code': deviceCode.deviceCode,
-        'grant_type': 'urn:ietf:params:oauth:grant-type:device_code',
-      },
-    );
-    _logResponse('access_token', response);
+    // A fresh client per attempt: Android can abort sockets held by a
+    // client left open while the app is backgrounded (the user is off
+    // approving the code in a browser), which surfaced as a fatal
+    // ClientException on a client reused across polls.
+    final client = http.Client();
+    try {
+      final response = await client
+          .post(
+            Uri.parse(_accessTokenUrl),
+            headers: _headers,
+            body: {
+              'client_id': githubOAuthClientId,
+              'device_code': deviceCode.deviceCode,
+              'grant_type': 'urn:ietf:params:oauth:grant-type:device_code',
+            },
+          )
+          .timeout(const Duration(seconds: 15));
+      _logResponse('access_token', response);
 
-    final json = _tryDecodeJson(response.body);
-    if (json == null) {
-      throw GithubAuthRequestException(statusCode: response.statusCode);
-    }
-
-    final error = json['error'] as String?;
-    if (error == null) {
-      final token = json['access_token'] as String?;
-      if (token == null) {
-        throw GithubAuthRequestException(
-          statusCode: response.statusCode,
-          errorCode: 'missing_access_token',
-        );
+      final json = _tryDecodeJson(response.body);
+      if (json == null) {
+        throw GithubAuthRequestException(statusCode: response.statusCode);
       }
-      return GithubPollResult(accessToken: token);
-    }
 
-    // authorization_pending: the user hasn't approved yet — HTTP 200, not
-    // an error condition. Keep polling at the same interval.
-    if (error == 'authorization_pending') {
-      return GithubPollResult(nextIntervalSeconds: currentInterval);
+      final error = json['error'] as String?;
+      if (error == null) {
+        final token = json['access_token'] as String?;
+        if (token == null) {
+          throw GithubAuthRequestException(
+            statusCode: response.statusCode,
+            errorCode: 'missing_access_token',
+          );
+        }
+        return GithubPollResult(accessToken: token);
+      }
+
+      // authorization_pending: the user hasn't approved yet — HTTP 200, not
+      // an error condition. Keep polling at the same interval.
+      if (error == 'authorization_pending') {
+        return GithubPollResult(nextIntervalSeconds: currentInterval);
+      }
+      if (error == 'slow_down') {
+        // GitHub's OAuth spec: bump by 5s if it doesn't say the new value.
+        final newInterval = (json['interval'] as int?) ?? (currentInterval + 5);
+        return GithubPollResult(nextIntervalSeconds: newInterval);
+      }
+      if (error == 'expired_token') {
+        throw const GithubAuthExpiredException();
+      }
+      if (error == 'access_denied') {
+        throw const GithubAuthDeniedException();
+      }
+      // incorrect_device_code, or anything else GitHub might send: fatal,
+      // surfaced with the raw error code.
+      throw GithubAuthRequestException(
+        statusCode: response.statusCode,
+        errorCode: error,
+      );
+    } finally {
+      client.close();
     }
-    if (error == 'slow_down') {
-      // GitHub's OAuth spec: bump by 5s if it doesn't say the new value.
-      final newInterval = (json['interval'] as int?) ?? (currentInterval + 5);
-      return GithubPollResult(nextIntervalSeconds: newInterval);
-    }
-    if (error == 'expired_token') {
-      throw const GithubAuthExpiredException();
-    }
-    if (error == 'access_denied') {
-      throw const GithubAuthDeniedException();
-    }
-    // incorrect_device_code, or anything else GitHub might send: fatal,
-    // surfaced with the raw error code.
-    throw GithubAuthRequestException(
-      statusCode: response.statusCode,
-      errorCode: error,
-    );
   }
 
   Map<String, dynamic>? _tryDecodeJson(String body) {

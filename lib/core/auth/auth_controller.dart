@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:aetherdesk/core/auth/auth_state.dart';
 import 'package:aetherdesk/core/services/github/github_auth_service.dart';
@@ -22,6 +23,12 @@ class AuthController extends Notifier<AuthState> with WidgetsBindingObserver {
   Timer? _pollTimer;
   DateTime? _pollDeadline;
   int _pollInterval = 5;
+  int _consecutiveNetworkFailures = 0;
+
+  /// The user is off approving the code in a browser while this polls —
+  /// a dropped socket or a slow/absent connection is expected, not fatal.
+  /// Only give up once it's happened this many times in a row.
+  static const _maxConsecutiveNetworkFailures = 10;
 
   @override
   AuthState build() {
@@ -42,6 +49,7 @@ class AuthController extends Notifier<AuthState> with WidgetsBindingObserver {
         '[AuthController] Resumed while pending — polling immediately.',
       );
       _pollTimer?.cancel();
+      _consecutiveNetworkFailures = 0;
       unawaited(_pollOnceAndReschedule());
     }
   }
@@ -138,6 +146,7 @@ class AuthController extends Notifier<AuthState> with WidgetsBindingObserver {
       final result = await ref
           .read(githubAuthServiceProvider)
           .pollOnce(deviceCode, currentInterval: _pollInterval);
+      _consecutiveNetworkFailures = 0;
 
       if (result.isSuccess) {
         await ref
@@ -153,8 +162,38 @@ class AuthController extends Notifier<AuthState> with WidgetsBindingObserver {
       }
     } on GithubAuthException catch (e) {
       state = AuthState(errorMessage: e.message);
+    } on http.ClientException catch (e) {
+      _handleTransientPollError('ClientException: $e');
+    } on SocketException catch (e) {
+      _handleTransientPollError('SocketException: $e');
+    } on HandshakeException catch (e) {
+      _handleTransientPollError('HandshakeException: $e');
+    } on TimeoutException catch (e) {
+      _handleTransientPollError('TimeoutException: $e');
     } catch (e) {
       state = AuthState(errorMessage: 'Erreur inattendue : $e');
+    }
+  }
+
+  /// A transient network error (dropped socket, timeout…) while polling —
+  /// expected while the app is backgrounded and not itself a reason to
+  /// stop. Only surfaced to the user after too many in a row.
+  void _handleTransientPollError(String detail) {
+    _consecutiveNetworkFailures++;
+    debugPrint(
+      '[AuthController] Transient poll error '
+      '($_consecutiveNetworkFailures/$_maxConsecutiveNetworkFailures): $detail',
+    );
+    if (_consecutiveNetworkFailures >= _maxConsecutiveNetworkFailures) {
+      state = const AuthState(
+        errorMessage:
+            'Connexion instable : impossible de contacter GitHub. '
+            'Vérifiez votre connexion et réessayez.',
+      );
+      return;
+    }
+    if (state.status == AuthStatus.pending) {
+      _schedulePoll(Duration(seconds: _pollInterval));
     }
   }
 
