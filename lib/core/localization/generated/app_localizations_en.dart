@@ -287,4 +287,176 @@ class AppLocalizationsEn extends AppLocalizations {
   String projectManagementProjectsCount(int count) {
     return '$count projects';
   }
+
+  @override
+  String get secureVaultEmptyTitle => 'The vault is empty';
+
+  @override
+  String get secureVaultEmptyMessage => 'Add your first item to get started.';
+
+  @override
+  String get secureVaultNoResultsTitle => 'No results';
+
+  @override
+  String get secureVaultNoResultsMessage => 'No items match these filters.';
+
+  @override
+  String get secureVaultSearchHint => 'Search the vault…';
+
+  @override
+  String get secureVaultSortLabel => 'Sort by';
+
+  @override
+  String get secureVaultSortTitle => 'Title';
+
+  @override
+  String get secureVaultSortCreatedAt => 'Date created';
+
+  @override
+  String get secureVaultSortType => 'Type';
+
+  @override
+  String get secureVaultFavoritesOnly => 'Favorites only';
+
+  @override
+  String get secureVaultAllFolders => 'All folders';
+
+  @override
+  String get secureVaultNoFolder => 'No folder';
+
+  @override
+  String get secureVaultNewFolder => 'New folder';
+
+  @override
+  String get secureVaultFolderNameHint => 'Folder name';
+
+  @override
+  String get secureVaultFolderLabel => 'Folder';
+
+  @override
+  String get secureVaultAllTypes => 'All types';
+
+  @override
+  String get secureVaultTypeSecureNote => 'Secure note';
+
+  @override
+  String get secureVaultTypePassword => 'Password';
+
+  @override
+  String get secureVaultTypeApiKey => 'API key';
+
+  @override
+  String get secureVaultTypeCard => 'Card';
+
+  @override
+  String get secureVaultTypeDocument => 'Document';
+
+  @override
+  String get secureVaultNewItem => 'New item';
+
+  @override
+  String get secureVaultTitleLabel => 'Title';
+
+  @override
+  String get secureVaultContentLabel => 'Content';
+
+  @override
+  String get secureVaultUsernameLabel => 'Username';
+
+  @override
+  String get secureVaultPasswordLabel => 'Password';
+
+  @override
+  String get secureVaultUrlLabel => 'Website';
+
+  @override
+  String get secureVaultServiceLabel => 'Service';
+
+  @override
+  String get secureVaultApiKeyLabel => 'API key';
+
+  @override
+  String get secureVaultCardholderLabel => 'Cardholder name';
+
+  @override
+  String get secureVaultCardNumberLabel => 'Card number';
+
+  @override
+  String get secureVaultExpiryLabel => 'Expiry (MM/YY)';
+
+  @override
+  String get secureVaultCvvLabel => 'CVV';
+
+  @override
+  String get secureVaultFileNameLabel => 'File name';
+
+  @override
+  String get secureVaultNotesLabel => 'Notes';
+
+  @override
+  String get secureVaultNewSecureNoteTitle => 'New secure note';
+
+  @override
+  String get secureVaultEditSecureNoteTitle => 'Edit note';
+
+  @override
+  String get secureVaultNewPasswordTitle => 'New password';
+
+  @override
+  String get secureVaultEditPasswordTitle => 'Edit password';
+
+  @override
+  String get secureVaultNewApiKeyTitle => 'New API key';
+
+  @override
+  String get secureVaultEditApiKeyTitle => 'Edit API key';
+
+  @override
+  String get secureVaultNewCardTitle => 'New card';
+
+  @override
+  String get secureVaultEditCardTitle => 'Edit card';
+
+  @override
+  String get secureVaultNewDocumentTitle => 'New document';
+
+  @override
+  String get secureVaultEditDocumentTitle => 'Edit document';
+
+  @override
+  String get secureVaultDeleteItemTitle => 'Delete item';
+
+  @override
+  String get secureVaultDeleteItemMessage =>
+      'This will permanently delete this item.';
+
+  @override
+  String get secureVaultDeleteFolderTitle => 'Delete folder';
+
+  @override
+  String get secureVaultDeleteFolderMessage =>
+      'Items in this folder will become unfiled.';
+
+  @override
+  String get secureVaultFavoriteTooltip => 'Add to favorites';
+
+  @override
+  String get secureVaultUnfavoriteTooltip => 'Remove from favorites';
+
+  @override
+  String get secureVaultRevealTooltip => 'Show';
+
+  @override
+  String get secureVaultHideTooltip => 'Hide';
+
+  @override
+  String get secureVaultCopyTooltip => 'Copy';
+
+  @override
+  String get secureVaultCopiedMessage => 'Copied to clipboard.';
+
+  @override
+  String secureVaultItemsCount(int count) {
+    return '$count items';
+  }
 }

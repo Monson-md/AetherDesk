@@ -625,6 +625,342 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'{count} projets'**
   String projectManagementProjectsCount(int count);
+
+  /// No description provided for @secureVaultEmptyTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le coffre est vide'**
+  String get secureVaultEmptyTitle;
+
+  /// No description provided for @secureVaultEmptyMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajoutez votre premier élément pour commencer.'**
+  String get secureVaultEmptyMessage;
+
+  /// No description provided for @secureVaultNoResultsTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun résultat'**
+  String get secureVaultNoResultsTitle;
+
+  /// No description provided for @secureVaultNoResultsMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun élément ne correspond à ces filtres.'**
+  String get secureVaultNoResultsMessage;
+
+  /// No description provided for @secureVaultSearchHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rechercher dans le coffre…'**
+  String get secureVaultSearchHint;
+
+  /// No description provided for @secureVaultSortLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Trier par'**
+  String get secureVaultSortLabel;
+
+  /// No description provided for @secureVaultSortTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Titre'**
+  String get secureVaultSortTitle;
+
+  /// No description provided for @secureVaultSortCreatedAt.
+  ///
+  /// In fr, this message translates to:
+  /// **'Date de création'**
+  String get secureVaultSortCreatedAt;
+
+  /// No description provided for @secureVaultSortType.
+  ///
+  /// In fr, this message translates to:
+  /// **'Type'**
+  String get secureVaultSortType;
+
+  /// No description provided for @secureVaultFavoritesOnly.
+  ///
+  /// In fr, this message translates to:
+  /// **'Favoris uniquement'**
+  String get secureVaultFavoritesOnly;
+
+  /// No description provided for @secureVaultAllFolders.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tous les dossiers'**
+  String get secureVaultAllFolders;
+
+  /// No description provided for @secureVaultNoFolder.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sans dossier'**
+  String get secureVaultNoFolder;
+
+  /// No description provided for @secureVaultNewFolder.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouveau dossier'**
+  String get secureVaultNewFolder;
+
+  /// No description provided for @secureVaultFolderNameHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom du dossier'**
+  String get secureVaultFolderNameHint;
+
+  /// No description provided for @secureVaultFolderLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Dossier'**
+  String get secureVaultFolderLabel;
+
+  /// No description provided for @secureVaultAllTypes.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tous les types'**
+  String get secureVaultAllTypes;
+
+  /// No description provided for @secureVaultTypeSecureNote.
+  ///
+  /// In fr, this message translates to:
+  /// **'Note sécurisée'**
+  String get secureVaultTypeSecureNote;
+
+  /// No description provided for @secureVaultTypePassword.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mot de passe'**
+  String get secureVaultTypePassword;
+
+  /// No description provided for @secureVaultTypeApiKey.
+  ///
+  /// In fr, this message translates to:
+  /// **'Clé API'**
+  String get secureVaultTypeApiKey;
+
+  /// No description provided for @secureVaultTypeCard.
+  ///
+  /// In fr, this message translates to:
+  /// **'Carte'**
+  String get secureVaultTypeCard;
+
+  /// No description provided for @secureVaultTypeDocument.
+  ///
+  /// In fr, this message translates to:
+  /// **'Document'**
+  String get secureVaultTypeDocument;
+
+  /// No description provided for @secureVaultNewItem.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvel élément'**
+  String get secureVaultNewItem;
+
+  /// No description provided for @secureVaultTitleLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Titre'**
+  String get secureVaultTitleLabel;
+
+  /// No description provided for @secureVaultContentLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Contenu'**
+  String get secureVaultContentLabel;
+
+  /// No description provided for @secureVaultUsernameLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Identifiant'**
+  String get secureVaultUsernameLabel;
+
+  /// No description provided for @secureVaultPasswordLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mot de passe'**
+  String get secureVaultPasswordLabel;
+
+  /// No description provided for @secureVaultUrlLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Site web'**
+  String get secureVaultUrlLabel;
+
+  /// No description provided for @secureVaultServiceLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Service'**
+  String get secureVaultServiceLabel;
+
+  /// No description provided for @secureVaultApiKeyLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Clé API'**
+  String get secureVaultApiKeyLabel;
+
+  /// No description provided for @secureVaultCardholderLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Titulaire de la carte'**
+  String get secureVaultCardholderLabel;
+
+  /// No description provided for @secureVaultCardNumberLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Numéro de carte'**
+  String get secureVaultCardNumberLabel;
+
+  /// No description provided for @secureVaultExpiryLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Expiration (MM/AA)'**
+  String get secureVaultExpiryLabel;
+
+  /// No description provided for @secureVaultCvvLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'CVV'**
+  String get secureVaultCvvLabel;
+
+  /// No description provided for @secureVaultFileNameLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom du fichier'**
+  String get secureVaultFileNameLabel;
+
+  /// No description provided for @secureVaultNotesLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notes'**
+  String get secureVaultNotesLabel;
+
+  /// No description provided for @secureVaultNewSecureNoteTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvelle note sécurisée'**
+  String get secureVaultNewSecureNoteTitle;
+
+  /// No description provided for @secureVaultEditSecureNoteTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier la note'**
+  String get secureVaultEditSecureNoteTitle;
+
+  /// No description provided for @secureVaultNewPasswordTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouveau mot de passe'**
+  String get secureVaultNewPasswordTitle;
+
+  /// No description provided for @secureVaultEditPasswordTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier le mot de passe'**
+  String get secureVaultEditPasswordTitle;
+
+  /// No description provided for @secureVaultNewApiKeyTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvelle clé API'**
+  String get secureVaultNewApiKeyTitle;
+
+  /// No description provided for @secureVaultEditApiKeyTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier la clé API'**
+  String get secureVaultEditApiKeyTitle;
+
+  /// No description provided for @secureVaultNewCardTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvelle carte'**
+  String get secureVaultNewCardTitle;
+
+  /// No description provided for @secureVaultEditCardTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier la carte'**
+  String get secureVaultEditCardTitle;
+
+  /// No description provided for @secureVaultNewDocumentTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouveau document'**
+  String get secureVaultNewDocumentTitle;
+
+  /// No description provided for @secureVaultEditDocumentTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier le document'**
+  String get secureVaultEditDocumentTitle;
+
+  /// No description provided for @secureVaultDeleteItemTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer l\'élément'**
+  String get secureVaultDeleteItemTitle;
+
+  /// No description provided for @secureVaultDeleteItemMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette action supprimera définitivement cet élément.'**
+  String get secureVaultDeleteItemMessage;
+
+  /// No description provided for @secureVaultDeleteFolderTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer le dossier'**
+  String get secureVaultDeleteFolderTitle;
+
+  /// No description provided for @secureVaultDeleteFolderMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les éléments de ce dossier deviendront sans dossier.'**
+  String get secureVaultDeleteFolderMessage;
+
+  /// No description provided for @secureVaultFavoriteTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter aux favoris'**
+  String get secureVaultFavoriteTooltip;
+
+  /// No description provided for @secureVaultUnfavoriteTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retirer des favoris'**
+  String get secureVaultUnfavoriteTooltip;
+
+  /// No description provided for @secureVaultRevealTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Afficher'**
+  String get secureVaultRevealTooltip;
+
+  /// No description provided for @secureVaultHideTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Masquer'**
+  String get secureVaultHideTooltip;
+
+  /// No description provided for @secureVaultCopyTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Copier'**
+  String get secureVaultCopyTooltip;
+
+  /// No description provided for @secureVaultCopiedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Copié dans le presse-papiers.'**
+  String get secureVaultCopiedMessage;
+
+  /// No description provided for @secureVaultItemsCount.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count} éléments'**
+  String secureVaultItemsCount(int count);
 }
 
 class _AppLocalizationsDelegate

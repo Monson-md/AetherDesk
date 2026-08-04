@@ -289,4 +289,178 @@ class AppLocalizationsFr extends AppLocalizations {
   String projectManagementProjectsCount(int count) {
     return '$count projets';
   }
+
+  @override
+  String get secureVaultEmptyTitle => 'Le coffre est vide';
+
+  @override
+  String get secureVaultEmptyMessage =>
+      'Ajoutez votre premier élément pour commencer.';
+
+  @override
+  String get secureVaultNoResultsTitle => 'Aucun résultat';
+
+  @override
+  String get secureVaultNoResultsMessage =>
+      'Aucun élément ne correspond à ces filtres.';
+
+  @override
+  String get secureVaultSearchHint => 'Rechercher dans le coffre…';
+
+  @override
+  String get secureVaultSortLabel => 'Trier par';
+
+  @override
+  String get secureVaultSortTitle => 'Titre';
+
+  @override
+  String get secureVaultSortCreatedAt => 'Date de création';
+
+  @override
+  String get secureVaultSortType => 'Type';
+
+  @override
+  String get secureVaultFavoritesOnly => 'Favoris uniquement';
+
+  @override
+  String get secureVaultAllFolders => 'Tous les dossiers';
+
+  @override
+  String get secureVaultNoFolder => 'Sans dossier';
+
+  @override
+  String get secureVaultNewFolder => 'Nouveau dossier';
+
+  @override
+  String get secureVaultFolderNameHint => 'Nom du dossier';
+
+  @override
+  String get secureVaultFolderLabel => 'Dossier';
+
+  @override
+  String get secureVaultAllTypes => 'Tous les types';
+
+  @override
+  String get secureVaultTypeSecureNote => 'Note sécurisée';
+
+  @override
+  String get secureVaultTypePassword => 'Mot de passe';
+
+  @override
+  String get secureVaultTypeApiKey => 'Clé API';
+
+  @override
+  String get secureVaultTypeCard => 'Carte';
+
+  @override
+  String get secureVaultTypeDocument => 'Document';
+
+  @override
+  String get secureVaultNewItem => 'Nouvel élément';
+
+  @override
+  String get secureVaultTitleLabel => 'Titre';
+
+  @override
+  String get secureVaultContentLabel => 'Contenu';
+
+  @override
+  String get secureVaultUsernameLabel => 'Identifiant';
+
+  @override
+  String get secureVaultPasswordLabel => 'Mot de passe';
+
+  @override
+  String get secureVaultUrlLabel => 'Site web';
+
+  @override
+  String get secureVaultServiceLabel => 'Service';
+
+  @override
+  String get secureVaultApiKeyLabel => 'Clé API';
+
+  @override
+  String get secureVaultCardholderLabel => 'Titulaire de la carte';
+
+  @override
+  String get secureVaultCardNumberLabel => 'Numéro de carte';
+
+  @override
+  String get secureVaultExpiryLabel => 'Expiration (MM/AA)';
+
+  @override
+  String get secureVaultCvvLabel => 'CVV';
+
+  @override
+  String get secureVaultFileNameLabel => 'Nom du fichier';
+
+  @override
+  String get secureVaultNotesLabel => 'Notes';
+
+  @override
+  String get secureVaultNewSecureNoteTitle => 'Nouvelle note sécurisée';
+
+  @override
+  String get secureVaultEditSecureNoteTitle => 'Modifier la note';
+
+  @override
+  String get secureVaultNewPasswordTitle => 'Nouveau mot de passe';
+
+  @override
+  String get secureVaultEditPasswordTitle => 'Modifier le mot de passe';
+
+  @override
+  String get secureVaultNewApiKeyTitle => 'Nouvelle clé API';
+
+  @override
+  String get secureVaultEditApiKeyTitle => 'Modifier la clé API';
+
+  @override
+  String get secureVaultNewCardTitle => 'Nouvelle carte';
+
+  @override
+  String get secureVaultEditCardTitle => 'Modifier la carte';
+
+  @override
+  String get secureVaultNewDocumentTitle => 'Nouveau document';
+
+  @override
+  String get secureVaultEditDocumentTitle => 'Modifier le document';
+
+  @override
+  String get secureVaultDeleteItemTitle => 'Supprimer l\'élément';
+
+  @override
+  String get secureVaultDeleteItemMessage =>
+      'Cette action supprimera définitivement cet élément.';
+
+  @override
+  String get secureVaultDeleteFolderTitle => 'Supprimer le dossier';
+
+  @override
+  String get secureVaultDeleteFolderMessage =>
+      'Les éléments de ce dossier deviendront sans dossier.';
+
+  @override
+  String get secureVaultFavoriteTooltip => 'Ajouter aux favoris';
+
+  @override
+  String get secureVaultUnfavoriteTooltip => 'Retirer des favoris';
+
+  @override
+  String get secureVaultRevealTooltip => 'Afficher';
+
+  @override
+  String get secureVaultHideTooltip => 'Masquer';
+
+  @override
+  String get secureVaultCopyTooltip => 'Copier';
+
+  @override
+  String get secureVaultCopiedMessage => 'Copié dans le presse-papiers.';
+
+  @override
+  String secureVaultItemsCount(int count) {
+    return '$count éléments';
+  }
 }
