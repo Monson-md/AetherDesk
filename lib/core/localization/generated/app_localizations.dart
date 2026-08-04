@@ -961,6 +961,300 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'{count} éléments'**
   String secureVaultItemsCount(int count);
+
+  /// No description provided for @settingsProfileTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Profil'**
+  String get settingsProfileTitle;
+
+  /// No description provided for @settingsLanguageTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Langue'**
+  String get settingsLanguageTitle;
+
+  /// No description provided for @settingsThemeTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Thème'**
+  String get settingsThemeTitle;
+
+  /// No description provided for @settingsAppearanceTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Apparence'**
+  String get settingsAppearanceTitle;
+
+  /// No description provided for @settingsNotificationsTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notifications'**
+  String get settingsNotificationsTitle;
+
+  /// No description provided for @settingsBackupTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sauvegardes'**
+  String get settingsBackupTitle;
+
+  /// No description provided for @settingsSecurityTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sécurité'**
+  String get settingsSecurityTitle;
+
+  /// No description provided for @settingsPrivacyTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Confidentialité'**
+  String get settingsPrivacyTitle;
+
+  /// No description provided for @settingsStorageTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Stockage'**
+  String get settingsStorageTitle;
+
+  /// No description provided for @settingsAiTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'IA'**
+  String get settingsAiTitle;
+
+  /// No description provided for @settingsAppInfoTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Informations sur l\'application'**
+  String get settingsAppInfoTitle;
+
+  /// No description provided for @settingsDisplayNameLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom affiché'**
+  String get settingsDisplayNameLabel;
+
+  /// No description provided for @settingsDisplayNameHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre nom'**
+  String get settingsDisplayNameHint;
+
+  /// No description provided for @settingsEditDisplayNameTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier le nom'**
+  String get settingsEditDisplayNameTooltip;
+
+  /// No description provided for @settingsNoDisplayName.
+  ///
+  /// In fr, this message translates to:
+  /// **'Utilisateur'**
+  String get settingsNoDisplayName;
+
+  /// No description provided for @settingsLanguageSystem.
+  ///
+  /// In fr, this message translates to:
+  /// **'Système'**
+  String get settingsLanguageSystem;
+
+  /// No description provided for @settingsLanguageFrench.
+  ///
+  /// In fr, this message translates to:
+  /// **'Français'**
+  String get settingsLanguageFrench;
+
+  /// No description provided for @settingsLanguageEnglish.
+  ///
+  /// In fr, this message translates to:
+  /// **'Anglais'**
+  String get settingsLanguageEnglish;
+
+  /// No description provided for @settingsThemeSystem.
+  ///
+  /// In fr, this message translates to:
+  /// **'Système'**
+  String get settingsThemeSystem;
+
+  /// No description provided for @settingsThemeLight.
+  ///
+  /// In fr, this message translates to:
+  /// **'Clair'**
+  String get settingsThemeLight;
+
+  /// No description provided for @settingsThemeDark.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sombre'**
+  String get settingsThemeDark;
+
+  /// No description provided for @settingsTextScaleSmall.
+  ///
+  /// In fr, this message translates to:
+  /// **'Petit'**
+  String get settingsTextScaleSmall;
+
+  /// No description provided for @settingsTextScaleMedium.
+  ///
+  /// In fr, this message translates to:
+  /// **'Moyen'**
+  String get settingsTextScaleMedium;
+
+  /// No description provided for @settingsTextScaleLarge.
+  ///
+  /// In fr, this message translates to:
+  /// **'Grand'**
+  String get settingsTextScaleLarge;
+
+  /// No description provided for @settingsNotificationsEnabledLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Activer les notifications'**
+  String get settingsNotificationsEnabledLabel;
+
+  /// No description provided for @settingsNotificationsSoundLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Son des notifications'**
+  String get settingsNotificationsSoundLabel;
+
+  /// No description provided for @settingsBackupNeverLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune sauvegarde effectuée'**
+  String get settingsBackupNeverLabel;
+
+  /// No description provided for @settingsBackupLastLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Dernière sauvegarde : {date}'**
+  String settingsBackupLastLabel(String date);
+
+  /// No description provided for @settingsBackupButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sauvegarder maintenant'**
+  String get settingsBackupButton;
+
+  /// No description provided for @settingsBackupSimulatedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sauvegarde simulée effectuée (aucun serveur réel).'**
+  String get settingsBackupSimulatedMessage;
+
+  /// No description provided for @settingsBiometricLockLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Verrouillage biométrique'**
+  String get settingsBiometricLockLabel;
+
+  /// No description provided for @settingsBiometricUnavailableMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Non disponible sur cet appareil pour le moment.'**
+  String get settingsBiometricUnavailableMessage;
+
+  /// No description provided for @settingsPinCodeLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Code PIN'**
+  String get settingsPinCodeLabel;
+
+  /// No description provided for @settingsAnalyticsLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Partager les données d\'utilisation'**
+  String get settingsAnalyticsLabel;
+
+  /// No description provided for @settingsPrivacyNote.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune donnée ne quitte cet appareil : il n\'y a pas encore de serveur ni d\'analytique réelle.'**
+  String get settingsPrivacyNote;
+
+  /// No description provided for @settingsStorageUsageLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Utilisation simulée'**
+  String get settingsStorageUsageLabel;
+
+  /// No description provided for @settingsClearCacheButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vider le cache'**
+  String get settingsClearCacheButton;
+
+  /// No description provided for @settingsClearCacheConfirmTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vider le cache'**
+  String get settingsClearCacheConfirmTitle;
+
+  /// No description provided for @settingsClearCacheConfirmMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette action est simulée : aucune donnée réelle n\'est stockée sur le disque pour le moment.'**
+  String get settingsClearCacheConfirmMessage;
+
+  /// No description provided for @settingsClearCacheDoneMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cache vidé (simulé).'**
+  String get settingsClearCacheDoneMessage;
+
+  /// No description provided for @settingsAiProviderLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Fournisseur IA'**
+  String get settingsAiProviderLabel;
+
+  /// No description provided for @settingsAiProviderValue.
+  ///
+  /// In fr, this message translates to:
+  /// **'Simulé (local)'**
+  String get settingsAiProviderValue;
+
+  /// No description provided for @settingsAiApiKeyLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Clé API personnelle'**
+  String get settingsAiApiKeyLabel;
+
+  /// No description provided for @settingsAiApiKeyHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Coller votre clé API'**
+  String get settingsAiApiKeyHint;
+
+  /// No description provided for @settingsAiApiKeySavedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Clé API enregistrée (en mémoire uniquement).'**
+  String get settingsAiApiKeySavedMessage;
+
+  /// No description provided for @settingsAiApiKeyNote.
+  ///
+  /// In fr, this message translates to:
+  /// **'Non stockée de façon sécurisée pour le moment — à venir avec le vrai stockage sécurisé.'**
+  String get settingsAiApiKeyNote;
+
+  /// No description provided for @settingsAppVersionLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Version'**
+  String get settingsAppVersionLabel;
+
+  /// No description provided for @settingsAppBuildLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Build'**
+  String get settingsAppBuildLabel;
+
+  /// No description provided for @settingsAppBuiltWith.
+  ///
+  /// In fr, this message translates to:
+  /// **'Construit avec Flutter'**
+  String get settingsAppBuiltWith;
 }
 
 class _AppLocalizationsDelegate

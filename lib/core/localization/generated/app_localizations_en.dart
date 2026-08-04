@@ -459,4 +459,158 @@ class AppLocalizationsEn extends AppLocalizations {
   String secureVaultItemsCount(int count) {
     return '$count items';
   }
+
+  @override
+  String get settingsProfileTitle => 'Profile';
+
+  @override
+  String get settingsLanguageTitle => 'Language';
+
+  @override
+  String get settingsThemeTitle => 'Theme';
+
+  @override
+  String get settingsAppearanceTitle => 'Appearance';
+
+  @override
+  String get settingsNotificationsTitle => 'Notifications';
+
+  @override
+  String get settingsBackupTitle => 'Backups';
+
+  @override
+  String get settingsSecurityTitle => 'Security';
+
+  @override
+  String get settingsPrivacyTitle => 'Privacy';
+
+  @override
+  String get settingsStorageTitle => 'Storage';
+
+  @override
+  String get settingsAiTitle => 'AI';
+
+  @override
+  String get settingsAppInfoTitle => 'App info';
+
+  @override
+  String get settingsDisplayNameLabel => 'Display name';
+
+  @override
+  String get settingsDisplayNameHint => 'Your name';
+
+  @override
+  String get settingsEditDisplayNameTooltip => 'Edit name';
+
+  @override
+  String get settingsNoDisplayName => 'User';
+
+  @override
+  String get settingsLanguageSystem => 'System';
+
+  @override
+  String get settingsLanguageFrench => 'French';
+
+  @override
+  String get settingsLanguageEnglish => 'English';
+
+  @override
+  String get settingsThemeSystem => 'System';
+
+  @override
+  String get settingsThemeLight => 'Light';
+
+  @override
+  String get settingsThemeDark => 'Dark';
+
+  @override
+  String get settingsTextScaleSmall => 'Small';
+
+  @override
+  String get settingsTextScaleMedium => 'Medium';
+
+  @override
+  String get settingsTextScaleLarge => 'Large';
+
+  @override
+  String get settingsNotificationsEnabledLabel => 'Enable notifications';
+
+  @override
+  String get settingsNotificationsSoundLabel => 'Notification sound';
+
+  @override
+  String get settingsBackupNeverLabel => 'No backup yet';
+
+  @override
+  String settingsBackupLastLabel(String date) {
+    return 'Last backup: $date';
+  }
+
+  @override
+  String get settingsBackupButton => 'Back up now';
+
+  @override
+  String get settingsBackupSimulatedMessage =>
+      'Simulated backup completed (no real server).';
+
+  @override
+  String get settingsBiometricLockLabel => 'Biometric lock';
+
+  @override
+  String get settingsBiometricUnavailableMessage =>
+      'Not available on this device yet.';
+
+  @override
+  String get settingsPinCodeLabel => 'PIN code';
+
+  @override
+  String get settingsAnalyticsLabel => 'Share usage data';
+
+  @override
+  String get settingsPrivacyNote =>
+      'No data leaves this device — there\'s no server or real analytics yet.';
+
+  @override
+  String get settingsStorageUsageLabel => 'Simulated usage';
+
+  @override
+  String get settingsClearCacheButton => 'Clear cache';
+
+  @override
+  String get settingsClearCacheConfirmTitle => 'Clear cache';
+
+  @override
+  String get settingsClearCacheConfirmMessage =>
+      'This action is simulated — no real data is stored on disk yet.';
+
+  @override
+  String get settingsClearCacheDoneMessage => 'Cache cleared (simulated).';
+
+  @override
+  String get settingsAiProviderLabel => 'AI provider';
+
+  @override
+  String get settingsAiProviderValue => 'Simulated (local)';
+
+  @override
+  String get settingsAiApiKeyLabel => 'Personal API key';
+
+  @override
+  String get settingsAiApiKeyHint => 'Paste your API key';
+
+  @override
+  String get settingsAiApiKeySavedMessage => 'API key saved (in memory only).';
+
+  @override
+  String get settingsAiApiKeyNote =>
+      'Not securely stored yet — coming with real secure storage.';
+
+  @override
+  String get settingsAppVersionLabel => 'Version';
+
+  @override
+  String get settingsAppBuildLabel => 'Build';
+
+  @override
+  String get settingsAppBuiltWith => 'Built with Flutter';
 }

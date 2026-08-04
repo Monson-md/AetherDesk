@@ -463,4 +463,159 @@ class AppLocalizationsFr extends AppLocalizations {
   String secureVaultItemsCount(int count) {
     return '$count éléments';
   }
+
+  @override
+  String get settingsProfileTitle => 'Profil';
+
+  @override
+  String get settingsLanguageTitle => 'Langue';
+
+  @override
+  String get settingsThemeTitle => 'Thème';
+
+  @override
+  String get settingsAppearanceTitle => 'Apparence';
+
+  @override
+  String get settingsNotificationsTitle => 'Notifications';
+
+  @override
+  String get settingsBackupTitle => 'Sauvegardes';
+
+  @override
+  String get settingsSecurityTitle => 'Sécurité';
+
+  @override
+  String get settingsPrivacyTitle => 'Confidentialité';
+
+  @override
+  String get settingsStorageTitle => 'Stockage';
+
+  @override
+  String get settingsAiTitle => 'IA';
+
+  @override
+  String get settingsAppInfoTitle => 'Informations sur l\'application';
+
+  @override
+  String get settingsDisplayNameLabel => 'Nom affiché';
+
+  @override
+  String get settingsDisplayNameHint => 'Votre nom';
+
+  @override
+  String get settingsEditDisplayNameTooltip => 'Modifier le nom';
+
+  @override
+  String get settingsNoDisplayName => 'Utilisateur';
+
+  @override
+  String get settingsLanguageSystem => 'Système';
+
+  @override
+  String get settingsLanguageFrench => 'Français';
+
+  @override
+  String get settingsLanguageEnglish => 'Anglais';
+
+  @override
+  String get settingsThemeSystem => 'Système';
+
+  @override
+  String get settingsThemeLight => 'Clair';
+
+  @override
+  String get settingsThemeDark => 'Sombre';
+
+  @override
+  String get settingsTextScaleSmall => 'Petit';
+
+  @override
+  String get settingsTextScaleMedium => 'Moyen';
+
+  @override
+  String get settingsTextScaleLarge => 'Grand';
+
+  @override
+  String get settingsNotificationsEnabledLabel => 'Activer les notifications';
+
+  @override
+  String get settingsNotificationsSoundLabel => 'Son des notifications';
+
+  @override
+  String get settingsBackupNeverLabel => 'Aucune sauvegarde effectuée';
+
+  @override
+  String settingsBackupLastLabel(String date) {
+    return 'Dernière sauvegarde : $date';
+  }
+
+  @override
+  String get settingsBackupButton => 'Sauvegarder maintenant';
+
+  @override
+  String get settingsBackupSimulatedMessage =>
+      'Sauvegarde simulée effectuée (aucun serveur réel).';
+
+  @override
+  String get settingsBiometricLockLabel => 'Verrouillage biométrique';
+
+  @override
+  String get settingsBiometricUnavailableMessage =>
+      'Non disponible sur cet appareil pour le moment.';
+
+  @override
+  String get settingsPinCodeLabel => 'Code PIN';
+
+  @override
+  String get settingsAnalyticsLabel => 'Partager les données d\'utilisation';
+
+  @override
+  String get settingsPrivacyNote =>
+      'Aucune donnée ne quitte cet appareil : il n\'y a pas encore de serveur ni d\'analytique réelle.';
+
+  @override
+  String get settingsStorageUsageLabel => 'Utilisation simulée';
+
+  @override
+  String get settingsClearCacheButton => 'Vider le cache';
+
+  @override
+  String get settingsClearCacheConfirmTitle => 'Vider le cache';
+
+  @override
+  String get settingsClearCacheConfirmMessage =>
+      'Cette action est simulée : aucune donnée réelle n\'est stockée sur le disque pour le moment.';
+
+  @override
+  String get settingsClearCacheDoneMessage => 'Cache vidé (simulé).';
+
+  @override
+  String get settingsAiProviderLabel => 'Fournisseur IA';
+
+  @override
+  String get settingsAiProviderValue => 'Simulé (local)';
+
+  @override
+  String get settingsAiApiKeyLabel => 'Clé API personnelle';
+
+  @override
+  String get settingsAiApiKeyHint => 'Coller votre clé API';
+
+  @override
+  String get settingsAiApiKeySavedMessage =>
+      'Clé API enregistrée (en mémoire uniquement).';
+
+  @override
+  String get settingsAiApiKeyNote =>
+      'Non stockée de façon sécurisée pour le moment — à venir avec le vrai stockage sécurisé.';
+
+  @override
+  String get settingsAppVersionLabel => 'Version';
+
+  @override
+  String get settingsAppBuildLabel => 'Build';
+
+  @override
+  String get settingsAppBuiltWith => 'Construit avec Flutter';
 }
