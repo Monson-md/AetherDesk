@@ -136,4 +136,157 @@ class AppLocalizationsFr extends AppLocalizations {
   String codeEditorWordsCount(int count) {
     return '$count mots';
   }
+
+  @override
+  String get projectManagementEmptyTitle => 'Aucun projet';
+
+  @override
+  String get projectManagementEmptyMessage =>
+      'Créez votre premier projet pour commencer.';
+
+  @override
+  String get projectManagementNoResultsTitle => 'Aucun résultat';
+
+  @override
+  String get projectManagementNoResultsMessage =>
+      'Aucun projet ne correspond à ces filtres.';
+
+  @override
+  String get projectManagementNewProject => 'Nouveau projet';
+
+  @override
+  String get projectManagementSearchHint => 'Rechercher un projet…';
+
+  @override
+  String get projectManagementSortLabel => 'Trier par';
+
+  @override
+  String get projectManagementSortName => 'Nom';
+
+  @override
+  String get projectManagementSortDueDate => 'Échéance';
+
+  @override
+  String get projectManagementSortPriority => 'Priorité';
+
+  @override
+  String get projectManagementSortCreatedAt => 'Date de création';
+
+  @override
+  String get projectManagementFavoritesOnly => 'Favoris uniquement';
+
+  @override
+  String get projectManagementAllCategories => 'Toutes les catégories';
+
+  @override
+  String get projectManagementNoCategory => 'Sans catégorie';
+
+  @override
+  String get projectManagementNewCategory => 'Nouvelle catégorie';
+
+  @override
+  String get projectManagementCategoryNameHint => 'Nom de la catégorie';
+
+  @override
+  String get projectManagementCategoryLabel => 'Catégorie';
+
+  @override
+  String get projectManagementPriorityLabel => 'Priorité';
+
+  @override
+  String get projectManagementPriorityLow => 'Faible';
+
+  @override
+  String get projectManagementPriorityMedium => 'Moyenne';
+
+  @override
+  String get projectManagementPriorityHigh => 'Élevée';
+
+  @override
+  String get projectManagementPriorityUrgent => 'Urgente';
+
+  @override
+  String get projectManagementAllPriorities => 'Toutes les priorités';
+
+  @override
+  String get projectManagementNameLabel => 'Nom';
+
+  @override
+  String get projectManagementDescriptionLabel => 'Description';
+
+  @override
+  String get projectManagementDueDateLabel => 'Date d\'échéance';
+
+  @override
+  String get projectManagementNoDueDate => 'Aucune échéance';
+
+  @override
+  String get projectManagementPickDate => 'Choisir une date';
+
+  @override
+  String get projectManagementClearDate => 'Effacer la date';
+
+  @override
+  String get projectManagementCreateProjectTitle => 'Créer un projet';
+
+  @override
+  String get projectManagementEditProjectTitle => 'Modifier le projet';
+
+  @override
+  String get projectManagementDeleteProjectTitle => 'Supprimer le projet';
+
+  @override
+  String get projectManagementDeleteProjectMessage =>
+      'Cette action supprimera définitivement le projet et toutes ses tâches.';
+
+  @override
+  String get projectManagementTasksTitle => 'Tâches';
+
+  @override
+  String get projectManagementNewTask => 'Nouvelle tâche';
+
+  @override
+  String get projectManagementEditTaskTitle => 'Modifier la tâche';
+
+  @override
+  String get projectManagementDeleteTaskTitle => 'Supprimer la tâche';
+
+  @override
+  String get projectManagementDeleteTaskMessage =>
+      'Cette action supprimera définitivement cette tâche.';
+
+  @override
+  String get projectManagementTaskTitleLabel => 'Titre';
+
+  @override
+  String get projectManagementChecklistTitle => 'Checklist';
+
+  @override
+  String get projectManagementAddChecklistItemHint => 'Ajouter un élément…';
+
+  @override
+  String get projectManagementNoTasksYet => 'Aucune tâche pour ce projet.';
+
+  @override
+  String projectManagementTasksCompletedCount(int done, int total) {
+    return '$done sur $total tâches terminées';
+  }
+
+  @override
+  String get projectManagementDeleteCategoryTitle => 'Supprimer la catégorie';
+
+  @override
+  String get projectManagementDeleteCategoryMessage =>
+      'Les projets de cette catégorie deviendront sans catégorie.';
+
+  @override
+  String get projectManagementFavoriteTooltip => 'Ajouter aux favoris';
+
+  @override
+  String get projectManagementUnfavoriteTooltip => 'Retirer des favoris';
+
+  @override
+  String projectManagementProjectsCount(int count) {
+    return '$count projets';
+  }
 }

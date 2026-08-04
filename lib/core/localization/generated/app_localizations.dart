@@ -337,6 +337,294 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'{count} mots'**
   String codeEditorWordsCount(int count);
+
+  /// No description provided for @projectManagementEmptyTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun projet'**
+  String get projectManagementEmptyTitle;
+
+  /// No description provided for @projectManagementEmptyMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Créez votre premier projet pour commencer.'**
+  String get projectManagementEmptyMessage;
+
+  /// No description provided for @projectManagementNoResultsTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun résultat'**
+  String get projectManagementNoResultsTitle;
+
+  /// No description provided for @projectManagementNoResultsMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun projet ne correspond à ces filtres.'**
+  String get projectManagementNoResultsMessage;
+
+  /// No description provided for @projectManagementNewProject.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouveau projet'**
+  String get projectManagementNewProject;
+
+  /// No description provided for @projectManagementSearchHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rechercher un projet…'**
+  String get projectManagementSearchHint;
+
+  /// No description provided for @projectManagementSortLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Trier par'**
+  String get projectManagementSortLabel;
+
+  /// No description provided for @projectManagementSortName.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom'**
+  String get projectManagementSortName;
+
+  /// No description provided for @projectManagementSortDueDate.
+  ///
+  /// In fr, this message translates to:
+  /// **'Échéance'**
+  String get projectManagementSortDueDate;
+
+  /// No description provided for @projectManagementSortPriority.
+  ///
+  /// In fr, this message translates to:
+  /// **'Priorité'**
+  String get projectManagementSortPriority;
+
+  /// No description provided for @projectManagementSortCreatedAt.
+  ///
+  /// In fr, this message translates to:
+  /// **'Date de création'**
+  String get projectManagementSortCreatedAt;
+
+  /// No description provided for @projectManagementFavoritesOnly.
+  ///
+  /// In fr, this message translates to:
+  /// **'Favoris uniquement'**
+  String get projectManagementFavoritesOnly;
+
+  /// No description provided for @projectManagementAllCategories.
+  ///
+  /// In fr, this message translates to:
+  /// **'Toutes les catégories'**
+  String get projectManagementAllCategories;
+
+  /// No description provided for @projectManagementNoCategory.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sans catégorie'**
+  String get projectManagementNoCategory;
+
+  /// No description provided for @projectManagementNewCategory.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvelle catégorie'**
+  String get projectManagementNewCategory;
+
+  /// No description provided for @projectManagementCategoryNameHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom de la catégorie'**
+  String get projectManagementCategoryNameHint;
+
+  /// No description provided for @projectManagementCategoryLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Catégorie'**
+  String get projectManagementCategoryLabel;
+
+  /// No description provided for @projectManagementPriorityLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Priorité'**
+  String get projectManagementPriorityLabel;
+
+  /// No description provided for @projectManagementPriorityLow.
+  ///
+  /// In fr, this message translates to:
+  /// **'Faible'**
+  String get projectManagementPriorityLow;
+
+  /// No description provided for @projectManagementPriorityMedium.
+  ///
+  /// In fr, this message translates to:
+  /// **'Moyenne'**
+  String get projectManagementPriorityMedium;
+
+  /// No description provided for @projectManagementPriorityHigh.
+  ///
+  /// In fr, this message translates to:
+  /// **'Élevée'**
+  String get projectManagementPriorityHigh;
+
+  /// No description provided for @projectManagementPriorityUrgent.
+  ///
+  /// In fr, this message translates to:
+  /// **'Urgente'**
+  String get projectManagementPriorityUrgent;
+
+  /// No description provided for @projectManagementAllPriorities.
+  ///
+  /// In fr, this message translates to:
+  /// **'Toutes les priorités'**
+  String get projectManagementAllPriorities;
+
+  /// No description provided for @projectManagementNameLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom'**
+  String get projectManagementNameLabel;
+
+  /// No description provided for @projectManagementDescriptionLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Description'**
+  String get projectManagementDescriptionLabel;
+
+  /// No description provided for @projectManagementDueDateLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Date d\'échéance'**
+  String get projectManagementDueDateLabel;
+
+  /// No description provided for @projectManagementNoDueDate.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune échéance'**
+  String get projectManagementNoDueDate;
+
+  /// No description provided for @projectManagementPickDate.
+  ///
+  /// In fr, this message translates to:
+  /// **'Choisir une date'**
+  String get projectManagementPickDate;
+
+  /// No description provided for @projectManagementClearDate.
+  ///
+  /// In fr, this message translates to:
+  /// **'Effacer la date'**
+  String get projectManagementClearDate;
+
+  /// No description provided for @projectManagementCreateProjectTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Créer un projet'**
+  String get projectManagementCreateProjectTitle;
+
+  /// No description provided for @projectManagementEditProjectTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier le projet'**
+  String get projectManagementEditProjectTitle;
+
+  /// No description provided for @projectManagementDeleteProjectTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer le projet'**
+  String get projectManagementDeleteProjectTitle;
+
+  /// No description provided for @projectManagementDeleteProjectMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette action supprimera définitivement le projet et toutes ses tâches.'**
+  String get projectManagementDeleteProjectMessage;
+
+  /// No description provided for @projectManagementTasksTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tâches'**
+  String get projectManagementTasksTitle;
+
+  /// No description provided for @projectManagementNewTask.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvelle tâche'**
+  String get projectManagementNewTask;
+
+  /// No description provided for @projectManagementEditTaskTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier la tâche'**
+  String get projectManagementEditTaskTitle;
+
+  /// No description provided for @projectManagementDeleteTaskTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer la tâche'**
+  String get projectManagementDeleteTaskTitle;
+
+  /// No description provided for @projectManagementDeleteTaskMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette action supprimera définitivement cette tâche.'**
+  String get projectManagementDeleteTaskMessage;
+
+  /// No description provided for @projectManagementTaskTitleLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Titre'**
+  String get projectManagementTaskTitleLabel;
+
+  /// No description provided for @projectManagementChecklistTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Checklist'**
+  String get projectManagementChecklistTitle;
+
+  /// No description provided for @projectManagementAddChecklistItemHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter un élément…'**
+  String get projectManagementAddChecklistItemHint;
+
+  /// No description provided for @projectManagementNoTasksYet.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune tâche pour ce projet.'**
+  String get projectManagementNoTasksYet;
+
+  /// No description provided for @projectManagementTasksCompletedCount.
+  ///
+  /// In fr, this message translates to:
+  /// **'{done} sur {total} tâches terminées'**
+  String projectManagementTasksCompletedCount(int done, int total);
+
+  /// No description provided for @projectManagementDeleteCategoryTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer la catégorie'**
+  String get projectManagementDeleteCategoryTitle;
+
+  /// No description provided for @projectManagementDeleteCategoryMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les projets de cette catégorie deviendront sans catégorie.'**
+  String get projectManagementDeleteCategoryMessage;
+
+  /// No description provided for @projectManagementFavoriteTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter aux favoris'**
+  String get projectManagementFavoriteTooltip;
+
+  /// No description provided for @projectManagementUnfavoriteTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retirer des favoris'**
+  String get projectManagementUnfavoriteTooltip;
+
+  /// No description provided for @projectManagementProjectsCount.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count} projets'**
+  String projectManagementProjectsCount(int count);
 }
 
 class _AppLocalizationsDelegate

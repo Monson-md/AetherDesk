@@ -134,4 +134,157 @@ class AppLocalizationsEn extends AppLocalizations {
   String codeEditorWordsCount(int count) {
     return '$count words';
   }
+
+  @override
+  String get projectManagementEmptyTitle => 'No projects yet';
+
+  @override
+  String get projectManagementEmptyMessage =>
+      'Create your first project to get started.';
+
+  @override
+  String get projectManagementNoResultsTitle => 'No results';
+
+  @override
+  String get projectManagementNoResultsMessage =>
+      'No projects match these filters.';
+
+  @override
+  String get projectManagementNewProject => 'New project';
+
+  @override
+  String get projectManagementSearchHint => 'Search projects…';
+
+  @override
+  String get projectManagementSortLabel => 'Sort by';
+
+  @override
+  String get projectManagementSortName => 'Name';
+
+  @override
+  String get projectManagementSortDueDate => 'Due date';
+
+  @override
+  String get projectManagementSortPriority => 'Priority';
+
+  @override
+  String get projectManagementSortCreatedAt => 'Date created';
+
+  @override
+  String get projectManagementFavoritesOnly => 'Favorites only';
+
+  @override
+  String get projectManagementAllCategories => 'All categories';
+
+  @override
+  String get projectManagementNoCategory => 'No category';
+
+  @override
+  String get projectManagementNewCategory => 'New category';
+
+  @override
+  String get projectManagementCategoryNameHint => 'Category name';
+
+  @override
+  String get projectManagementCategoryLabel => 'Category';
+
+  @override
+  String get projectManagementPriorityLabel => 'Priority';
+
+  @override
+  String get projectManagementPriorityLow => 'Low';
+
+  @override
+  String get projectManagementPriorityMedium => 'Medium';
+
+  @override
+  String get projectManagementPriorityHigh => 'High';
+
+  @override
+  String get projectManagementPriorityUrgent => 'Urgent';
+
+  @override
+  String get projectManagementAllPriorities => 'All priorities';
+
+  @override
+  String get projectManagementNameLabel => 'Name';
+
+  @override
+  String get projectManagementDescriptionLabel => 'Description';
+
+  @override
+  String get projectManagementDueDateLabel => 'Due date';
+
+  @override
+  String get projectManagementNoDueDate => 'No due date';
+
+  @override
+  String get projectManagementPickDate => 'Pick a date';
+
+  @override
+  String get projectManagementClearDate => 'Clear date';
+
+  @override
+  String get projectManagementCreateProjectTitle => 'Create project';
+
+  @override
+  String get projectManagementEditProjectTitle => 'Edit project';
+
+  @override
+  String get projectManagementDeleteProjectTitle => 'Delete project';
+
+  @override
+  String get projectManagementDeleteProjectMessage =>
+      'This will permanently delete the project and all of its tasks.';
+
+  @override
+  String get projectManagementTasksTitle => 'Tasks';
+
+  @override
+  String get projectManagementNewTask => 'New task';
+
+  @override
+  String get projectManagementEditTaskTitle => 'Edit task';
+
+  @override
+  String get projectManagementDeleteTaskTitle => 'Delete task';
+
+  @override
+  String get projectManagementDeleteTaskMessage =>
+      'This will permanently delete this task.';
+
+  @override
+  String get projectManagementTaskTitleLabel => 'Title';
+
+  @override
+  String get projectManagementChecklistTitle => 'Checklist';
+
+  @override
+  String get projectManagementAddChecklistItemHint => 'Add an item…';
+
+  @override
+  String get projectManagementNoTasksYet => 'No tasks in this project yet.';
+
+  @override
+  String projectManagementTasksCompletedCount(int done, int total) {
+    return '$done of $total tasks completed';
+  }
+
+  @override
+  String get projectManagementDeleteCategoryTitle => 'Delete category';
+
+  @override
+  String get projectManagementDeleteCategoryMessage =>
+      'Projects in this category will become uncategorized.';
+
+  @override
+  String get projectManagementFavoriteTooltip => 'Add to favorites';
+
+  @override
+  String get projectManagementUnfavoriteTooltip => 'Remove from favorites';
+
+  @override
+  String projectManagementProjectsCount(int count) {
+    return '$count projects';
+  }
 }

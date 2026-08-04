@@ -57,5 +57,64 @@
     "placeholders": {
       "count": { "type": "int" }
     }
+  },
+  "projectManagementEmptyTitle": "Aucun projet",
+  "projectManagementEmptyMessage": "Créez votre premier projet pour commencer.",
+  "projectManagementNoResultsTitle": "Aucun résultat",
+  "projectManagementNoResultsMessage": "Aucun projet ne correspond à ces filtres.",
+  "projectManagementNewProject": "Nouveau projet",
+  "projectManagementSearchHint": "Rechercher un projet…",
+  "projectManagementSortLabel": "Trier par",
+  "projectManagementSortName": "Nom",
+  "projectManagementSortDueDate": "Échéance",
+  "projectManagementSortPriority": "Priorité",
+  "projectManagementSortCreatedAt": "Date de création",
+  "projectManagementFavoritesOnly": "Favoris uniquement",
+  "projectManagementAllCategories": "Toutes les catégories",
+  "projectManagementNoCategory": "Sans catégorie",
+  "projectManagementNewCategory": "Nouvelle catégorie",
+  "projectManagementCategoryNameHint": "Nom de la catégorie",
+  "projectManagementCategoryLabel": "Catégorie",
+  "projectManagementPriorityLabel": "Priorité",
+  "projectManagementPriorityLow": "Faible",
+  "projectManagementPriorityMedium": "Moyenne",
+  "projectManagementPriorityHigh": "Élevée",
+  "projectManagementPriorityUrgent": "Urgente",
+  "projectManagementAllPriorities": "Toutes les priorités",
+  "projectManagementNameLabel": "Nom",
+  "projectManagementDescriptionLabel": "Description",
+  "projectManagementDueDateLabel": "Date d'échéance",
+  "projectManagementNoDueDate": "Aucune échéance",
+  "projectManagementPickDate": "Choisir une date",
+  "projectManagementClearDate": "Effacer la date",
+  "projectManagementCreateProjectTitle": "Créer un projet",
+  "projectManagementEditProjectTitle": "Modifier le projet",
+  "projectManagementDeleteProjectTitle": "Supprimer le projet",
+  "projectManagementDeleteProjectMessage": "Cette action supprimera définitivement le projet et toutes ses tâches.",
+  "projectManagementTasksTitle": "Tâches",
+  "projectManagementNewTask": "Nouvelle tâche",
+  "projectManagementEditTaskTitle": "Modifier la tâche",
+  "projectManagementDeleteTaskTitle": "Supprimer la tâche",
+  "projectManagementDeleteTaskMessage": "Cette action supprimera définitivement cette tâche.",
+  "projectManagementTaskTitleLabel": "Titre",
+  "projectManagementChecklistTitle": "Checklist",
+  "projectManagementAddChecklistItemHint": "Ajouter un élément…",
+  "projectManagementNoTasksYet": "Aucune tâche pour ce projet.",
+  "projectManagementTasksCompletedCount": "{done} sur {total} tâches terminées",
+  "@projectManagementTasksCompletedCount": {
+    "placeholders": {
+      "done": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "projectManagementDeleteCategoryTitle": "Supprimer la catégorie",
+  "projectManagementDeleteCategoryMessage": "Les projets de cette catégorie deviendront sans catégorie.",
+  "projectManagementFavoriteTooltip": "Ajouter aux favoris",
+  "projectManagementUnfavoriteTooltip": "Retirer des favoris",
+  "projectManagementProjectsCount": "{count} projets",
+  "@projectManagementProjectsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
   }
 }

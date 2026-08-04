@@ -54,5 +54,64 @@
     "placeholders": {
       "count": { "type": "int" }
     }
+  },
+  "projectManagementEmptyTitle": "No projects yet",
+  "projectManagementEmptyMessage": "Create your first project to get started.",
+  "projectManagementNoResultsTitle": "No results",
+  "projectManagementNoResultsMessage": "No projects match these filters.",
+  "projectManagementNewProject": "New project",
+  "projectManagementSearchHint": "Search projects…",
+  "projectManagementSortLabel": "Sort by",
+  "projectManagementSortName": "Name",
+  "projectManagementSortDueDate": "Due date",
+  "projectManagementSortPriority": "Priority",
+  "projectManagementSortCreatedAt": "Date created",
+  "projectManagementFavoritesOnly": "Favorites only",
+  "projectManagementAllCategories": "All categories",
+  "projectManagementNoCategory": "No category",
+  "projectManagementNewCategory": "New category",
+  "projectManagementCategoryNameHint": "Category name",
+  "projectManagementCategoryLabel": "Category",
+  "projectManagementPriorityLabel": "Priority",
+  "projectManagementPriorityLow": "Low",
+  "projectManagementPriorityMedium": "Medium",
+  "projectManagementPriorityHigh": "High",
+  "projectManagementPriorityUrgent": "Urgent",
+  "projectManagementAllPriorities": "All priorities",
+  "projectManagementNameLabel": "Name",
+  "projectManagementDescriptionLabel": "Description",
+  "projectManagementDueDateLabel": "Due date",
+  "projectManagementNoDueDate": "No due date",
+  "projectManagementPickDate": "Pick a date",
+  "projectManagementClearDate": "Clear date",
+  "projectManagementCreateProjectTitle": "Create project",
+  "projectManagementEditProjectTitle": "Edit project",
+  "projectManagementDeleteProjectTitle": "Delete project",
+  "projectManagementDeleteProjectMessage": "This will permanently delete the project and all of its tasks.",
+  "projectManagementTasksTitle": "Tasks",
+  "projectManagementNewTask": "New task",
+  "projectManagementEditTaskTitle": "Edit task",
+  "projectManagementDeleteTaskTitle": "Delete task",
+  "projectManagementDeleteTaskMessage": "This will permanently delete this task.",
+  "projectManagementTaskTitleLabel": "Title",
+  "projectManagementChecklistTitle": "Checklist",
+  "projectManagementAddChecklistItemHint": "Add an item…",
+  "projectManagementNoTasksYet": "No tasks in this project yet.",
+  "projectManagementTasksCompletedCount": "{done} of {total} tasks completed",
+  "@projectManagementTasksCompletedCount": {
+    "placeholders": {
+      "done": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "projectManagementDeleteCategoryTitle": "Delete category",
+  "projectManagementDeleteCategoryMessage": "Projects in this category will become uncategorized.",
+  "projectManagementFavoriteTooltip": "Add to favorites",
+  "projectManagementUnfavoriteTooltip": "Remove from favorites",
+  "projectManagementProjectsCount": "{count} projects",
+  "@projectManagementProjectsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
   }
 }
