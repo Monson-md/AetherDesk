@@ -1,5 +1,3 @@
-import 'package:aetherdesk/core/auth/auth_controller.dart';
-import 'package:aetherdesk/core/auth/login_page.dart';
 import 'package:aetherdesk/core/router/app_shell.dart';
 import 'package:aetherdesk/core/router/dashboard_overview_page.dart';
 import 'package:aetherdesk/core/router/route_guards.dart';
@@ -13,24 +11,8 @@ import 'package:aetherdesk/features/project_management/presentation/pages/projec
 import 'package:aetherdesk/features/secure_vault/presentation/pages/secure_vault_home_page.dart';
 import 'package:aetherdesk/features/settings/presentation/pages/settings_home_page.dart';
 import 'package:aetherdesk/features/user_profile/presentation/pages/user_profile_home_page.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-/// Bridges Riverpod's [authControllerProvider] to go_router's
-/// `refreshListenable`, so a login/logout completing in the background
-/// (e.g. device-flow polling finishing while the user sits on the login
-/// page) re-runs [authRedirectGuard] immediately instead of waiting for the
-/// next `context.go` call.
-class _AuthRefreshNotifier extends ChangeNotifier {
-  _AuthRefreshNotifier(Ref ref) {
-    ref.listen(authControllerProvider, (previous, next) {
-      if (previous?.status != next.status) {
-        notifyListeners();
-      }
-    });
-  }
-}
 
 /// Single source of truth for navigation. Every module gets exactly one
 /// top-level route here; deeper in-module navigation (e.g. opening a
@@ -43,18 +25,10 @@ class _AuthRefreshNotifier extends ChangeNotifier {
 /// using `ModulePlaceholderPage` + `destinationFor`, then one `GoRoute`
 /// below. The rail, drawer and dashboard grid pick it up automatically.
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final refreshNotifier = _AuthRefreshNotifier(ref);
-  ref.onDispose(refreshNotifier.dispose);
-
   return GoRouter(
     initialLocation: RoutePaths.dashboard,
     redirect: authRedirectGuard,
-    refreshListenable: refreshNotifier,
     routes: [
-      GoRoute(
-        path: RoutePaths.login,
-        builder: (context, state) => const LoginPage(),
-      ),
       ShellRoute(
         builder: (context, state, child) => AppShell(child: child),
         routes: [

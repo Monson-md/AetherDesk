@@ -54,29 +54,5 @@
     "placeholders": {
       "count": { "type": "int" }
     }
-  },
-  "loginHeadline": "Connect your GitHub account",
-  "loginDescription": "AetherDesk needs access to your GitHub account to read and modify your repositories.",
-  "loginButton": "Sign in with GitHub",
-  "loginPendingTitle": "Enter this code on GitHub",
-  "loginPendingDescription": "Open the GitHub verification page and enter the code below.",
-  "loginCopyCodeTooltip": "Copy code",
-  "loginCodeCopiedMessage": "Code copied to clipboard.",
-  "loginOpenGithubButton": "Open GitHub",
-  "loginWaitingMessage": "Waiting for your authorization…",
-  "loginOpenUrlError": "Couldn't open the browser.",
-  "profileLogoutButton": "Sign out",
-  "profilePublicReposCount": "{count} public repos",
-  "@profilePublicReposCount": {
-    "placeholders": {
-      "count": { "type": "int" }
-    }
-  },
-  "loginPatButton": "Use a personal access token",
-  "loginPatFieldHint": "Paste your Personal Access Token",
-  "loginPatSubmitButton": "Validate",
-  "loginDiagnosticsTitle": "Technical details",
-  "loginDiagnosticsEmpty": "No request yet.",
-  "loginDiagnosticsCopyButton": "Copy logs",
-  "loginDiagnosticsCopiedMessage": "Logs copied to clipboard."
+  }
 }
