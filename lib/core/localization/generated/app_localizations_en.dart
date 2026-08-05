@@ -118,10 +118,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get codeEditorEmptyHint => 'Start writing your code here…';
 
   @override
-  String get codeEditorOpenPlaceholder => 'File opening coming soon.';
+  String get codeEditorSearch => 'Search';
 
   @override
-  String get codeEditorSavePlaceholder => 'Saving coming soon.';
+  String get codeEditorSearchHint => 'Search in code…';
+
+  @override
+  String get codeEditorSearchNoMatches => 'No matches';
+
+  @override
+  String codeEditorFileOpenedMessage(String fileName) {
+    return 'File opened: $fileName';
+  }
+
+  @override
+  String codeEditorFileSavedMessage(String fileName) {
+    return 'File saved: $fileName';
+  }
 
   @override
   String get codeEditorCopiedMessage => 'Code copied to clipboard.';

@@ -26,11 +26,79 @@ class CodeField extends ConsumerStatefulWidget {
   final ValueChanged<String> onChanged;
 
   @override
-  ConsumerState<CodeField> createState() => _CodeFieldState();
+  ConsumerState<CodeField> createState() => CodeFieldState();
 }
 
-class _CodeFieldState extends ConsumerState<CodeField> {
+/// Public so the home page can hold a `GlobalKey<CodeFieldState>` and drive
+/// real in-document search ([updateSearch]/[nextMatch]/[previousMatch])
+/// without this widget needing to expose its [TextEditingController].
+class CodeFieldState extends ConsumerState<CodeField> {
   late final HighlightingTextEditingController _controller;
+  final FocusNode _focusNode = FocusNode();
+
+  List<int> _matchOffsets = const [];
+  int _currentMatchIndex = -1;
+  String _query = '';
+
+  int get matchCount => _matchOffsets.length;
+  int get currentMatchIndex => _currentMatchIndex;
+
+  /// Recomputes every case-insensitive occurrence of [query] in the current
+  /// text and jumps to the first one. Returns the match count.
+  int updateSearch(String query) {
+    _query = query;
+    if (query.isEmpty) {
+      setState(() {
+        _matchOffsets = const [];
+        _currentMatchIndex = -1;
+      });
+      return 0;
+    }
+    final text = _controller.text.toLowerCase();
+    final needle = query.toLowerCase();
+    final offsets = <int>[];
+    var start = 0;
+    while (true) {
+      final index = text.indexOf(needle, start);
+      if (index == -1) break;
+      offsets.add(index);
+      start = index + needle.length;
+    }
+    setState(() {
+      _matchOffsets = offsets;
+      _currentMatchIndex = offsets.isEmpty ? -1 : 0;
+    });
+    _jumpToCurrentMatch();
+    return offsets.length;
+  }
+
+  void nextMatch() {
+    if (_matchOffsets.isEmpty) return;
+    setState(() {
+      _currentMatchIndex = (_currentMatchIndex + 1) % _matchOffsets.length;
+    });
+    _jumpToCurrentMatch();
+  }
+
+  void previousMatch() {
+    if (_matchOffsets.isEmpty) return;
+    setState(() {
+      _currentMatchIndex =
+          (_currentMatchIndex - 1 + _matchOffsets.length) %
+          _matchOffsets.length;
+    });
+    _jumpToCurrentMatch();
+  }
+
+  void _jumpToCurrentMatch() {
+    if (_currentMatchIndex == -1) return;
+    final offset = _matchOffsets[_currentMatchIndex];
+    _controller.selection = TextSelection(
+      baseOffset: offset,
+      extentOffset: offset + _query.length,
+    );
+    _focusNode.requestFocus();
+  }
 
   @override
   void initState() {
@@ -74,6 +142,7 @@ class _CodeFieldState extends ConsumerState<CodeField> {
   void dispose() {
     _controller.removeListener(_handleControllerChanged);
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -138,6 +207,7 @@ class _CodeFieldState extends ConsumerState<CodeField> {
                               ),
                               child: TextField(
                                 controller: _controller,
+                                focusNode: _focusNode,
                                 maxLines: null,
                                 style: codeStyle,
                                 cursorColor: colorScheme.primary,

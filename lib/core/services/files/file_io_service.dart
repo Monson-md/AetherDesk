@@ -1,0 +1,39 @@
+/// A text file read from disk via [FileIoService.pickAndReadTextFile].
+class PickedTextFile {
+  const PickedTextFile({
+    required this.fileName,
+    required this.content,
+    required this.path,
+  });
+
+  final String fileName;
+  final String content;
+  final String path;
+}
+
+/// The result of [FileIoService.saveTextFile].
+class SavedTextFile {
+  const SavedTextFile({required this.fileName, required this.path});
+
+  final String fileName;
+  final String path;
+}
+
+/// Contract for real local file open/save dialogs, so `features/code_editor`
+/// (and any future module) can read/write real files without depending on
+/// `file_picker`/`dart:io` directly. This is the swap point: today's
+/// implementation (`RealFileIoService`) already does real disk I/O — a
+/// future implementation could add cloud-file support (e.g. Firebase
+/// Storage/Google Drive) behind the same contract.
+abstract interface class FileIoService {
+  /// Opens a native file picker and reads the selected file as text.
+  /// Returns `null` if the user cancels.
+  Future<PickedTextFile?> pickAndReadTextFile();
+
+  /// Opens a native save dialog pre-filled with [suggestedName] and writes
+  /// [content] to the chosen location. Returns `null` if the user cancels.
+  Future<SavedTextFile?> saveTextFile({
+    required String suggestedName,
+    required String content,
+  });
+}

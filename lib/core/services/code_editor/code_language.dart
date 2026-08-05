@@ -27,4 +27,23 @@ extension CodeLanguageX on CodeLanguage {
     CodeLanguage.css => 'css',
     CodeLanguage.json => 'json',
   };
+
+  /// Infers a [CodeLanguage] from a real file's extension (used when
+  /// opening a file from disk), falling back to [CodeLanguage.dart].
+  static CodeLanguage fromFileName(String fileName) {
+    final dotIndex = fileName.lastIndexOf('.');
+    final extension = dotIndex == -1
+        ? ''
+        : fileName.substring(dotIndex + 1).toLowerCase();
+    return switch (extension) {
+      'dart' => CodeLanguage.dart,
+      'py' => CodeLanguage.python,
+      'cpp' || 'cc' || 'h' || 'hpp' => CodeLanguage.cpp,
+      'js' || 'mjs' => CodeLanguage.javascript,
+      'html' || 'htm' => CodeLanguage.html,
+      'css' => CodeLanguage.css,
+      'json' => CodeLanguage.json,
+      _ => CodeLanguage.dart,
+    };
+  }
 }

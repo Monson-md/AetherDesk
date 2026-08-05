@@ -314,17 +314,35 @@ abstract class AppLocalizations {
   /// **'Commencez à écrire votre code ici…'**
   String get codeEditorEmptyHint;
 
-  /// No description provided for @codeEditorOpenPlaceholder.
+  /// No description provided for @codeEditorSearch.
   ///
   /// In fr, this message translates to:
-  /// **'Ouverture de fichiers disponible prochainement.'**
-  String get codeEditorOpenPlaceholder;
+  /// **'Rechercher'**
+  String get codeEditorSearch;
 
-  /// No description provided for @codeEditorSavePlaceholder.
+  /// No description provided for @codeEditorSearchHint.
   ///
   /// In fr, this message translates to:
-  /// **'Enregistrement disponible prochainement.'**
-  String get codeEditorSavePlaceholder;
+  /// **'Rechercher dans le code…'**
+  String get codeEditorSearchHint;
+
+  /// No description provided for @codeEditorSearchNoMatches.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune correspondance'**
+  String get codeEditorSearchNoMatches;
+
+  /// No description provided for @codeEditorFileOpenedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Fichier ouvert : {fileName}'**
+  String codeEditorFileOpenedMessage(String fileName);
+
+  /// No description provided for @codeEditorFileSavedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Fichier enregistré : {fileName}'**
+  String codeEditorFileSavedMessage(String fileName);
 
   /// No description provided for @codeEditorCopiedMessage.
   ///

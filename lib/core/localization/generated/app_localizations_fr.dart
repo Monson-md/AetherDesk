@@ -118,12 +118,23 @@ class AppLocalizationsFr extends AppLocalizations {
   String get codeEditorEmptyHint => 'Commencez à écrire votre code ici…';
 
   @override
-  String get codeEditorOpenPlaceholder =>
-      'Ouverture de fichiers disponible prochainement.';
+  String get codeEditorSearch => 'Rechercher';
 
   @override
-  String get codeEditorSavePlaceholder =>
-      'Enregistrement disponible prochainement.';
+  String get codeEditorSearchHint => 'Rechercher dans le code…';
+
+  @override
+  String get codeEditorSearchNoMatches => 'Aucune correspondance';
+
+  @override
+  String codeEditorFileOpenedMessage(String fileName) {
+    return 'Fichier ouvert : $fileName';
+  }
+
+  @override
+  String codeEditorFileSavedMessage(String fileName) {
+    return 'Fichier enregistré : $fileName';
+  }
 
   @override
   String get codeEditorCopiedMessage => 'Code copié dans le presse-papiers.';

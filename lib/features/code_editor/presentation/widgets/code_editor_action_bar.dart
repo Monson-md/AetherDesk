@@ -2,14 +2,16 @@ import 'package:aetherdesk/core/constants/app_dimensions.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-/// Row of file actions (requirement #6). Open/Save are placeholders: this
-/// module has no real file system access.
+/// Row of file actions: new/open/save go through the real `FileIoService`
+/// (see `CodeEditorController.openFile`/`saveFile`), plus copy, search and
+/// clear.
 class CodeEditorActionBar extends StatelessWidget {
   const CodeEditorActionBar({
     required this.onNewFile,
     required this.onOpen,
     required this.onSave,
     required this.onCopy,
+    required this.onSearch,
     required this.onClear,
     super.key,
   });
@@ -18,6 +20,7 @@ class CodeEditorActionBar extends StatelessWidget {
   final VoidCallback onOpen;
   final VoidCallback onSave;
   final VoidCallback onCopy;
+  final VoidCallback onSearch;
   final VoidCallback onClear;
 
   @override
@@ -46,6 +49,11 @@ class CodeEditorActionBar extends StatelessWidget {
           onPressed: onCopy,
           icon: const Icon(Icons.copy_outlined, size: 18),
           label: Text(l10n.codeEditorCopy),
+        ),
+        OutlinedButton.icon(
+          onPressed: onSearch,
+          icon: const Icon(Icons.search, size: 18),
+          label: Text(l10n.codeEditorSearch),
         ),
         OutlinedButton.icon(
           onPressed: onClear,

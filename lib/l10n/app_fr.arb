@@ -39,8 +39,21 @@
   "codeEditorCopy": "Copier",
   "codeEditorClear": "Effacer",
   "codeEditorEmptyHint": "Commencez à écrire votre code ici…",
-  "codeEditorOpenPlaceholder": "Ouverture de fichiers disponible prochainement.",
-  "codeEditorSavePlaceholder": "Enregistrement disponible prochainement.",
+  "codeEditorSearch": "Rechercher",
+  "codeEditorSearchHint": "Rechercher dans le code…",
+  "codeEditorSearchNoMatches": "Aucune correspondance",
+  "codeEditorFileOpenedMessage": "Fichier ouvert : {fileName}",
+  "@codeEditorFileOpenedMessage": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
+  "codeEditorFileSavedMessage": "Fichier enregistré : {fileName}",
+  "@codeEditorFileSavedMessage": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
   "codeEditorCopiedMessage": "Code copié dans le presse-papiers.",
   "codeEditorLinesCount": "{count} lignes",
   "@codeEditorLinesCount": {

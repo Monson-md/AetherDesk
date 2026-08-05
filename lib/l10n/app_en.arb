@@ -36,8 +36,21 @@
   "codeEditorCopy": "Copy",
   "codeEditorClear": "Clear",
   "codeEditorEmptyHint": "Start writing your code here…",
-  "codeEditorOpenPlaceholder": "File opening coming soon.",
-  "codeEditorSavePlaceholder": "Saving coming soon.",
+  "codeEditorSearch": "Search",
+  "codeEditorSearchHint": "Search in code…",
+  "codeEditorSearchNoMatches": "No matches",
+  "codeEditorFileOpenedMessage": "File opened: {fileName}",
+  "@codeEditorFileOpenedMessage": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
+  "codeEditorFileSavedMessage": "File saved: {fileName}",
+  "@codeEditorFileSavedMessage": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
   "codeEditorCopiedMessage": "Code copied to clipboard.",
   "codeEditorLinesCount": "{count} lines",
   "@codeEditorLinesCount": {
