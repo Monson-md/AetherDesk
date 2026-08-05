@@ -193,6 +193,7 @@
   "secureVaultHideTooltip": "Masquer",
   "secureVaultCopyTooltip": "Copier",
   "secureVaultCopiedMessage": "Copié dans le presse-papiers.",
+  "secureVaultEncryptedAtRestTooltip": "Chiffré au repos (simulation)",
   "secureVaultItemsCount": "{count} éléments",
   "@secureVaultItemsCount": {
     "placeholders": {

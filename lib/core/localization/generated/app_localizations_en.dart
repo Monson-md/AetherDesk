@@ -520,6 +520,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get secureVaultCopiedMessage => 'Copied to clipboard.';
 
   @override
+  String get secureVaultEncryptedAtRestTooltip =>
+      'Encrypted at rest (simulated)';
+
+  @override
   String secureVaultItemsCount(int count) {
     return '$count items';
   }

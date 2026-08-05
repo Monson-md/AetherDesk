@@ -6,10 +6,16 @@ import 'package:aetherdesk/features/secure_vault/domain/entities/vault_item_type
 /// hence a sealed hierarchy (like `core/error/failure.dart`'s `Failure`)
 /// rather than one class with a pile of nullable fields.
 ///
-/// No field here is actually encrypted or stored on disk — this module is
-/// architecture only for now (in-memory `SecureVaultRepositoryImpl`), with
-/// no real cryptography and no real biometric gate. See
-/// `core/services/biometric/` for the prepared (unwired) auth seam.
+/// Nothing here is stored on disk — this module is in-memory only for now
+/// (`SecureVaultRepositoryImpl`), with no real biometric gate (see
+/// `core/services/biometric/` for the prepared, unwired auth seam). Secret
+/// fields (passwords, API keys, note content, card numbers) *are* held
+/// encrypted at rest inside the repository via `EncryptionService` —
+/// today's `SimulatedEncryptionService` is a reversible placeholder, not
+/// real cryptography, but every [VaultItem] instance that reaches
+/// `domain`/`presentation` (via `getItems()`, `updateItem()`, ...) is
+/// already decrypted back to plain text, so nothing outside the repository
+/// needs to know encryption is happening.
 sealed class VaultItem {
   const VaultItem({
     required this.id,

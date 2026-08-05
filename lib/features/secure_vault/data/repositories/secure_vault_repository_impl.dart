@@ -1,14 +1,22 @@
+import 'package:aetherdesk/core/services/encryption/encryption_service.dart';
 import 'package:aetherdesk/features/secure_vault/domain/entities/vault_folder.dart';
 import 'package:aetherdesk/features/secure_vault/domain/entities/vault_item.dart';
 import 'package:aetherdesk/features/secure_vault/domain/repositories/secure_vault_repository.dart';
 
 /// In-memory implementation of [SecureVaultRepository] — no disk I/O, no
-/// encryption, no backend. See `vault_item.dart`'s doc comment for why: this
-/// module is architecture only for now. A future implementation backed by
-/// real local storage and encryption can replace this file without any
-/// change to `domain/` or `presentation/`.
+/// backend. See `vault_item.dart`'s doc comment: secret fields are held
+/// encrypted at rest in [_items] via [_encryptionService], and every method
+/// that returns a [VaultItem] to a caller returns the decrypted (plain
+/// text) form. A future implementation backed by real local storage can
+/// replace this file without any change to `domain/` or `presentation/`.
 class SecureVaultRepositoryImpl implements SecureVaultRepository {
+  SecureVaultRepositoryImpl(this._encryptionService);
+
+  final EncryptionService _encryptionService;
   final List<VaultFolder> _folders = [];
+
+  /// Holds each item with its secret field(s) already encrypted — never
+  /// exposed directly to callers.
   final List<VaultItem> _items = [];
 
   int _folderIdCounter = 0;
@@ -18,7 +26,7 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
   List<VaultFolder> getFolders() => List.unmodifiable(_folders);
 
   @override
-  List<VaultItem> getItems() => List.unmodifiable(_items);
+  List<VaultItem> getItems() => _items.map(_decrypted).toList();
 
   @override
   VaultFolder createFolder({required String name, required int colorValue}) {
@@ -47,7 +55,7 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
     required String content,
     String? folderId,
   }) {
-    final item = SecureNoteItem(
+    final plain = SecureNoteItem(
       id: _nextItemId(),
       title: title,
       folderId: folderId,
@@ -55,8 +63,8 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
       createdAt: DateTime.now(),
       content: content,
     );
-    _items.add(item);
-    return item;
+    _items.add(_encrypted(plain));
+    return plain;
   }
 
   @override
@@ -67,7 +75,7 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
     String? url,
     String? folderId,
   }) {
-    final item = PasswordItem(
+    final plain = PasswordItem(
       id: _nextItemId(),
       title: title,
       folderId: folderId,
@@ -77,8 +85,8 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
       password: password,
       url: url,
     );
-    _items.add(item);
-    return item;
+    _items.add(_encrypted(plain));
+    return plain;
   }
 
   @override
@@ -88,7 +96,7 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
     required String apiKey,
     String? folderId,
   }) {
-    final item = ApiKeyItem(
+    final plain = ApiKeyItem(
       id: _nextItemId(),
       title: title,
       folderId: folderId,
@@ -97,8 +105,8 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
       service: service,
       apiKey: apiKey,
     );
-    _items.add(item);
-    return item;
+    _items.add(_encrypted(plain));
+    return plain;
   }
 
   @override
@@ -110,7 +118,7 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
     String? cvv,
     String? folderId,
   }) {
-    final item = CardItem(
+    final plain = CardItem(
       id: _nextItemId(),
       title: title,
       folderId: folderId,
@@ -121,8 +129,8 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
       expiry: expiry,
       cvv: cvv,
     );
-    _items.add(item);
-    return item;
+    _items.add(_encrypted(plain));
+    return plain;
   }
 
   @override
@@ -148,7 +156,7 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
   @override
   VaultItem updateItem(VaultItem item) {
     final index = _items.indexWhere((existing) => existing.id == item.id);
-    _items[index] = item;
+    _items[index] = _encrypted(item);
     return item;
   }
 
@@ -157,7 +165,7 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
     final index = _items.indexWhere((item) => item.id == itemId);
     final updated = _withFavorite(_items[index], isFavorite: isFavorite);
     _items[index] = updated;
-    return updated;
+    return _decrypted(updated);
   }
 
   @override
@@ -166,6 +174,95 @@ class SecureVaultRepositoryImpl implements SecureVaultRepository {
   }
 
   String _nextItemId() => 'item-${++_itemIdCounter}';
+
+  /// Returns [item] with its secret field(s) run through
+  /// [EncryptionService.encrypt] — used before storing.
+  VaultItem _encrypted(VaultItem item) => switch (item) {
+    SecureNoteItem() => SecureNoteItem(
+      id: item.id,
+      title: item.title,
+      folderId: item.folderId,
+      isFavorite: item.isFavorite,
+      createdAt: item.createdAt,
+      content: _encryptionService.encrypt(item.content),
+    ),
+    PasswordItem() => PasswordItem(
+      id: item.id,
+      title: item.title,
+      folderId: item.folderId,
+      isFavorite: item.isFavorite,
+      createdAt: item.createdAt,
+      username: item.username,
+      password: _encryptionService.encrypt(item.password),
+      url: item.url,
+    ),
+    ApiKeyItem() => ApiKeyItem(
+      id: item.id,
+      title: item.title,
+      folderId: item.folderId,
+      isFavorite: item.isFavorite,
+      createdAt: item.createdAt,
+      service: item.service,
+      apiKey: _encryptionService.encrypt(item.apiKey),
+    ),
+    CardItem() => CardItem(
+      id: item.id,
+      title: item.title,
+      folderId: item.folderId,
+      isFavorite: item.isFavorite,
+      createdAt: item.createdAt,
+      cardholderName: item.cardholderName,
+      cardNumber: _encryptionService.encrypt(item.cardNumber),
+      expiry: item.expiry,
+      cvv: item.cvv == null ? null : _encryptionService.encrypt(item.cvv!),
+    ),
+    DocumentItem() => item,
+  };
+
+  /// Returns [item] with its secret field(s) run through
+  /// [EncryptionService.decrypt] — the inverse of [_encrypted], used before
+  /// returning a stored item to a caller.
+  VaultItem _decrypted(VaultItem item) => switch (item) {
+    SecureNoteItem() => SecureNoteItem(
+      id: item.id,
+      title: item.title,
+      folderId: item.folderId,
+      isFavorite: item.isFavorite,
+      createdAt: item.createdAt,
+      content: _encryptionService.decrypt(item.content),
+    ),
+    PasswordItem() => PasswordItem(
+      id: item.id,
+      title: item.title,
+      folderId: item.folderId,
+      isFavorite: item.isFavorite,
+      createdAt: item.createdAt,
+      username: item.username,
+      password: _encryptionService.decrypt(item.password),
+      url: item.url,
+    ),
+    ApiKeyItem() => ApiKeyItem(
+      id: item.id,
+      title: item.title,
+      folderId: item.folderId,
+      isFavorite: item.isFavorite,
+      createdAt: item.createdAt,
+      service: item.service,
+      apiKey: _encryptionService.decrypt(item.apiKey),
+    ),
+    CardItem() => CardItem(
+      id: item.id,
+      title: item.title,
+      folderId: item.folderId,
+      isFavorite: item.isFavorite,
+      createdAt: item.createdAt,
+      cardholderName: item.cardholderName,
+      cardNumber: _encryptionService.decrypt(item.cardNumber),
+      expiry: item.expiry,
+      cvv: item.cvv == null ? null : _encryptionService.decrypt(item.cvv!),
+    ),
+    DocumentItem() => item,
+  };
 
   VaultItem _withFavorite(VaultItem item, {required bool isFavorite}) =>
       switch (item) {

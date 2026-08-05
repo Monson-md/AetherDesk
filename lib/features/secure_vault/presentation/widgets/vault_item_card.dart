@@ -4,6 +4,7 @@ import 'package:aetherdesk/core/constants/app_dimensions.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
 import 'package:aetherdesk/features/secure_vault/domain/entities/vault_folder.dart';
 import 'package:aetherdesk/features/secure_vault/domain/entities/vault_item.dart';
+import 'package:aetherdesk/features/secure_vault/domain/entities/vault_item_type.dart';
 import 'package:aetherdesk/features/secure_vault/presentation/widgets/vault_folder_widgets.dart';
 import 'package:aetherdesk/features/secure_vault/presentation/widgets/vault_item_type_widgets.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,10 @@ import 'package:flutter/services.dart';
 
 /// Dashboard tile for one [VaultItem]: type icon, title, folder, favorite
 /// toggle, edit/delete actions, and a type-specific masked preview with
-/// reveal/copy for sensitive fields. Nothing here is actually encrypted —
-/// masking is a UI affordance only, see `vault_item.dart`'s doc comment.
+/// reveal/copy for sensitive fields. Masking here is a UI affordance on
+/// top of the values the repository already decrypted for display — see
+/// `vault_item.dart`'s doc comment for where the actual (simulated)
+/// encryption happens.
 class VaultItemCard extends StatefulWidget {
   const VaultItemCard({
     required this.item,
@@ -71,6 +74,15 @@ class _VaultItemCardState extends State<VaultItemCard> {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                if (item.type != VaultItemType.document)
+                  Tooltip(
+                    message: l10n.secureVaultEncryptedAtRestTooltip,
+                    child: Icon(
+                      Icons.enhanced_encryption_outlined,
+                      size: 18,
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
                 IconButton(
                   icon: Icon(
                     item.isFavorite ? Icons.star : Icons.star_border,

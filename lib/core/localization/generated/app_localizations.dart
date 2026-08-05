@@ -1082,6 +1082,12 @@ abstract class AppLocalizations {
   /// **'Copié dans le presse-papiers.'**
   String get secureVaultCopiedMessage;
 
+  /// No description provided for @secureVaultEncryptedAtRestTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Chiffré au repos (simulation)'**
+  String get secureVaultEncryptedAtRestTooltip;
+
   /// No description provided for @secureVaultItemsCount.
   ///
   /// In fr, this message translates to:

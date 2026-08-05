@@ -190,6 +190,7 @@
   "secureVaultHideTooltip": "Hide",
   "secureVaultCopyTooltip": "Copy",
   "secureVaultCopiedMessage": "Copied to clipboard.",
+  "secureVaultEncryptedAtRestTooltip": "Encrypted at rest (simulated)",
   "secureVaultItemsCount": "{count} items",
   "@secureVaultItemsCount": {
     "placeholders": {

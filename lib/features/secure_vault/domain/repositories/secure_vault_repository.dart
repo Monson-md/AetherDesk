@@ -2,8 +2,10 @@ import 'package:aetherdesk/features/secure_vault/domain/entities/vault_folder.da
 import 'package:aetherdesk/features/secure_vault/domain/entities/vault_item.dart';
 
 /// Contract for the `secure_vault` module's local, in-memory store. No
-/// encryption, no disk I/O, no biometric gate — see `vault_item.dart`'s doc
-/// comment. [updateItem]/[setItemFavorite] take/return the concrete
+/// disk I/O, no biometric gate — see `vault_item.dart`'s doc comment for
+/// how secret fields are encrypted at rest internally while every method
+/// here still returns plain-text values. [updateItem]/[setItemFavorite]
+/// take/return the concrete
 /// [VaultItem] subtype directly since each already carries every one of
 /// its fields, unlike `project_management`'s nested tasks/checklists.
 abstract interface class SecureVaultRepository {

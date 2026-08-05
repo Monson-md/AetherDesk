@@ -1,3 +1,4 @@
+import 'package:aetherdesk/core/services/encryption/encryption_service_provider.dart';
 import 'package:aetherdesk/features/secure_vault/data/repositories/secure_vault_repository_impl.dart';
 import 'package:aetherdesk/features/secure_vault/domain/repositories/secure_vault_repository.dart';
 import 'package:aetherdesk/features/secure_vault/domain/usecases/create_api_key_usecase.dart';
@@ -13,7 +14,7 @@ import 'package:aetherdesk/features/secure_vault/domain/usecases/update_item_use
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final secureVaultRepositoryProvider = Provider<SecureVaultRepository>((ref) {
-  return SecureVaultRepositoryImpl();
+  return SecureVaultRepositoryImpl(ref.watch(encryptionServiceProvider));
 });
 
 final createFolderUseCaseProvider = Provider<CreateFolderUseCase>((ref) {

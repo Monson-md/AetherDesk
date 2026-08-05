@@ -525,6 +525,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get secureVaultCopiedMessage => 'Copié dans le presse-papiers.';
 
   @override
+  String get secureVaultEncryptedAtRestTooltip =>
+      'Chiffré au repos (simulation)';
+
+  @override
   String secureVaultItemsCount(int count) {
     return '$count éléments';
   }
