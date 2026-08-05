@@ -26,11 +26,11 @@ plugins {
     // Plugin itself (e.g. flutter_plugin_android_lifecycle), which AGP 9's
     // built-in Kotlin then rejects as redundant — a hard build failure
     // regardless of the android.builtInKotlin gradle.properties flag.
-    // AGP 8.7.x + Kotlin 2.1.x is the well-established, broadly compatible
-    // combination the current generation of Flutter plugins is built
-    // against.
-    id("com.android.application") version "8.7.3" apply false
-    id("org.jetbrains.kotlin.android") version "2.1.0" apply false
+    // 8.11.1/2.2.20 (with Gradle 8.14.2 in gradle-wrapper.properties) are
+    // the minimums `flutter build` itself reports as required by current
+    // androidx dependencies and by Flutter's own deprecation warnings.
+    id("com.android.application") version "8.11.1" apply false
+    id("org.jetbrains.kotlin.android") version "2.2.20" apply false
 }
 
 include(":app")
