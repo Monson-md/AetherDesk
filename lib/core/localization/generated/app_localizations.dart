@@ -206,6 +206,12 @@ abstract class AppLocalizations {
   /// **'Supprimer'**
   String get commonDelete;
 
+  /// No description provided for @commonRename.
+  ///
+  /// In fr, this message translates to:
+  /// **'Renommer'**
+  String get commonRename;
+
   /// No description provided for @errorGenericTitle.
   ///
   /// In fr, this message translates to:
@@ -1285,6 +1291,240 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Les analyses effectuées apparaîtront ici.'**
   String get cyberWorkspaceEmptyHistoryMessage;
+
+  /// No description provided for @creation2dToolSelect.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sélection'**
+  String get creation2dToolSelect;
+
+  /// No description provided for @creation2dToolBrush.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pinceau'**
+  String get creation2dToolBrush;
+
+  /// No description provided for @creation2dToolEraser.
+  ///
+  /// In fr, this message translates to:
+  /// **'Gomme'**
+  String get creation2dToolEraser;
+
+  /// No description provided for @creation2dToolLine.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ligne'**
+  String get creation2dToolLine;
+
+  /// No description provided for @creation2dToolRectangle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rectangle'**
+  String get creation2dToolRectangle;
+
+  /// No description provided for @creation2dToolEllipse.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ellipse'**
+  String get creation2dToolEllipse;
+
+  /// No description provided for @creation2dToolText.
+  ///
+  /// In fr, this message translates to:
+  /// **'Texte'**
+  String get creation2dToolText;
+
+  /// No description provided for @creation2dUndo.
+  ///
+  /// In fr, this message translates to:
+  /// **'Annuler'**
+  String get creation2dUndo;
+
+  /// No description provided for @creation2dClearLayer.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vider le calque'**
+  String get creation2dClearLayer;
+
+  /// No description provided for @creation2dExport.
+  ///
+  /// In fr, this message translates to:
+  /// **'Exporter'**
+  String get creation2dExport;
+
+  /// No description provided for @creation2dLayersTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Calques'**
+  String get creation2dLayersTitle;
+
+  /// No description provided for @creation2dAddLayer.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter un calque'**
+  String get creation2dAddLayer;
+
+  /// No description provided for @creation2dRenameLayerTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Renommer le calque'**
+  String get creation2dRenameLayerTitle;
+
+  /// No description provided for @creation2dAddTextTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter du texte'**
+  String get creation2dAddTextTitle;
+
+  /// No description provided for @creation2dNewLayerName.
+  ///
+  /// In fr, this message translates to:
+  /// **'Calque {number}'**
+  String creation2dNewLayerName(int number);
+
+  /// No description provided for @creation3dTypeCube.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cube'**
+  String get creation3dTypeCube;
+
+  /// No description provided for @creation3dTypeSphere.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sphère'**
+  String get creation3dTypeSphere;
+
+  /// No description provided for @creation3dTypeCylinder.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cylindre'**
+  String get creation3dTypeCylinder;
+
+  /// No description provided for @creation3dTypeCone.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cône'**
+  String get creation3dTypeCone;
+
+  /// No description provided for @creation3dTypePlane.
+  ///
+  /// In fr, this message translates to:
+  /// **'Plan'**
+  String get creation3dTypePlane;
+
+  /// No description provided for @creation3dTypeLight.
+  ///
+  /// In fr, this message translates to:
+  /// **'Lumière'**
+  String get creation3dTypeLight;
+
+  /// No description provided for @creation3dTypeCamera.
+  ///
+  /// In fr, this message translates to:
+  /// **'Caméra'**
+  String get creation3dTypeCamera;
+
+  /// No description provided for @creation3dMaterialMatte.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mat'**
+  String get creation3dMaterialMatte;
+
+  /// No description provided for @creation3dMaterialMetallic.
+  ///
+  /// In fr, this message translates to:
+  /// **'Métallique'**
+  String get creation3dMaterialMetallic;
+
+  /// No description provided for @creation3dMaterialGlass.
+  ///
+  /// In fr, this message translates to:
+  /// **'Verre'**
+  String get creation3dMaterialGlass;
+
+  /// No description provided for @creation3dMaterialEmissive.
+  ///
+  /// In fr, this message translates to:
+  /// **'Émissif'**
+  String get creation3dMaterialEmissive;
+
+  /// No description provided for @creation3dAssetsTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Objets disponibles'**
+  String get creation3dAssetsTitle;
+
+  /// No description provided for @creation3dDuplicateObject.
+  ///
+  /// In fr, this message translates to:
+  /// **'Dupliquer'**
+  String get creation3dDuplicateObject;
+
+  /// No description provided for @creation3dObjectNameLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom'**
+  String get creation3dObjectNameLabel;
+
+  /// No description provided for @creation3dPositionLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Position'**
+  String get creation3dPositionLabel;
+
+  /// No description provided for @creation3dRotationLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rotation'**
+  String get creation3dRotationLabel;
+
+  /// No description provided for @creation3dScaleLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Échelle'**
+  String get creation3dScaleLabel;
+
+  /// No description provided for @creation3dMaterialLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Matériau (simulé)'**
+  String get creation3dMaterialLabel;
+
+  /// No description provided for @creation3dLightIntensityLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Intensité de la lumière'**
+  String get creation3dLightIntensityLabel;
+
+  /// No description provided for @creation3dCameraFovLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Champ de vision de la caméra'**
+  String get creation3dCameraFovLabel;
+
+  /// No description provided for @creation3dSimulatedPreviewLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aperçu simulé — aucun moteur 3D réel'**
+  String get creation3dSimulatedPreviewLabel;
+
+  /// No description provided for @creation3dRenderPreview.
+  ///
+  /// In fr, this message translates to:
+  /// **'Générer l\'aperçu'**
+  String get creation3dRenderPreview;
+
+  /// No description provided for @creation3dNoSelectionTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun objet sélectionné'**
+  String get creation3dNoSelectionTitle;
+
+  /// No description provided for @creation3dNoSelectionMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sélectionnez un objet dans la scène pour modifier ses propriétés.'**
+  String get creation3dNoSelectionMessage;
 
   /// No description provided for @settingsProfileTitle.
   ///

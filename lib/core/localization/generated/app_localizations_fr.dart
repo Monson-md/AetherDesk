@@ -63,6 +63,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get commonDelete => 'Supprimer';
 
   @override
+  String get commonRename => 'Renommer';
+
+  @override
   String get errorGenericTitle => 'Une erreur est survenue';
 
   @override
@@ -634,6 +637,127 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get cyberWorkspaceEmptyHistoryMessage =>
       'Les analyses effectuées apparaîtront ici.';
+
+  @override
+  String get creation2dToolSelect => 'Sélection';
+
+  @override
+  String get creation2dToolBrush => 'Pinceau';
+
+  @override
+  String get creation2dToolEraser => 'Gomme';
+
+  @override
+  String get creation2dToolLine => 'Ligne';
+
+  @override
+  String get creation2dToolRectangle => 'Rectangle';
+
+  @override
+  String get creation2dToolEllipse => 'Ellipse';
+
+  @override
+  String get creation2dToolText => 'Texte';
+
+  @override
+  String get creation2dUndo => 'Annuler';
+
+  @override
+  String get creation2dClearLayer => 'Vider le calque';
+
+  @override
+  String get creation2dExport => 'Exporter';
+
+  @override
+  String get creation2dLayersTitle => 'Calques';
+
+  @override
+  String get creation2dAddLayer => 'Ajouter un calque';
+
+  @override
+  String get creation2dRenameLayerTitle => 'Renommer le calque';
+
+  @override
+  String get creation2dAddTextTitle => 'Ajouter du texte';
+
+  @override
+  String creation2dNewLayerName(int number) {
+    return 'Calque $number';
+  }
+
+  @override
+  String get creation3dTypeCube => 'Cube';
+
+  @override
+  String get creation3dTypeSphere => 'Sphère';
+
+  @override
+  String get creation3dTypeCylinder => 'Cylindre';
+
+  @override
+  String get creation3dTypeCone => 'Cône';
+
+  @override
+  String get creation3dTypePlane => 'Plan';
+
+  @override
+  String get creation3dTypeLight => 'Lumière';
+
+  @override
+  String get creation3dTypeCamera => 'Caméra';
+
+  @override
+  String get creation3dMaterialMatte => 'Mat';
+
+  @override
+  String get creation3dMaterialMetallic => 'Métallique';
+
+  @override
+  String get creation3dMaterialGlass => 'Verre';
+
+  @override
+  String get creation3dMaterialEmissive => 'Émissif';
+
+  @override
+  String get creation3dAssetsTitle => 'Objets disponibles';
+
+  @override
+  String get creation3dDuplicateObject => 'Dupliquer';
+
+  @override
+  String get creation3dObjectNameLabel => 'Nom';
+
+  @override
+  String get creation3dPositionLabel => 'Position';
+
+  @override
+  String get creation3dRotationLabel => 'Rotation';
+
+  @override
+  String get creation3dScaleLabel => 'Échelle';
+
+  @override
+  String get creation3dMaterialLabel => 'Matériau (simulé)';
+
+  @override
+  String get creation3dLightIntensityLabel => 'Intensité de la lumière';
+
+  @override
+  String get creation3dCameraFovLabel => 'Champ de vision de la caméra';
+
+  @override
+  String get creation3dSimulatedPreviewLabel =>
+      'Aperçu simulé — aucun moteur 3D réel';
+
+  @override
+  String get creation3dRenderPreview => 'Générer l\'aperçu';
+
+  @override
+  String get creation3dNoSelectionTitle => 'Aucun objet sélectionné';
+
+  @override
+  String get creation3dNoSelectionMessage =>
+      'Sélectionnez un objet dans la scène pour modifier ses propriétés.';
 
   @override
   String get settingsProfileTitle => 'Profil';

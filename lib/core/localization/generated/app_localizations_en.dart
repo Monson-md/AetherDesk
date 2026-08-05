@@ -63,6 +63,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonDelete => 'Delete';
 
   @override
+  String get commonRename => 'Rename';
+
+  @override
   String get errorGenericTitle => 'Something went wrong';
 
   @override
@@ -629,6 +632,127 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get cyberWorkspaceEmptyHistoryMessage =>
       'Scans you run will show up here.';
+
+  @override
+  String get creation2dToolSelect => 'Select';
+
+  @override
+  String get creation2dToolBrush => 'Brush';
+
+  @override
+  String get creation2dToolEraser => 'Eraser';
+
+  @override
+  String get creation2dToolLine => 'Line';
+
+  @override
+  String get creation2dToolRectangle => 'Rectangle';
+
+  @override
+  String get creation2dToolEllipse => 'Ellipse';
+
+  @override
+  String get creation2dToolText => 'Text';
+
+  @override
+  String get creation2dUndo => 'Undo';
+
+  @override
+  String get creation2dClearLayer => 'Clear layer';
+
+  @override
+  String get creation2dExport => 'Export';
+
+  @override
+  String get creation2dLayersTitle => 'Layers';
+
+  @override
+  String get creation2dAddLayer => 'Add layer';
+
+  @override
+  String get creation2dRenameLayerTitle => 'Rename layer';
+
+  @override
+  String get creation2dAddTextTitle => 'Add text';
+
+  @override
+  String creation2dNewLayerName(int number) {
+    return 'Layer $number';
+  }
+
+  @override
+  String get creation3dTypeCube => 'Cube';
+
+  @override
+  String get creation3dTypeSphere => 'Sphere';
+
+  @override
+  String get creation3dTypeCylinder => 'Cylinder';
+
+  @override
+  String get creation3dTypeCone => 'Cone';
+
+  @override
+  String get creation3dTypePlane => 'Plane';
+
+  @override
+  String get creation3dTypeLight => 'Light';
+
+  @override
+  String get creation3dTypeCamera => 'Camera';
+
+  @override
+  String get creation3dMaterialMatte => 'Matte';
+
+  @override
+  String get creation3dMaterialMetallic => 'Metallic';
+
+  @override
+  String get creation3dMaterialGlass => 'Glass';
+
+  @override
+  String get creation3dMaterialEmissive => 'Emissive';
+
+  @override
+  String get creation3dAssetsTitle => 'Available objects';
+
+  @override
+  String get creation3dDuplicateObject => 'Duplicate';
+
+  @override
+  String get creation3dObjectNameLabel => 'Name';
+
+  @override
+  String get creation3dPositionLabel => 'Position';
+
+  @override
+  String get creation3dRotationLabel => 'Rotation';
+
+  @override
+  String get creation3dScaleLabel => 'Scale';
+
+  @override
+  String get creation3dMaterialLabel => 'Material (simulated)';
+
+  @override
+  String get creation3dLightIntensityLabel => 'Light intensity';
+
+  @override
+  String get creation3dCameraFovLabel => 'Camera field of view';
+
+  @override
+  String get creation3dSimulatedPreviewLabel =>
+      'Simulated preview — no real 3D engine';
+
+  @override
+  String get creation3dRenderPreview => 'Render preview';
+
+  @override
+  String get creation3dNoSelectionTitle => 'No object selected';
+
+  @override
+  String get creation3dNoSelectionMessage =>
+      'Select an object in the scene to edit its properties.';
 
   @override
   String get settingsProfileTitle => 'Profile';
