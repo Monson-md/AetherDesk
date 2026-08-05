@@ -14,8 +14,8 @@ import 'package:flutter/services.dart';
 /// toggle, edit/delete actions, and a type-specific masked preview with
 /// reveal/copy for sensitive fields. Masking here is a UI affordance on
 /// top of the values the repository already decrypted for display — see
-/// `vault_item.dart`'s doc comment for where the actual (simulated)
-/// encryption happens.
+/// `vault_item.dart`'s doc comment for where the actual (real,
+/// AES-256-GCM) encryption happens.
 class VaultItemCard extends StatefulWidget {
   const VaultItemCard({
     required this.item,

@@ -4,5 +4,5 @@ class DeleteFolderUseCase {
   const DeleteFolderUseCase(this._repository);
   final SecureVaultRepository _repository;
 
-  void call(String folderId) => _repository.deleteFolder(folderId);
+  Future<void> call(String folderId) => _repository.deleteFolder(folderId);
 }

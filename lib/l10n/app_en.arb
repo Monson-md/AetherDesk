@@ -191,7 +191,10 @@
   "secureVaultHideTooltip": "Hide",
   "secureVaultCopyTooltip": "Copy",
   "secureVaultCopiedMessage": "Copied to clipboard.",
-  "secureVaultEncryptedAtRestTooltip": "Encrypted at rest (simulated)",
+  "secureVaultEncryptedAtRestTooltip": "Encrypted at rest (AES-256)",
+  "secureVaultBiometricPromptReason": "Authenticate to open the vault",
+  "secureVaultLockedTitle": "Vault locked",
+  "secureVaultUnlockButton": "Unlock",
   "secureVaultItemsCount": "{count} items",
   "@secureVaultItemsCount": {
     "placeholders": {

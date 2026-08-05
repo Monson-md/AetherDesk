@@ -5,7 +5,7 @@ class CreateApiKeyUseCase {
   const CreateApiKeyUseCase(this._repository);
   final SecureVaultRepository _repository;
 
-  ApiKeyItem call({
+  Future<ApiKeyItem> call({
     required String title,
     required String service,
     required String apiKey,

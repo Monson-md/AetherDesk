@@ -5,5 +5,5 @@ class UpdateItemUseCase {
   const UpdateItemUseCase(this._repository);
   final SecureVaultRepository _repository;
 
-  VaultItem call(VaultItem item) => _repository.updateItem(item);
+  Future<VaultItem> call(VaultItem item) => _repository.updateItem(item);
 }

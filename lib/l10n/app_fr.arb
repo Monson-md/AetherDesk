@@ -194,7 +194,10 @@
   "secureVaultHideTooltip": "Masquer",
   "secureVaultCopyTooltip": "Copier",
   "secureVaultCopiedMessage": "Copié dans le presse-papiers.",
-  "secureVaultEncryptedAtRestTooltip": "Chiffré au repos (simulation)",
+  "secureVaultEncryptedAtRestTooltip": "Chiffré au repos (AES-256)",
+  "secureVaultBiometricPromptReason": "Authentifiez-vous pour ouvrir le coffre",
+  "secureVaultLockedTitle": "Coffre verrouillé",
+  "secureVaultUnlockButton": "Déverrouiller",
   "secureVaultItemsCount": "{count} éléments",
   "@secureVaultItemsCount": {
     "placeholders": {

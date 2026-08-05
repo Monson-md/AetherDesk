@@ -1091,8 +1091,26 @@ abstract class AppLocalizations {
   /// No description provided for @secureVaultEncryptedAtRestTooltip.
   ///
   /// In fr, this message translates to:
-  /// **'Chiffré au repos (simulation)'**
+  /// **'Chiffré au repos (AES-256)'**
   String get secureVaultEncryptedAtRestTooltip;
+
+  /// No description provided for @secureVaultBiometricPromptReason.
+  ///
+  /// In fr, this message translates to:
+  /// **'Authentifiez-vous pour ouvrir le coffre'**
+  String get secureVaultBiometricPromptReason;
+
+  /// No description provided for @secureVaultLockedTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Coffre verrouillé'**
+  String get secureVaultLockedTitle;
+
+  /// No description provided for @secureVaultUnlockButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Déverrouiller'**
+  String get secureVaultUnlockButton;
 
   /// No description provided for @secureVaultItemsCount.
   ///

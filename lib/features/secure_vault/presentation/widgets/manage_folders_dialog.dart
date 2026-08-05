@@ -16,7 +16,8 @@ class ManageFoldersDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final controller = ref.read(secureVaultControllerProvider.notifier);
-    final folders = ref.watch(secureVaultControllerProvider).folders;
+    final folders =
+        ref.watch(secureVaultControllerProvider).value?.folders ?? const [];
 
     return AlertDialog(
       title: Text(l10n.secureVaultFolderLabel),

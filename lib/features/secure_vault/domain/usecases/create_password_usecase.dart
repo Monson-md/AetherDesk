@@ -5,7 +5,7 @@ class CreatePasswordUseCase {
   const CreatePasswordUseCase(this._repository);
   final SecureVaultRepository _repository;
 
-  PasswordItem call({
+  Future<PasswordItem> call({
     required String title,
     required String username,
     required String password,

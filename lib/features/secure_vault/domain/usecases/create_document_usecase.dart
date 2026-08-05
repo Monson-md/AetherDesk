@@ -5,7 +5,7 @@ class CreateDocumentUseCase {
   const CreateDocumentUseCase(this._repository);
   final SecureVaultRepository _repository;
 
-  DocumentItem call({
+  Future<DocumentItem> call({
     required String title,
     required String fileName,
     String? notes,

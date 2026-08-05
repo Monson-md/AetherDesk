@@ -1,7 +1,9 @@
 import 'package:aetherdesk/core/constants/app_dimensions.dart';
+import 'package:aetherdesk/core/error/error_handler.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
 import 'package:aetherdesk/core/router/nav_destinations.dart';
 import 'package:aetherdesk/core/router/route_paths.dart';
+import 'package:aetherdesk/core/services/biometric/biometric_auth_service_provider.dart';
 import 'package:aetherdesk/core/widgets/core_widgets.dart';
 import 'package:aetherdesk/features/secure_vault/domain/entities/vault_folder.dart';
 import 'package:aetherdesk/features/secure_vault/domain/entities/vault_item.dart';
@@ -23,22 +25,120 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Home screen of the `secure_vault` module: search/sort/filter toolbar
 /// over a list of [VaultItemCard]s, with entry points to add an item (of
-/// any of the five types) or manage folders. No biometric gate — see
-/// `core/services/biometric/`'s doc comment on why it stays unwired.
-class SecureVaultHomePage extends ConsumerWidget {
+/// any of the five types) or manage folders. Gated behind a real biometric
+/// prompt (`BiometricAuthService`) whenever the device reports hardware
+/// support; otherwise the vault opens directly, same as before.
+class SecureVaultHomePage extends ConsumerStatefulWidget {
   const SecureVaultHomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SecureVaultHomePage> createState() =>
+      _SecureVaultHomePageState();
+}
+
+class _SecureVaultHomePageState extends ConsumerState<SecureVaultHomePage> {
+  bool _isChecking = true;
+  bool _isUnlocked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _tryUnlock());
+  }
+
+  Future<void> _tryUnlock() async {
+    setState(() => _isChecking = true);
+    final biometricService = ref.read(biometricAuthServiceProvider);
+    final available = await biometricService.isAvailable();
+    if (!available) {
+      if (!mounted) return;
+      setState(() {
+        _isUnlocked = true;
+        _isChecking = false;
+      });
+      return;
+    }
+    if (!mounted) return;
+    final l10n = AppLocalizations.of(context)!;
+    final success = await biometricService.authenticate(
+      reason: l10n.secureVaultBiometricPromptReason,
+    );
+    if (!mounted) return;
+    setState(() {
+      _isUnlocked = success;
+      _isChecking = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final destination = destinationFor(l10n, RoutePaths.secureVault);
-    final state = ref.watch(secureVaultControllerProvider);
+
+    if (_isChecking) {
+      return Scaffold(
+        appBar: AppBar(title: Text(destination.label)),
+        body: const AppLoadingIndicator(),
+      );
+    }
+
+    if (!_isUnlocked) {
+      return Scaffold(
+        appBar: AppBar(title: Text(destination.label)),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppDimensions.spacingXl),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.lock_outline,
+                  size: 48,
+                  color: Theme.of(context).colorScheme.outline,
+                ),
+                const SizedBox(height: AppDimensions.spacingMd),
+                Text(l10n.secureVaultLockedTitle),
+                const SizedBox(height: AppDimensions.spacingLg),
+                PrimaryButton(
+                  label: l10n.secureVaultUnlockButton,
+                  onPressed: _tryUnlock,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    final asyncState = ref.watch(secureVaultControllerProvider);
+    return asyncState.when(
+      data: (state) => _buildContent(context, destination.label, state),
+      loading: () => Scaffold(
+        appBar: AppBar(title: Text(destination.label)),
+        body: const AppLoadingIndicator(),
+      ),
+      error: (error, stackTrace) => Scaffold(
+        appBar: AppBar(title: Text(destination.label)),
+        body: ErrorView(
+          failure: mapExceptionToFailure(error),
+          onRetry: () => ref.invalidate(secureVaultControllerProvider),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContent(
+    BuildContext context,
+    String title,
+    SecureVaultState state,
+  ) {
+    final l10n = AppLocalizations.of(context)!;
     final controller = ref.read(secureVaultControllerProvider.notifier);
     final filteredItems = ref.watch(filteredVaultItemsProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(destination.label),
+        title: Text(title),
         actions: [
           IconButton(
             icon: const Icon(Icons.folder_outlined),
@@ -51,7 +151,7 @@ class SecureVaultHomePage extends ConsumerWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _showAddItemMenu(context, ref),
+        onPressed: () => _showAddItemMenu(context),
         icon: const Icon(Icons.add),
         label: Text(l10n.secureVaultNewItem),
       ),
@@ -103,8 +203,8 @@ class SecureVaultHomePage extends ConsumerWidget {
                     : _VaultItemGrid(
                         items: filteredItems,
                         folders: state.folders,
-                        onEdit: (item) => _editItem(context, ref, item),
-                        onDelete: (item) => _deleteItem(context, ref, item),
+                        onEdit: (item) => _editItem(context, item),
+                        onDelete: (item) => _deleteItem(context, item),
                         onFavoriteToggle: (item) => controller.setItemFavorite(
                           item.id,
                           isFavorite: !item.isFavorite,
@@ -118,7 +218,7 @@ class SecureVaultHomePage extends ConsumerWidget {
     );
   }
 
-  Future<void> _showAddItemMenu(BuildContext context, WidgetRef ref) async {
+  Future<void> _showAddItemMenu(BuildContext context) async {
     final l10n = AppLocalizations.of(context)!;
     final type = await showModalBottomSheet<VaultItemType>(
       context: context,
@@ -138,27 +238,19 @@ class SecureVaultHomePage extends ConsumerWidget {
       ),
     );
     if (type == null || !context.mounted) return;
-    await _addItem(context, ref, type);
+    await _addItem(context, type);
   }
 
-  Future<VaultFolder?> _persistNewFolder(
-    WidgetRef ref,
-    String name,
-    int colorValue,
-  ) async {
+  Future<VaultFolder?> _persistNewFolder(String name, int colorValue) async {
     final controller = ref.read(secureVaultControllerProvider.notifier);
-    controller.createFolder(name: name, colorValue: colorValue);
-    final folders = ref.read(secureVaultControllerProvider).folders;
+    await controller.createFolder(name: name, colorValue: colorValue);
+    final folders = controller.currentState.folders;
     return folders.isEmpty ? null : folders.last;
   }
 
-  Future<void> _addItem(
-    BuildContext context,
-    WidgetRef ref,
-    VaultItemType type,
-  ) async {
+  Future<void> _addItem(BuildContext context, VaultItemType type) async {
     final controller = ref.read(secureVaultControllerProvider.notifier);
-    final folders = ref.read(secureVaultControllerProvider).folders;
+    final folders = controller.currentState.folders;
 
     switch (type) {
       case VaultItemType.secureNote:
@@ -166,63 +258,56 @@ class SecureVaultHomePage extends ConsumerWidget {
           context: context,
           builder: (context) => SecureNoteFormDialog(
             folders: folders,
-            onCreateFolder: (name, color) =>
-                _persistNewFolder(ref, name, color),
+            onCreateFolder: _persistNewFolder,
           ),
         );
         if (result == null) return;
-        controller.createSecureNote(
+        await controller.createSecureNote(
           title: result.title,
           content: result.content,
           folderId: result.folderId,
         );
-        break;
       case VaultItemType.password:
         final result = await showDialog<PasswordFormResult>(
           context: context,
           builder: (context) => PasswordFormDialog(
             folders: folders,
-            onCreateFolder: (name, color) =>
-                _persistNewFolder(ref, name, color),
+            onCreateFolder: _persistNewFolder,
           ),
         );
         if (result == null) return;
-        controller.createPassword(
+        await controller.createPassword(
           title: result.title,
           username: result.username,
           password: result.password,
           url: result.url,
           folderId: result.folderId,
         );
-        break;
       case VaultItemType.apiKey:
         final result = await showDialog<ApiKeyFormResult>(
           context: context,
           builder: (context) => ApiKeyFormDialog(
             folders: folders,
-            onCreateFolder: (name, color) =>
-                _persistNewFolder(ref, name, color),
+            onCreateFolder: _persistNewFolder,
           ),
         );
         if (result == null) return;
-        controller.createApiKey(
+        await controller.createApiKey(
           title: result.title,
           service: result.service,
           apiKey: result.apiKey,
           folderId: result.folderId,
         );
-        break;
       case VaultItemType.card:
         final result = await showDialog<CardFormResult>(
           context: context,
           builder: (context) => CardFormDialog(
             folders: folders,
-            onCreateFolder: (name, color) =>
-                _persistNewFolder(ref, name, color),
+            onCreateFolder: _persistNewFolder,
           ),
         );
         if (result == null) return;
-        controller.createCard(
+        await controller.createCard(
           title: result.title,
           cardholderName: result.cardholderName,
           cardNumber: result.cardNumber,
@@ -230,18 +315,16 @@ class SecureVaultHomePage extends ConsumerWidget {
           cvv: result.cvv,
           folderId: result.folderId,
         );
-        break;
       case VaultItemType.document:
         final result = await showDialog<DocumentFormResult>(
           context: context,
           builder: (context) => DocumentFormDialog(
             folders: folders,
-            onCreateFolder: (name, color) =>
-                _persistNewFolder(ref, name, color),
+            onCreateFolder: _persistNewFolder,
           ),
         );
         if (result == null) return;
-        controller.createDocument(
+        await controller.createDocument(
           title: result.title,
           fileName: result.fileName,
           notes: result.notes,
@@ -250,13 +333,9 @@ class SecureVaultHomePage extends ConsumerWidget {
     }
   }
 
-  Future<void> _editItem(
-    BuildContext context,
-    WidgetRef ref,
-    VaultItem item,
-  ) async {
+  Future<void> _editItem(BuildContext context, VaultItem item) async {
     final controller = ref.read(secureVaultControllerProvider.notifier);
-    final folders = ref.read(secureVaultControllerProvider).folders;
+    final folders = controller.currentState.folders;
 
     switch (item) {
       case SecureNoteItem():
@@ -265,12 +344,11 @@ class SecureVaultHomePage extends ConsumerWidget {
           builder: (context) => SecureNoteFormDialog(
             item: item,
             folders: folders,
-            onCreateFolder: (name, color) =>
-                _persistNewFolder(ref, name, color),
+            onCreateFolder: _persistNewFolder,
           ),
         );
         if (result == null) return;
-        controller.updateItem(
+        await controller.updateItem(
           SecureNoteItem(
             id: item.id,
             title: result.title,
@@ -280,19 +358,17 @@ class SecureVaultHomePage extends ConsumerWidget {
             content: result.content,
           ),
         );
-        break;
       case PasswordItem():
         final result = await showDialog<PasswordFormResult>(
           context: context,
           builder: (context) => PasswordFormDialog(
             item: item,
             folders: folders,
-            onCreateFolder: (name, color) =>
-                _persistNewFolder(ref, name, color),
+            onCreateFolder: _persistNewFolder,
           ),
         );
         if (result == null) return;
-        controller.updateItem(
+        await controller.updateItem(
           PasswordItem(
             id: item.id,
             title: result.title,
@@ -304,19 +380,17 @@ class SecureVaultHomePage extends ConsumerWidget {
             url: result.url,
           ),
         );
-        break;
       case ApiKeyItem():
         final result = await showDialog<ApiKeyFormResult>(
           context: context,
           builder: (context) => ApiKeyFormDialog(
             item: item,
             folders: folders,
-            onCreateFolder: (name, color) =>
-                _persistNewFolder(ref, name, color),
+            onCreateFolder: _persistNewFolder,
           ),
         );
         if (result == null) return;
-        controller.updateItem(
+        await controller.updateItem(
           ApiKeyItem(
             id: item.id,
             title: result.title,
@@ -327,19 +401,17 @@ class SecureVaultHomePage extends ConsumerWidget {
             apiKey: result.apiKey,
           ),
         );
-        break;
       case CardItem():
         final result = await showDialog<CardFormResult>(
           context: context,
           builder: (context) => CardFormDialog(
             item: item,
             folders: folders,
-            onCreateFolder: (name, color) =>
-                _persistNewFolder(ref, name, color),
+            onCreateFolder: _persistNewFolder,
           ),
         );
         if (result == null) return;
-        controller.updateItem(
+        await controller.updateItem(
           CardItem(
             id: item.id,
             title: result.title,
@@ -352,19 +424,17 @@ class SecureVaultHomePage extends ConsumerWidget {
             cvv: result.cvv,
           ),
         );
-        break;
       case DocumentItem():
         final result = await showDialog<DocumentFormResult>(
           context: context,
           builder: (context) => DocumentFormDialog(
             item: item,
             folders: folders,
-            onCreateFolder: (name, color) =>
-                _persistNewFolder(ref, name, color),
+            onCreateFolder: _persistNewFolder,
           ),
         );
         if (result == null) return;
-        controller.updateItem(
+        await controller.updateItem(
           DocumentItem(
             id: item.id,
             title: result.title,
@@ -378,11 +448,7 @@ class SecureVaultHomePage extends ConsumerWidget {
     }
   }
 
-  Future<void> _deleteItem(
-    BuildContext context,
-    WidgetRef ref,
-    VaultItem item,
-  ) async {
+  Future<void> _deleteItem(BuildContext context, VaultItem item) async {
     final l10n = AppLocalizations.of(context)!;
     final confirmed = await AppAlertDialog.show(
       context,
@@ -392,7 +458,9 @@ class SecureVaultHomePage extends ConsumerWidget {
       cancelLabel: l10n.commonCancel,
     );
     if (confirmed) {
-      ref.read(secureVaultControllerProvider.notifier).deleteItem(item.id);
+      await ref
+          .read(secureVaultControllerProvider.notifier)
+          .deleteItem(item.id);
     }
   }
 }

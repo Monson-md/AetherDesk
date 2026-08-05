@@ -1,29 +1,33 @@
 import 'package:aetherdesk/features/secure_vault/domain/entities/vault_folder.dart';
 import 'package:aetherdesk/features/secure_vault/domain/entities/vault_item.dart';
 
-/// Contract for the `secure_vault` module's local, in-memory store. No
-/// disk I/O, no biometric gate — see `vault_item.dart`'s doc comment for
-/// how secret fields are encrypted at rest internally while every method
-/// here still returns plain-text values. [updateItem]/[setItemFavorite]
-/// take/return the concrete
+/// Contract for the `secure_vault` module's local store. Real disk
+/// persistence (`SecureVaultRepositoryImpl`, backed by
+/// `flutter_secure_storage`) means every method is async. See
+/// `vault_item.dart`'s doc comment for how secret fields are encrypted at
+/// rest internally while every method here still returns plain-text
+/// values. [updateItem]/[setItemFavorite] take/return the concrete
 /// [VaultItem] subtype directly since each already carries every one of
 /// its fields, unlike `project_management`'s nested tasks/checklists.
 abstract interface class SecureVaultRepository {
-  List<VaultFolder> getFolders();
+  Future<List<VaultFolder>> getFolders();
 
-  List<VaultItem> getItems();
+  Future<List<VaultItem>> getItems();
 
-  VaultFolder createFolder({required String name, required int colorValue});
+  Future<VaultFolder> createFolder({
+    required String name,
+    required int colorValue,
+  });
 
-  void deleteFolder(String folderId);
+  Future<void> deleteFolder(String folderId);
 
-  SecureNoteItem createSecureNote({
+  Future<SecureNoteItem> createSecureNote({
     required String title,
     required String content,
     String? folderId,
   });
 
-  PasswordItem createPassword({
+  Future<PasswordItem> createPassword({
     required String title,
     required String username,
     required String password,
@@ -31,14 +35,14 @@ abstract interface class SecureVaultRepository {
     String? folderId,
   });
 
-  ApiKeyItem createApiKey({
+  Future<ApiKeyItem> createApiKey({
     required String title,
     required String service,
     required String apiKey,
     String? folderId,
   });
 
-  CardItem createCard({
+  Future<CardItem> createCard({
     required String title,
     required String cardholderName,
     required String cardNumber,
@@ -47,16 +51,16 @@ abstract interface class SecureVaultRepository {
     String? folderId,
   });
 
-  DocumentItem createDocument({
+  Future<DocumentItem> createDocument({
     required String title,
     required String fileName,
     String? notes,
     String? folderId,
   });
 
-  VaultItem updateItem(VaultItem item);
+  Future<VaultItem> updateItem(VaultItem item);
 
-  VaultItem setItemFavorite(String itemId, {required bool isFavorite});
+  Future<VaultItem> setItemFavorite(String itemId, {required bool isFavorite});
 
-  void deleteItem(String itemId);
+  Future<void> deleteItem(String itemId);
 }

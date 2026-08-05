@@ -1,13 +1,11 @@
 /// Contract for turning a secret plain-text value into an opaque
 /// ciphertext and back, so a module can hold "encrypted at rest" data
 /// without depending on any specific cryptography implementation. This is
-/// the swap point: today's implementation
-/// (`SimulatedEncryptionService`) is a reversible placeholder, not real
-/// cryptography — a later implementation backed by a real algorithm (e.g.
-/// AES via the `cryptography` package) plus a securely-stored key can
-/// replace it without any change to `domain/`.
+/// the swap point: `RealEncryptionService` implements real AES-256-GCM
+/// (via the `cryptography` package) with its key held in
+/// `flutter_secure_storage` — async because both of those are.
 abstract interface class EncryptionService {
-  String encrypt(String plainText);
+  Future<String> encrypt(String plainText);
 
-  String decrypt(String cipherText);
+  Future<String> decrypt(String cipherText);
 }

@@ -52,54 +52,72 @@ class SecureVaultState {
 /// Screen state for the whole `secure_vault` module: the raw item/folder
 /// collections plus the dashboard's search/sort/filter selections. Derived
 /// results are exposed via [filteredVaultItemsProvider].
-class SecureVaultController extends Notifier<SecureVaultState> {
+///
+/// This is an [AsyncNotifier] (rather than the plain [Notifier] used
+/// elsewhere in the app) because the real, disk-backed
+/// `SecureVaultRepository` loads asynchronously on first access.
+class SecureVaultController extends AsyncNotifier<SecureVaultState> {
   @override
-  SecureVaultState build() {
+  Future<SecureVaultState> build() async {
     final repository = ref.read(secureVaultRepositoryProvider);
-    return SecureVaultState(
-      items: repository.getItems(),
-      folders: repository.getFolders(),
-    );
+    final items = await repository.getItems();
+    final folders = await repository.getFolders();
+    return SecureVaultState(items: items, folders: folders);
   }
 
-  void createFolder({required String name, required int colorValue}) {
-    final folder = ref
+  /// The last successfully loaded state, or an empty one while the initial
+  /// load/a mutation is in flight. Convenience for callers that need a
+  /// synchronous read (e.g. populating a dropdown) rather than watching
+  /// [AsyncValue].
+  SecureVaultState get currentState => state.value ?? const SecureVaultState();
+
+  Future<void> createFolder({
+    required String name,
+    required int colorValue,
+  }) async {
+    final folder = await ref
         .read(createFolderUseCaseProvider)
         .call(name: name, colorValue: colorValue);
-    state = state.copyWith(folders: [...state.folders, folder]);
-  }
-
-  void deleteFolder(String folderId) {
-    ref.read(deleteFolderUseCaseProvider).call(folderId);
-    state = state.copyWith(
-      folders: state.folders.where((folder) => folder.id != folderId).toList(),
-      items: state.items
-          .map(
-            (item) => item.folderId == folderId ? _withoutFolder(item) : item,
-          )
-          .toList(),
+    state = AsyncData(
+      currentState.copyWith(folders: [...currentState.folders, folder]),
     );
   }
 
-  void createSecureNote({
+  Future<void> deleteFolder(String folderId) async {
+    await ref.read(deleteFolderUseCaseProvider).call(folderId);
+    state = AsyncData(
+      currentState.copyWith(
+        folders: currentState.folders
+            .where((folder) => folder.id != folderId)
+            .toList(),
+        items: currentState.items
+            .map(
+              (item) => item.folderId == folderId ? _withoutFolder(item) : item,
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  Future<void> createSecureNote({
     required String title,
     required String content,
     String? folderId,
-  }) {
-    final item = ref
+  }) async {
+    final item = await ref
         .read(createSecureNoteUseCaseProvider)
         .call(title: title, content: content, folderId: folderId);
     _appendItem(item);
   }
 
-  void createPassword({
+  Future<void> createPassword({
     required String title,
     required String username,
     required String password,
     String? url,
     String? folderId,
-  }) {
-    final item = ref
+  }) async {
+    final item = await ref
         .read(createPasswordUseCaseProvider)
         .call(
           title: title,
@@ -111,13 +129,13 @@ class SecureVaultController extends Notifier<SecureVaultState> {
     _appendItem(item);
   }
 
-  void createApiKey({
+  Future<void> createApiKey({
     required String title,
     required String service,
     required String apiKey,
     String? folderId,
-  }) {
-    final item = ref
+  }) async {
+    final item = await ref
         .read(createApiKeyUseCaseProvider)
         .call(
           title: title,
@@ -128,15 +146,15 @@ class SecureVaultController extends Notifier<SecureVaultState> {
     _appendItem(item);
   }
 
-  void createCard({
+  Future<void> createCard({
     required String title,
     required String cardholderName,
     required String cardNumber,
     required String expiry,
     String? cvv,
     String? folderId,
-  }) {
-    final item = ref
+  }) async {
+    final item = await ref
         .read(createCardUseCaseProvider)
         .call(
           title: title,
@@ -149,13 +167,13 @@ class SecureVaultController extends Notifier<SecureVaultState> {
     _appendItem(item);
   }
 
-  void createDocument({
+  Future<void> createDocument({
     required String title,
     required String fileName,
     String? notes,
     String? folderId,
-  }) {
-    final item = ref
+  }) async {
+    final item = await ref
         .read(createDocumentUseCaseProvider)
         .call(
           title: title,
@@ -166,54 +184,65 @@ class SecureVaultController extends Notifier<SecureVaultState> {
     _appendItem(item);
   }
 
-  void updateItem(VaultItem item) {
-    final updated = ref.read(updateItemUseCaseProvider).call(item);
-    state = state.copyWith(items: _replaceItem(updated));
+  Future<void> updateItem(VaultItem item) async {
+    final updated = await ref.read(updateItemUseCaseProvider).call(item);
+    state = AsyncData(currentState.copyWith(items: _replaceItem(updated)));
   }
 
-  void setItemFavorite(String itemId, {required bool isFavorite}) {
-    final updated = ref
+  Future<void> setItemFavorite(
+    String itemId, {
+    required bool isFavorite,
+  }) async {
+    final updated = await ref
         .read(setItemFavoriteUseCaseProvider)
         .call(itemId, isFavorite: isFavorite);
-    state = state.copyWith(items: _replaceItem(updated));
+    state = AsyncData(currentState.copyWith(items: _replaceItem(updated)));
   }
 
-  void deleteItem(String itemId) {
-    ref.read(deleteItemUseCaseProvider).call(itemId);
-    state = state.copyWith(
-      items: state.items.where((item) => item.id != itemId).toList(),
+  Future<void> deleteItem(String itemId) async {
+    await ref.read(deleteItemUseCaseProvider).call(itemId);
+    state = AsyncData(
+      currentState.copyWith(
+        items: currentState.items.where((item) => item.id != itemId).toList(),
+      ),
     );
   }
 
   void setSearchQuery(String query) {
-    state = state.copyWith(searchQuery: query);
+    state = AsyncData(currentState.copyWith(searchQuery: query));
   }
 
   void setSortOption(VaultSortOption option) {
-    state = state.copyWith(sortOption: option);
+    state = AsyncData(currentState.copyWith(sortOption: option));
   }
 
   void setFolderFilter(String? folderId) {
-    state = state.copyWith(
-      filterFolderId: folderId,
-      clearFilterFolder: folderId == null,
+    state = AsyncData(
+      currentState.copyWith(
+        filterFolderId: folderId,
+        clearFilterFolder: folderId == null,
+      ),
     );
   }
 
   void setTypeFilter(VaultItemType? type) {
-    state = state.copyWith(filterType: type, clearFilterType: type == null);
+    state = AsyncData(
+      currentState.copyWith(filterType: type, clearFilterType: type == null),
+    );
   }
 
   void setFavoritesOnly(bool value) {
-    state = state.copyWith(favoritesOnly: value);
+    state = AsyncData(currentState.copyWith(favoritesOnly: value));
   }
 
   void _appendItem(VaultItem item) {
-    state = state.copyWith(items: [...state.items, item]);
+    state = AsyncData(
+      currentState.copyWith(items: [...currentState.items, item]),
+    );
   }
 
   List<VaultItem> _replaceItem(VaultItem updated) {
-    return state.items
+    return currentState.items
         .map((item) => item.id == updated.id ? updated : item)
         .toList();
   }
@@ -265,14 +294,16 @@ class SecureVaultController extends Notifier<SecureVaultState> {
 }
 
 final secureVaultControllerProvider =
-    NotifierProvider<SecureVaultController, SecureVaultState>(
+    AsyncNotifierProvider<SecureVaultController, SecureVaultState>(
       SecureVaultController.new,
     );
 
 /// Derived, read-only view of [secureVaultControllerProvider]'s items after
 /// applying the current search/sort/filter selections.
 final filteredVaultItemsProvider = Provider<List<VaultItem>>((ref) {
-  final state = ref.watch(secureVaultControllerProvider);
+  final state =
+      ref.watch(secureVaultControllerProvider).value ??
+      const SecureVaultState();
   final query = state.searchQuery.trim().toLowerCase();
 
   final filtered = state.items.where((item) {

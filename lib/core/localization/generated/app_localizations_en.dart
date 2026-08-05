@@ -523,8 +523,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get secureVaultCopiedMessage => 'Copied to clipboard.';
 
   @override
-  String get secureVaultEncryptedAtRestTooltip =>
-      'Encrypted at rest (simulated)';
+  String get secureVaultEncryptedAtRestTooltip => 'Encrypted at rest (AES-256)';
+
+  @override
+  String get secureVaultBiometricPromptReason =>
+      'Authenticate to open the vault';
+
+  @override
+  String get secureVaultLockedTitle => 'Vault locked';
+
+  @override
+  String get secureVaultUnlockButton => 'Unlock';
 
   @override
   String secureVaultItemsCount(int count) {

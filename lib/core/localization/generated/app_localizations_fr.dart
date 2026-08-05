@@ -528,8 +528,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get secureVaultCopiedMessage => 'Copié dans le presse-papiers.';
 
   @override
-  String get secureVaultEncryptedAtRestTooltip =>
-      'Chiffré au repos (simulation)';
+  String get secureVaultEncryptedAtRestTooltip => 'Chiffré au repos (AES-256)';
+
+  @override
+  String get secureVaultBiometricPromptReason =>
+      'Authentifiez-vous pour ouvrir le coffre';
+
+  @override
+  String get secureVaultLockedTitle => 'Coffre verrouillé';
+
+  @override
+  String get secureVaultUnlockButton => 'Déverrouiller';
 
   @override
   String secureVaultItemsCount(int count) {

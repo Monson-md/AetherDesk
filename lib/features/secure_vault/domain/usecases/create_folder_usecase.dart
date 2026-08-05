@@ -5,6 +5,6 @@ class CreateFolderUseCase {
   const CreateFolderUseCase(this._repository);
   final SecureVaultRepository _repository;
 
-  VaultFolder call({required String name, required int colorValue}) =>
+  Future<VaultFolder> call({required String name, required int colorValue}) =>
       _repository.createFolder(name: name, colorValue: colorValue);
 }

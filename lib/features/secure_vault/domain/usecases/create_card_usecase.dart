@@ -5,7 +5,7 @@ class CreateCardUseCase {
   const CreateCardUseCase(this._repository);
   final SecureVaultRepository _repository;
 
-  CardItem call({
+  Future<CardItem> call({
     required String title,
     required String cardholderName,
     required String cardNumber,

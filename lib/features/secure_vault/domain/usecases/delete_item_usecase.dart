@@ -4,5 +4,5 @@ class DeleteItemUseCase {
   const DeleteItemUseCase(this._repository);
   final SecureVaultRepository _repository;
 
-  void call(String itemId) => _repository.deleteItem(itemId);
+  Future<void> call(String itemId) => _repository.deleteItem(itemId);
 }

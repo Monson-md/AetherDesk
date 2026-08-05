@@ -40,6 +40,14 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  # Real (non-simulated) local capabilities — see CLAUDE.md's "Hard
+  # constraints" for the Étape 1 real-only directive.
+  flutter_secure_storage: ^9.2.2 # encrypted key/value store (Vault master key)
+  local_auth: ^2.3.0 # real biometric/PIN gate
+  cryptography: ^2.7.0 # real AES-GCM encryption for the Vault
+  shared_preferences: ^2.3.2 # real local persistence (Project Management)
+  file_picker: ^8.1.2 # real file open/save (Code Editor)
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

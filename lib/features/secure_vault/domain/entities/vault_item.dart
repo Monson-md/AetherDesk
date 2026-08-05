@@ -6,16 +6,15 @@ import 'package:aetherdesk/features/secure_vault/domain/entities/vault_item_type
 /// hence a sealed hierarchy (like `core/error/failure.dart`'s `Failure`)
 /// rather than one class with a pile of nullable fields.
 ///
-/// Nothing here is stored on disk — this module is in-memory only for now
-/// (`SecureVaultRepositoryImpl`), with no real biometric gate (see
-/// `core/services/biometric/` for the prepared, unwired auth seam). Secret
-/// fields (passwords, API keys, note content, card numbers) *are* held
-/// encrypted at rest inside the repository via `EncryptionService` —
-/// today's `SimulatedEncryptionService` is a reversible placeholder, not
-/// real cryptography, but every [VaultItem] instance that reaches
-/// `domain`/`presentation` (via `getItems()`, `updateItem()`, ...) is
-/// already decrypted back to plain text, so nothing outside the repository
-/// needs to know encryption is happening.
+/// Persisted for real: `SecureVaultRepositoryImpl` stores every folder/item
+/// as JSON inside `flutter_secure_storage`, and secret fields (passwords,
+/// API keys, note content, card numbers) are additionally run through a
+/// real AES-256-GCM `EncryptionService` before that JSON is written. Every
+/// [VaultItem] instance that reaches `domain`/`presentation` (via
+/// `getItems()`, `updateItem()`, ...) is already decrypted back to plain
+/// text, so nothing outside the repository needs to know encryption is
+/// happening. The home page additionally gates access behind
+/// `BiometricAuthService` when hardware support is available.
 sealed class VaultItem {
   const VaultItem({
     required this.id,

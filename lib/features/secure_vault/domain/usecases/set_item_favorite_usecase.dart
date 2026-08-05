@@ -5,6 +5,6 @@ class SetItemFavoriteUseCase {
   const SetItemFavoriteUseCase(this._repository);
   final SecureVaultRepository _repository;
 
-  VaultItem call(String itemId, {required bool isFavorite}) =>
+  Future<VaultItem> call(String itemId, {required bool isFavorite}) =>
       _repository.setItemFavorite(itemId, isFavorite: isFavorite);
 }

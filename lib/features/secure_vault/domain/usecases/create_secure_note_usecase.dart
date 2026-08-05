@@ -5,7 +5,7 @@ class CreateSecureNoteUseCase {
   const CreateSecureNoteUseCase(this._repository);
   final SecureVaultRepository _repository;
 
-  SecureNoteItem call({
+  Future<SecureNoteItem> call({
     required String title,
     required String content,
     String? folderId,
