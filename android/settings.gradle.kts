@@ -19,8 +19,18 @@ pluginManagement {
 
 plugins {
     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
-    id("com.android.application") version "9.0.1" apply false
-    id("org.jetbrains.kotlin.android") version "2.3.20" apply false
+    // Pinned below AGP 9 deliberately: AGP 9's "built-in Kotlin" migration is
+    // not yet consistent across the plugin ecosystem — Flutter's own
+    // flutter-plugin-loader force-applies the legacy Kotlin Android plugin
+    // to any Android library subproject that doesn't declare Kotlin Gradle
+    // Plugin itself (e.g. flutter_plugin_android_lifecycle), which AGP 9's
+    // built-in Kotlin then rejects as redundant — a hard build failure
+    // regardless of the android.builtInKotlin gradle.properties flag.
+    // AGP 8.7.x + Kotlin 2.1.x is the well-established, broadly compatible
+    // combination the current generation of Flutter plugins is built
+    // against.
+    id("com.android.application") version "8.7.3" apply false
+    id("org.jetbrains.kotlin.android") version "2.1.0" apply false
 }
 
 include(":app")
