@@ -18,9 +18,18 @@ import 'package:aetherdesk/features/project_management/domain/usecases/update_pr
 import 'package:aetherdesk/features/project_management/domain/usecases/update_task_details_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// The persisted snapshot loaded in `main.dart` before the app's first
+/// frame, or `null` on a fresh install. Overridden via `ProviderScope`'s
+/// `overrides` — see `main.dart`.
+final projectManagementSeedProvider = Provider<Map<String, dynamic>?>(
+  (ref) => null,
+);
+
 final projectManagementRepositoryProvider =
     Provider<ProjectManagementRepository>((ref) {
-      return ProjectManagementRepositoryImpl();
+      return ProjectManagementRepositoryImpl(
+        seed: ref.watch(projectManagementSeedProvider),
+      );
     });
 
 final createProjectUseCaseProvider = Provider<CreateProjectUseCase>((ref) {

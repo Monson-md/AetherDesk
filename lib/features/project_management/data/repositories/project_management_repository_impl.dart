@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:aetherdesk/features/project_management/data/repositories/project_management_local_store.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/checklist_item.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/project.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/project_category.dart';
@@ -7,15 +10,25 @@ import 'package:aetherdesk/features/project_management/domain/entities/task_prio
 import 'package:aetherdesk/features/project_management/domain/entities/task_status.dart';
 import 'package:aetherdesk/features/project_management/domain/repositories/project_management_repository.dart';
 
-/// In-memory implementation of [ProjectManagementRepository] — no disk I/O,
-/// no backend. State lives only for the lifetime of the app process, held
-/// in the private lists below rather than in the presentation layer, so a
-/// future real (e.g. `Hive`-backed) implementation can replace this file
-/// without any change to `domain/` or `presentation/`.
+/// Real, disk-backed implementation of [ProjectManagementRepository].
+///
+/// The public API stays synchronous — like the in-memory version this
+/// replaces — because [seed] (loaded from `shared_preferences` in
+/// `main.dart`, before the app's first frame) already hydrates every list
+/// at construction time. Every mutation updates the in-memory lists
+/// synchronously (so callers see the change immediately) and also fires
+/// off a background write via [saveProjectManagementSnapshot] to persist
+/// it for the next launch; that write isn't awaited by callers, trading a
+/// small window of risk (a crash right after a mutation could lose that
+/// one write) for keeping every usecase/controller call site unchanged.
 class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
-  final List<Project> _projects = [];
-  final List<ProjectCategory> _categories = [];
-  final List<ProjectFolder> _folders = [];
+  ProjectManagementRepositoryImpl({Map<String, dynamic>? seed}) {
+    if (seed != null) _hydrate(seed);
+  }
+
+  List<Project> _projects = [];
+  List<ProjectCategory> _categories = [];
+  List<ProjectFolder> _folders = [];
 
   int _projectIdCounter = 0;
   int _taskIdCounter = 0;
@@ -55,6 +68,7 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
       isFavorite: false,
     );
     _projects.add(project);
+    _persist();
     return project;
   }
 
@@ -78,18 +92,23 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
       tags: tags,
       dueDate: dueDate,
     );
-    return _replaceProject(updated);
+    final result = _replaceProject(updated);
+    _persist();
+    return result;
   }
 
   @override
   Project setProjectFavorite(String projectId, {required bool isFavorite}) {
     final updated = _project(projectId).copyWith(isFavorite: isFavorite);
-    return _replaceProject(updated);
+    final result = _replaceProject(updated);
+    _persist();
+    return result;
   }
 
   @override
   void deleteProject(String projectId) {
     _projects.removeWhere((project) => project.id == projectId);
+    _persist();
   }
 
   @override
@@ -109,7 +128,11 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
       dueDate: dueDate,
       status: TaskStatus.todo,
     );
-    return _replaceProject(project.copyWith(tasks: [...project.tasks, task]));
+    final result = _replaceProject(
+      project.copyWith(tasks: [...project.tasks, task]),
+    );
+    _persist();
+    return result;
   }
 
   @override
@@ -121,7 +144,7 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
     required TaskPriority priority,
     DateTime? dueDate,
   }) {
-    return _replaceTask(
+    final result = _replaceTask(
       projectId,
       taskId,
       (task) => task.withDetails(
@@ -131,6 +154,8 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
         dueDate: dueDate,
       ),
     );
+    _persist();
+    return result;
   }
 
   @override
@@ -139,18 +164,22 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
     String taskId, {
     required TaskStatus status,
   }) {
-    return _replaceTask(
+    final result = _replaceTask(
       projectId,
       taskId,
       (task) => task.copyWith(status: status),
     );
+    _persist();
+    return result;
   }
 
   @override
   Project deleteTask(String projectId, String taskId) {
     final project = _project(projectId);
     final tasks = project.tasks.where((task) => task.id != taskId).toList();
-    return _replaceProject(project.copyWith(tasks: tasks));
+    final result = _replaceProject(project.copyWith(tasks: tasks));
+    _persist();
+    return result;
   }
 
   @override
@@ -164,11 +193,13 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
       label: label,
       isDone: false,
     );
-    return _replaceTask(
+    final result = _replaceTask(
       projectId,
       taskId,
       (task) => task.copyWith(checklist: [...task.checklist, item]),
     );
+    _persist();
+    return result;
   }
 
   @override
@@ -178,7 +209,7 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
     String itemId, {
     required bool isDone,
   }) {
-    return _replaceTask(
+    final result = _replaceTask(
       projectId,
       taskId,
       (task) => task.copyWith(
@@ -190,17 +221,21 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
             .toList(),
       ),
     );
+    _persist();
+    return result;
   }
 
   @override
   Project deleteChecklistItem(String projectId, String taskId, String itemId) {
-    return _replaceTask(
+    final result = _replaceTask(
       projectId,
       taskId,
       (task) => task.copyWith(
         checklist: task.checklist.where((item) => item.id != itemId).toList(),
       ),
     );
+    _persist();
+    return result;
   }
 
   @override
@@ -214,6 +249,7 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
       colorValue: colorValue,
     );
     _categories.add(category);
+    _persist();
     return category;
   }
 
@@ -225,6 +261,7 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
         _projects[i] = _projects[i].withoutCategory();
       }
     }
+    _persist();
   }
 
   @override
@@ -235,6 +272,7 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
       parentId: parentId,
     );
     _folders.add(folder);
+    _persist();
     return folder;
   }
 
@@ -243,6 +281,7 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
     final index = _folders.indexWhere((folder) => folder.id == folderId);
     final renamed = _folders[index].withName(name);
     _folders[index] = renamed;
+    _persist();
     return renamed;
   }
 
@@ -259,6 +298,7 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
         _projects[i] = _projects[i].withoutFolder();
       }
     }
+    _persist();
   }
 
   Project _project(String projectId) =>
@@ -281,4 +321,135 @@ class ProjectManagementRepositoryImpl implements ProjectManagementRepository {
         .toList();
     return _replaceProject(project.copyWith(tasks: tasks));
   }
+
+  void _persist() {
+    unawaited(saveProjectManagementSnapshot(_toJson()));
+  }
+
+  void _hydrate(Map<String, dynamic> seed) {
+    _projects = (seed['projects'] as List<dynamic>)
+        .cast<Map<String, dynamic>>()
+        .map(_projectFromJson)
+        .toList();
+    _categories = (seed['categories'] as List<dynamic>)
+        .cast<Map<String, dynamic>>()
+        .map(_categoryFromJson)
+        .toList();
+    _folders = (seed['folders'] as List<dynamic>)
+        .cast<Map<String, dynamic>>()
+        .map(_folderFromJson)
+        .toList();
+    _projectIdCounter = seed['projectIdCounter'] as int;
+    _taskIdCounter = seed['taskIdCounter'] as int;
+    _checklistItemIdCounter = seed['checklistItemIdCounter'] as int;
+    _categoryIdCounter = seed['categoryIdCounter'] as int;
+    _folderIdCounter = seed['folderIdCounter'] as int;
+  }
+
+  Map<String, dynamic> _toJson() => {
+    'projects': _projects.map(_projectToJson).toList(),
+    'categories': _categories.map(_categoryToJson).toList(),
+    'folders': _folders.map(_folderToJson).toList(),
+    'projectIdCounter': _projectIdCounter,
+    'taskIdCounter': _taskIdCounter,
+    'checklistItemIdCounter': _checklistItemIdCounter,
+    'categoryIdCounter': _categoryIdCounter,
+    'folderIdCounter': _folderIdCounter,
+  };
+
+  Map<String, dynamic> _projectToJson(Project project) => {
+    'id': project.id,
+    'name': project.name,
+    'description': project.description,
+    'categoryId': project.categoryId,
+    'folderId': project.folderId,
+    'priority': project.priority.name,
+    'tags': project.tags,
+    'dueDate': project.dueDate?.toIso8601String(),
+    'createdAt': project.createdAt.toIso8601String(),
+    'isFavorite': project.isFavorite,
+    'tasks': project.tasks.map(_taskToJson).toList(),
+  };
+
+  Project _projectFromJson(Map<String, dynamic> json) => Project(
+    id: json['id'] as String,
+    name: json['name'] as String,
+    description: json['description'] as String?,
+    categoryId: json['categoryId'] as String?,
+    folderId: json['folderId'] as String?,
+    priority: TaskPriority.values.byName(json['priority'] as String),
+    tags: (json['tags'] as List<dynamic>).cast<String>(),
+    dueDate: (json['dueDate'] as String?) == null
+        ? null
+        : DateTime.parse(json['dueDate'] as String),
+    createdAt: DateTime.parse(json['createdAt'] as String),
+    isFavorite: json['isFavorite'] as bool,
+    tasks: (json['tasks'] as List<dynamic>)
+        .cast<Map<String, dynamic>>()
+        .map(_taskFromJson)
+        .toList(),
+  );
+
+  Map<String, dynamic> _taskToJson(ProjectTask task) => {
+    'id': task.id,
+    'title': task.title,
+    'description': task.description,
+    'priority': task.priority.name,
+    'dueDate': task.dueDate?.toIso8601String(),
+    'status': task.status.name,
+    'checklist': task.checklist.map(_checklistItemToJson).toList(),
+  };
+
+  ProjectTask _taskFromJson(Map<String, dynamic> json) => ProjectTask(
+    id: json['id'] as String,
+    title: json['title'] as String,
+    description: json['description'] as String?,
+    priority: TaskPriority.values.byName(json['priority'] as String),
+    dueDate: (json['dueDate'] as String?) == null
+        ? null
+        : DateTime.parse(json['dueDate'] as String),
+    status: TaskStatus.values.byName(json['status'] as String),
+    checklist: (json['checklist'] as List<dynamic>)
+        .cast<Map<String, dynamic>>()
+        .map(_checklistItemFromJson)
+        .toList(),
+  );
+
+  Map<String, dynamic> _checklistItemToJson(ChecklistItem item) => {
+    'id': item.id,
+    'label': item.label,
+    'isDone': item.isDone,
+  };
+
+  ChecklistItem _checklistItemFromJson(Map<String, dynamic> json) =>
+      ChecklistItem(
+        id: json['id'] as String,
+        label: json['label'] as String,
+        isDone: json['isDone'] as bool,
+      );
+
+  Map<String, dynamic> _categoryToJson(ProjectCategory category) => {
+    'id': category.id,
+    'name': category.name,
+    'colorValue': category.colorValue,
+  };
+
+  ProjectCategory _categoryFromJson(Map<String, dynamic> json) =>
+      ProjectCategory(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        colorValue: json['colorValue'] as int,
+      );
+
+  Map<String, dynamic> _folderToJson(ProjectFolder folder) => {
+    'id': folder.id,
+    'name': folder.name,
+    'parentId': folder.parentId,
+  };
+
+  ProjectFolder _folderFromJson(Map<String, dynamic> json) => ProjectFolder(
+    id: json['id'] as String,
+    name: json['name'] as String,
+    parentId: json['parentId'] as String?,
+  );
 }
