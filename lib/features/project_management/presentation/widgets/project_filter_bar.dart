@@ -14,6 +14,9 @@ class ProjectFilterBar extends StatelessWidget {
     required this.onCategoryChanged,
     required this.selectedPriority,
     required this.onPriorityChanged,
+    required this.tags,
+    required this.selectedTag,
+    required this.onTagChanged,
     required this.favoritesOnly,
     required this.onFavoritesOnlyChanged,
     super.key,
@@ -24,6 +27,9 @@ class ProjectFilterBar extends StatelessWidget {
   final ValueChanged<String?> onCategoryChanged;
   final TaskPriority? selectedPriority;
   final ValueChanged<TaskPriority?> onPriorityChanged;
+  final List<String> tags;
+  final String? selectedTag;
+  final ValueChanged<String?> onTagChanged;
   final bool favoritesOnly;
   final ValueChanged<bool> onFavoritesOnlyChanged;
 
@@ -81,6 +87,17 @@ class ProjectFilterBar extends StatelessWidget {
           ],
           onSelected: onPriorityChanged,
         ),
+        if (tags.isNotEmpty)
+          _FilterMenuChip<String?>(
+            icon: Icons.sell_outlined,
+            label: selectedTag ?? l10n.projectManagementAllTags,
+            isActive: selectedTag != null,
+            items: [
+              PopupMenuItem(child: Text(l10n.projectManagementAllTags)),
+              ...tags.map((tag) => PopupMenuItem(value: tag, child: Text(tag))),
+            ],
+            onSelected: onTagChanged,
+          ),
       ],
     );
   }

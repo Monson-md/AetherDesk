@@ -4,6 +4,7 @@ import 'package:aetherdesk/features/project_management/domain/entities/project.d
 import 'package:aetherdesk/features/project_management/domain/entities/project_category.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/category_widgets.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/priority_widgets.dart';
+import 'package:aetherdesk/features/project_management/presentation/widgets/tag_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -89,6 +90,10 @@ class ProjectCard extends StatelessWidget {
                     ),
                 ],
               ),
+              if (project.tags.isNotEmpty) ...[
+                const SizedBox(height: AppDimensions.spacingSm),
+                TagChipsRow(tags: project.tags),
+              ],
               if (project.tasks.isNotEmpty) ...[
                 const SizedBox(height: AppDimensions.spacingMd),
                 ClipRRect(

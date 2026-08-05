@@ -3,14 +3,17 @@ import 'package:aetherdesk/features/project_management/domain/repositories/proje
 import 'package:aetherdesk/features/project_management/domain/usecases/add_checklist_item_usecase.dart';
 import 'package:aetherdesk/features/project_management/domain/usecases/add_task_usecase.dart';
 import 'package:aetherdesk/features/project_management/domain/usecases/create_category_usecase.dart';
+import 'package:aetherdesk/features/project_management/domain/usecases/create_folder_usecase.dart';
 import 'package:aetherdesk/features/project_management/domain/usecases/create_project_usecase.dart';
 import 'package:aetherdesk/features/project_management/domain/usecases/delete_category_usecase.dart';
 import 'package:aetherdesk/features/project_management/domain/usecases/delete_checklist_item_usecase.dart';
+import 'package:aetherdesk/features/project_management/domain/usecases/delete_folder_usecase.dart';
 import 'package:aetherdesk/features/project_management/domain/usecases/delete_project_usecase.dart';
 import 'package:aetherdesk/features/project_management/domain/usecases/delete_task_usecase.dart';
+import 'package:aetherdesk/features/project_management/domain/usecases/rename_folder_usecase.dart';
 import 'package:aetherdesk/features/project_management/domain/usecases/set_checklist_item_done_usecase.dart';
 import 'package:aetherdesk/features/project_management/domain/usecases/set_project_favorite_usecase.dart';
-import 'package:aetherdesk/features/project_management/domain/usecases/set_task_done_usecase.dart';
+import 'package:aetherdesk/features/project_management/domain/usecases/set_task_status_usecase.dart';
 import 'package:aetherdesk/features/project_management/domain/usecases/update_project_details_usecase.dart';
 import 'package:aetherdesk/features/project_management/domain/usecases/update_task_details_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,8 +58,8 @@ final updateTaskDetailsUseCaseProvider = Provider<UpdateTaskDetailsUseCase>((
   );
 });
 
-final setTaskDoneUseCaseProvider = Provider<SetTaskDoneUseCase>((ref) {
-  return SetTaskDoneUseCase(ref.watch(projectManagementRepositoryProvider));
+final setTaskStatusUseCaseProvider = Provider<SetTaskStatusUseCase>((ref) {
+  return SetTaskStatusUseCase(ref.watch(projectManagementRepositoryProvider));
 });
 
 final deleteTaskUseCaseProvider = Provider<DeleteTaskUseCase>((ref) {
@@ -92,4 +95,16 @@ final createCategoryUseCaseProvider = Provider<CreateCategoryUseCase>((ref) {
 
 final deleteCategoryUseCaseProvider = Provider<DeleteCategoryUseCase>((ref) {
   return DeleteCategoryUseCase(ref.watch(projectManagementRepositoryProvider));
+});
+
+final createFolderUseCaseProvider = Provider<CreateFolderUseCase>((ref) {
+  return CreateFolderUseCase(ref.watch(projectManagementRepositoryProvider));
+});
+
+final renameFolderUseCaseProvider = Provider<RenameFolderUseCase>((ref) {
+  return RenameFolderUseCase(ref.watch(projectManagementRepositoryProvider));
+});
+
+final deleteFolderUseCaseProvider = Provider<DeleteFolderUseCase>((ref) {
+  return DeleteFolderUseCase(ref.watch(projectManagementRepositoryProvider));
 });

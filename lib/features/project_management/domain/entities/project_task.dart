@@ -1,5 +1,6 @@
 import 'package:aetherdesk/features/project_management/domain/entities/checklist_item.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/task_priority.dart';
+import 'package:aetherdesk/features/project_management/domain/entities/task_status.dart';
 
 /// A single actionable item inside a [Project], optionally broken down into
 /// a [checklist] of smaller steps.
@@ -10,7 +11,7 @@ class ProjectTask {
     this.description,
     required this.priority,
     this.dueDate,
-    required this.isDone,
+    required this.status,
     this.checklist = const [],
   });
 
@@ -19,8 +20,10 @@ class ProjectTask {
   final String? description;
   final TaskPriority priority;
   final DateTime? dueDate;
-  final bool isDone;
+  final TaskStatus status;
   final List<ChecklistItem> checklist;
+
+  bool get isDone => status == TaskStatus.done;
 
   int get completedChecklistCount =>
       checklist.where((item) => item.isDone).length;
@@ -28,14 +31,14 @@ class ProjectTask {
   double get checklistProgress =>
       checklist.isEmpty ? 0 : completedChecklistCount / checklist.length;
 
-  ProjectTask copyWith({bool? isDone, List<ChecklistItem>? checklist}) {
+  ProjectTask copyWith({TaskStatus? status, List<ChecklistItem>? checklist}) {
     return ProjectTask(
       id: id,
       title: title,
       description: description,
       priority: priority,
       dueDate: dueDate,
-      isDone: isDone ?? this.isDone,
+      status: status ?? this.status,
       checklist: checklist ?? this.checklist,
     );
   }
@@ -54,7 +57,7 @@ class ProjectTask {
       description: description,
       priority: priority,
       dueDate: dueDate,
-      isDone: isDone,
+      status: status,
       checklist: checklist,
     );
   }

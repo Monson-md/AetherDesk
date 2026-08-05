@@ -11,14 +11,18 @@ class UpdateProjectDetailsUseCase {
     required String name,
     String? description,
     String? categoryId,
+    String? folderId,
     required TaskPriority priority,
+    List<String> tags = const [],
     DateTime? dueDate,
   }) => _repository.updateProjectDetails(
     projectId: projectId,
     name: name,
     description: description,
     categoryId: categoryId,
+    folderId: folderId,
     priority: priority,
+    tags: tags,
     dueDate: dueDate,
   );
 }

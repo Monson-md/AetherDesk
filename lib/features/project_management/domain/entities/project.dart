@@ -2,7 +2,8 @@ import 'package:aetherdesk/features/project_management/domain/entities/project_t
 import 'package:aetherdesk/features/project_management/domain/entities/task_priority.dart';
 
 /// The root entity of the `project_management` module: a named body of work
-/// with an optional [categoryId], a [priority], an optional [dueDate] and a
+/// with an optional [categoryId], an optional [folderId] placing it in the
+/// folder tree, a [priority], free-form [tags], an optional [dueDate] and a
 /// list of [tasks].
 class Project {
   const Project({
@@ -10,7 +11,9 @@ class Project {
     required this.name,
     this.description,
     this.categoryId,
+    this.folderId,
     required this.priority,
+    this.tags = const [],
     this.dueDate,
     required this.createdAt,
     required this.isFavorite,
@@ -21,7 +24,9 @@ class Project {
   final String name;
   final String? description;
   final String? categoryId;
+  final String? folderId;
   final TaskPriority priority;
+  final List<String> tags;
   final DateTime? dueDate;
   final DateTime createdAt;
   final bool isFavorite;
@@ -38,7 +43,9 @@ class Project {
       name: name,
       description: description,
       categoryId: categoryId,
+      folderId: folderId,
       priority: priority,
+      tags: tags,
       dueDate: dueDate,
       createdAt: createdAt,
       isFavorite: isFavorite ?? this.isFavorite,
@@ -54,7 +61,9 @@ class Project {
     required String name,
     String? description,
     String? categoryId,
+    String? folderId,
     required TaskPriority priority,
+    List<String> tags = const [],
     DateTime? dueDate,
   }) {
     return Project(
@@ -62,7 +71,9 @@ class Project {
       name: name,
       description: description,
       categoryId: categoryId,
+      folderId: folderId,
       priority: priority,
+      tags: tags,
       dueDate: dueDate,
       createdAt: createdAt,
       isFavorite: isFavorite,
@@ -75,7 +86,24 @@ class Project {
       id: id,
       name: name,
       description: description,
+      folderId: folderId,
       priority: priority,
+      tags: tags,
+      dueDate: dueDate,
+      createdAt: createdAt,
+      isFavorite: isFavorite,
+      tasks: tasks,
+    );
+  }
+
+  Project withoutFolder() {
+    return Project(
+      id: id,
+      name: name,
+      description: description,
+      categoryId: categoryId,
+      priority: priority,
+      tags: tags,
       dueDate: dueDate,
       createdAt: createdAt,
       isFavorite: isFavorite,

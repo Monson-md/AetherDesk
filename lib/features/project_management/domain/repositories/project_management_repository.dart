@@ -1,6 +1,8 @@
 import 'package:aetherdesk/features/project_management/domain/entities/project.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/project_category.dart';
+import 'package:aetherdesk/features/project_management/domain/entities/project_folder.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/task_priority.dart';
+import 'package:aetherdesk/features/project_management/domain/entities/task_status.dart';
 
 /// Contract for the `project_management` module's local, in-memory store.
 /// Every mutation returns the up-to-date [Project] (or void for deletions)
@@ -11,11 +13,15 @@ abstract interface class ProjectManagementRepository {
 
   List<ProjectCategory> getCategories();
 
+  List<ProjectFolder> getFolders();
+
   Project createProject({
     required String name,
     String? description,
     String? categoryId,
+    String? folderId,
     required TaskPriority priority,
+    List<String> tags = const [],
     DateTime? dueDate,
   });
 
@@ -24,7 +30,9 @@ abstract interface class ProjectManagementRepository {
     required String name,
     String? description,
     String? categoryId,
+    String? folderId,
     required TaskPriority priority,
+    List<String> tags = const [],
     DateTime? dueDate,
   });
 
@@ -49,7 +57,11 @@ abstract interface class ProjectManagementRepository {
     DateTime? dueDate,
   });
 
-  Project setTaskDone(String projectId, String taskId, {required bool isDone});
+  Project setTaskStatus(
+    String projectId,
+    String taskId, {
+    required TaskStatus status,
+  });
 
   Project deleteTask(String projectId, String taskId);
 
@@ -74,4 +86,10 @@ abstract interface class ProjectManagementRepository {
   });
 
   void deleteCategory(String categoryId);
+
+  ProjectFolder createFolder({required String name, String? parentId});
+
+  ProjectFolder renameFolder(String folderId, {required String name});
+
+  void deleteFolder(String folderId);
 }

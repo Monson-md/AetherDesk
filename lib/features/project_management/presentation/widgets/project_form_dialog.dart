@@ -3,10 +3,12 @@ import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
 import 'package:aetherdesk/core/widgets/core_widgets.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/project.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/project_category.dart';
+import 'package:aetherdesk/features/project_management/domain/entities/project_folder.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/task_priority.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/category_widgets.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/due_date_field.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/priority_widgets.dart';
+import 'package:aetherdesk/features/project_management/presentation/widgets/tag_input_field.dart';
 import 'package:flutter/material.dart';
 
 /// Result of a submitted [ProjectFormDialog]: the raw field values, ready to
@@ -17,15 +19,40 @@ class ProjectFormResult {
     required this.name,
     required this.description,
     required this.categoryId,
+    required this.folderId,
     required this.priority,
+    required this.tags,
     required this.dueDate,
   });
 
   final String name;
   final String? description;
   final String? categoryId;
+  final String? folderId;
   final TaskPriority priority;
+  final List<String> tags;
   final DateTime? dueDate;
+}
+
+/// One flattened, indented entry in the folder picker dropdown.
+class _FolderOption {
+  const _FolderOption({required this.folder, required this.depth});
+
+  final ProjectFolder folder;
+  final int depth;
+}
+
+List<_FolderOption> _flattenFolders(
+  List<ProjectFolder> folders,
+  String? parentId,
+  int depth,
+) {
+  final options = <_FolderOption>[];
+  for (final folder in folders.where((f) => f.parentId == parentId)) {
+    options.add(_FolderOption(folder: folder, depth: depth));
+    options.addAll(_flattenFolders(folders, folder.id, depth + 1));
+  }
+  return options;
 }
 
 /// Create/edit form for a [Project]. Pass [project] to pre-fill it for
@@ -33,6 +60,7 @@ class ProjectFormResult {
 class ProjectFormDialog extends StatefulWidget {
   const ProjectFormDialog({
     required this.categories,
+    required this.folders,
     required this.onCreateCategory,
     this.project,
     super.key,
@@ -40,6 +68,7 @@ class ProjectFormDialog extends StatefulWidget {
 
   final Project? project;
   final List<ProjectCategory> categories;
+  final List<ProjectFolder> folders;
   final Future<ProjectCategory?> Function(String name, int colorValue)
   onCreateCategory;
 
@@ -56,7 +85,9 @@ class _ProjectFormDialogState extends State<ProjectFormDialog> {
   );
   late List<ProjectCategory> _categories = widget.categories;
   late String? _categoryId = widget.project?.categoryId;
+  late String? _folderId = widget.project?.folderId;
   late TaskPriority _priority = widget.project?.priority ?? TaskPriority.medium;
+  late List<String> _tags = widget.project?.tags ?? const [];
   late DateTime? _dueDate = widget.project?.dueDate;
 
   @override
@@ -95,6 +126,7 @@ class _ProjectFormDialogState extends State<ProjectFormDialog> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final isEditing = widget.project != null;
+    final folderOptions = _flattenFolders(widget.folders, null, 0);
 
     return AlertDialog(
       title: Text(
@@ -123,10 +155,36 @@ class _ProjectFormDialogState extends State<ProjectFormDialog> {
               onChanged: (value) => setState(() => _categoryId = value),
               onCreateCategory: _createCategory,
             ),
+            if (folderOptions.isNotEmpty) ...[
+              const SizedBox(height: AppDimensions.spacingMd),
+              DropdownButtonFormField<String?>(
+                initialValue: _folderId,
+                decoration: InputDecoration(
+                  labelText: l10n.projectManagementFolderLabel,
+                ),
+                items: [
+                  DropdownMenuItem(child: Text(l10n.projectManagementNoFolder)),
+                  ...folderOptions.map(
+                    (option) => DropdownMenuItem(
+                      value: option.folder.id,
+                      child: Text(
+                        '${'—' * option.depth} ${option.folder.name}',
+                      ),
+                    ),
+                  ),
+                ],
+                onChanged: (value) => setState(() => _folderId = value),
+              ),
+            ],
             const SizedBox(height: AppDimensions.spacingMd),
             PrioritySelector(
               value: _priority,
               onChanged: (value) => setState(() => _priority = value),
+            ),
+            const SizedBox(height: AppDimensions.spacingMd),
+            TagInputField(
+              value: _tags,
+              onChanged: (value) => setState(() => _tags = value),
             ),
             const SizedBox(height: AppDimensions.spacingMd),
             DueDateField(
@@ -151,7 +209,9 @@ class _ProjectFormDialogState extends State<ProjectFormDialog> {
                         ? null
                         : _descriptionController.text.trim(),
                     categoryId: _categoryId,
+                    folderId: _folderId,
                     priority: _priority,
+                    tags: _tags,
                     dueDate: _dueDate,
                   ),
                 ),

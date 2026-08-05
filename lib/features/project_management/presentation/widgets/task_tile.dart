@@ -2,18 +2,20 @@ import 'package:aetherdesk/core/constants/app_dimensions.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/checklist_item.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/project_task.dart';
+import 'package:aetherdesk/features/project_management/domain/entities/task_status.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/add_checklist_item_field.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/checklist_item_row.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/priority_widgets.dart';
+import 'package:aetherdesk/features/project_management/presentation/widgets/task_status_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-/// Expandable tile for one [ProjectTask]: done checkbox, priority/due-date
+/// Expandable tile for one [ProjectTask]: status control, priority/due-date
 /// badges, edit/delete actions, and its checklist.
 class TaskTile extends StatelessWidget {
   const TaskTile({
     required this.task,
-    required this.onToggleDone,
+    required this.onStatusChanged,
     required this.onEdit,
     required this.onDelete,
     required this.onAddChecklistItem,
@@ -23,7 +25,7 @@ class TaskTile extends StatelessWidget {
   });
 
   final ProjectTask task;
-  final ValueChanged<bool> onToggleDone;
+  final ValueChanged<TaskStatus> onStatusChanged;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
   final ValueChanged<String> onAddChecklistItem;
@@ -38,9 +40,9 @@ class TaskTile extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(bottom: AppDimensions.spacingSm),
       child: ExpansionTile(
-        leading: Checkbox(
-          value: task.isDone,
-          onChanged: (checked) => onToggleDone(checked ?? false),
+        leading: TaskStatusControl(
+          status: task.status,
+          onChanged: onStatusChanged,
         ),
         title: Text(
           task.title,

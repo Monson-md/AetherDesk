@@ -60,6 +60,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonSave => 'Save';
 
   @override
+  String get commonDelete => 'Delete';
+
+  @override
   String get errorGenericTitle => 'Something went wrong';
 
   @override
@@ -287,6 +290,67 @@ class AppLocalizationsEn extends AppLocalizations {
   String projectManagementProjectsCount(int count) {
     return '$count projects';
   }
+
+  @override
+  String get projectManagementStatusTodo => 'To do';
+
+  @override
+  String get projectManagementStatusInProgress => 'In progress';
+
+  @override
+  String get projectManagementStatusDone => 'Done';
+
+  @override
+  String get projectManagementTagsLabel => 'Tags';
+
+  @override
+  String get projectManagementTagsHint => 'Add a tag and press Enter';
+
+  @override
+  String get projectManagementAllTags => 'All tags';
+
+  @override
+  String get projectManagementFolderLabel => 'Folder';
+
+  @override
+  String get projectManagementNoFolder => 'No folder';
+
+  @override
+  String get projectManagementFoldersTitle => 'Folders';
+
+  @override
+  String get projectManagementAllProjects => 'All projects';
+
+  @override
+  String get projectManagementNewFolderTitle => 'New folder';
+
+  @override
+  String get projectManagementRenameFolderTitle => 'Rename folder';
+
+  @override
+  String get projectManagementFolderNameLabel => 'Folder name';
+
+  @override
+  String get projectManagementNewSubfolder => 'New subfolder';
+
+  @override
+  String get projectManagementDeleteFolderTitle => 'Delete folder';
+
+  @override
+  String get projectManagementDeleteFolderMessage =>
+      'Its subfolders and projects will be moved to the root.';
+
+  @override
+  String get projectManagementViewList => 'List';
+
+  @override
+  String get projectManagementViewKanban => 'Kanban';
+
+  @override
+  String get projectManagementViewCalendar => 'Calendar';
+
+  @override
+  String get projectManagementNoEventsOnDay => 'No events on this day.';
 
   @override
   String get secureVaultEmptyTitle => 'The vault is empty';

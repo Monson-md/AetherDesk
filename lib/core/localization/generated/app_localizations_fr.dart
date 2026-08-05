@@ -60,6 +60,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get commonSave => 'Enregistrer';
 
   @override
+  String get commonDelete => 'Supprimer';
+
+  @override
   String get errorGenericTitle => 'Une erreur est survenue';
 
   @override
@@ -289,6 +292,68 @@ class AppLocalizationsFr extends AppLocalizations {
   String projectManagementProjectsCount(int count) {
     return '$count projets';
   }
+
+  @override
+  String get projectManagementStatusTodo => 'À faire';
+
+  @override
+  String get projectManagementStatusInProgress => 'En cours';
+
+  @override
+  String get projectManagementStatusDone => 'Terminé';
+
+  @override
+  String get projectManagementTagsLabel => 'Tags';
+
+  @override
+  String get projectManagementTagsHint =>
+      'Ajouter un tag et appuyer sur Entrée';
+
+  @override
+  String get projectManagementAllTags => 'Tous les tags';
+
+  @override
+  String get projectManagementFolderLabel => 'Dossier';
+
+  @override
+  String get projectManagementNoFolder => 'Aucun dossier';
+
+  @override
+  String get projectManagementFoldersTitle => 'Dossiers';
+
+  @override
+  String get projectManagementAllProjects => 'Tous les projets';
+
+  @override
+  String get projectManagementNewFolderTitle => 'Nouveau dossier';
+
+  @override
+  String get projectManagementRenameFolderTitle => 'Renommer le dossier';
+
+  @override
+  String get projectManagementFolderNameLabel => 'Nom du dossier';
+
+  @override
+  String get projectManagementNewSubfolder => 'Nouveau sous-dossier';
+
+  @override
+  String get projectManagementDeleteFolderTitle => 'Supprimer le dossier';
+
+  @override
+  String get projectManagementDeleteFolderMessage =>
+      'Les sous-dossiers et projets qu\'il contient seront déplacés à la racine.';
+
+  @override
+  String get projectManagementViewList => 'Liste';
+
+  @override
+  String get projectManagementViewKanban => 'Kanban';
+
+  @override
+  String get projectManagementViewCalendar => 'Calendrier';
+
+  @override
+  String get projectManagementNoEventsOnDay => 'Aucun événement ce jour-là.';
 
   @override
   String get secureVaultEmptyTitle => 'Le coffre est vide';

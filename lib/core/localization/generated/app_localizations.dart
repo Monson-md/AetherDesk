@@ -200,6 +200,12 @@ abstract class AppLocalizations {
   /// **'Enregistrer'**
   String get commonSave;
 
+  /// No description provided for @commonDelete.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer'**
+  String get commonDelete;
+
   /// No description provided for @errorGenericTitle.
   ///
   /// In fr, this message translates to:
@@ -625,6 +631,126 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'{count} projets'**
   String projectManagementProjectsCount(int count);
+
+  /// No description provided for @projectManagementStatusTodo.
+  ///
+  /// In fr, this message translates to:
+  /// **'À faire'**
+  String get projectManagementStatusTodo;
+
+  /// No description provided for @projectManagementStatusInProgress.
+  ///
+  /// In fr, this message translates to:
+  /// **'En cours'**
+  String get projectManagementStatusInProgress;
+
+  /// No description provided for @projectManagementStatusDone.
+  ///
+  /// In fr, this message translates to:
+  /// **'Terminé'**
+  String get projectManagementStatusDone;
+
+  /// No description provided for @projectManagementTagsLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tags'**
+  String get projectManagementTagsLabel;
+
+  /// No description provided for @projectManagementTagsHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter un tag et appuyer sur Entrée'**
+  String get projectManagementTagsHint;
+
+  /// No description provided for @projectManagementAllTags.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tous les tags'**
+  String get projectManagementAllTags;
+
+  /// No description provided for @projectManagementFolderLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Dossier'**
+  String get projectManagementFolderLabel;
+
+  /// No description provided for @projectManagementNoFolder.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun dossier'**
+  String get projectManagementNoFolder;
+
+  /// No description provided for @projectManagementFoldersTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Dossiers'**
+  String get projectManagementFoldersTitle;
+
+  /// No description provided for @projectManagementAllProjects.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tous les projets'**
+  String get projectManagementAllProjects;
+
+  /// No description provided for @projectManagementNewFolderTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouveau dossier'**
+  String get projectManagementNewFolderTitle;
+
+  /// No description provided for @projectManagementRenameFolderTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Renommer le dossier'**
+  String get projectManagementRenameFolderTitle;
+
+  /// No description provided for @projectManagementFolderNameLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom du dossier'**
+  String get projectManagementFolderNameLabel;
+
+  /// No description provided for @projectManagementNewSubfolder.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouveau sous-dossier'**
+  String get projectManagementNewSubfolder;
+
+  /// No description provided for @projectManagementDeleteFolderTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer le dossier'**
+  String get projectManagementDeleteFolderTitle;
+
+  /// No description provided for @projectManagementDeleteFolderMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les sous-dossiers et projets qu\'il contient seront déplacés à la racine.'**
+  String get projectManagementDeleteFolderMessage;
+
+  /// No description provided for @projectManagementViewList.
+  ///
+  /// In fr, this message translates to:
+  /// **'Liste'**
+  String get projectManagementViewList;
+
+  /// No description provided for @projectManagementViewKanban.
+  ///
+  /// In fr, this message translates to:
+  /// **'Kanban'**
+  String get projectManagementViewKanban;
+
+  /// No description provided for @projectManagementViewCalendar.
+  ///
+  /// In fr, this message translates to:
+  /// **'Calendrier'**
+  String get projectManagementViewCalendar;
+
+  /// No description provided for @projectManagementNoEventsOnDay.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun événement ce jour-là.'**
+  String get projectManagementNoEventsOnDay;
 
   /// No description provided for @secureVaultEmptyTitle.
   ///

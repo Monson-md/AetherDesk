@@ -7,6 +7,7 @@ import 'package:aetherdesk/features/project_management/presentation/providers/pr
 import 'package:aetherdesk/features/project_management/presentation/widgets/category_widgets.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/priority_widgets.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/project_form_dialog.dart';
+import 'package:aetherdesk/features/project_management/presentation/widgets/tag_input_field.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/task_form_dialog.dart';
 import 'package:aetherdesk/features/project_management/presentation/widgets/task_tile.dart';
 import 'package:flutter/material.dart';
@@ -108,6 +109,10 @@ class ProjectDetailPage extends ConsumerWidget {
                   ),
               ],
             ),
+            if (currentProject.tags.isNotEmpty) ...[
+              const SizedBox(height: AppDimensions.spacingMd),
+              TagChipsRow(tags: currentProject.tags),
+            ],
             const SizedBox(height: AppDimensions.spacingLg),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -134,10 +139,10 @@ class ProjectDetailPage extends ConsumerWidget {
               for (final task in currentProject.tasks)
                 TaskTile(
                   task: task,
-                  onToggleDone: (isDone) => controller.setTaskDone(
+                  onStatusChanged: (status) => controller.setTaskStatus(
                     currentProject.id,
                     task.id,
-                    isDone: isDone,
+                    status: status,
                   ),
                   onEdit: () =>
                       _editTask(context, ref, currentProject.id, task.id),
@@ -175,6 +180,7 @@ class ProjectDetailPage extends ConsumerWidget {
       builder: (context) => ProjectFormDialog(
         project: project,
         categories: ref.read(projectManagementControllerProvider).categories,
+        folders: ref.read(projectManagementControllerProvider).folders,
         onCreateCategory: (name, colorValue) async {
           controller.createCategory(name: name, colorValue: colorValue);
           final categories = ref
@@ -190,7 +196,9 @@ class ProjectDetailPage extends ConsumerWidget {
       name: result.name,
       description: result.description,
       categoryId: result.categoryId,
+      folderId: result.folderId,
       priority: result.priority,
+      tags: result.tags,
       dueDate: result.dueDate,
     );
   }

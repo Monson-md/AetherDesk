@@ -1,7 +1,10 @@
 import 'package:aetherdesk/features/project_management/domain/entities/project.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/project_category.dart';
+import 'package:aetherdesk/features/project_management/domain/entities/project_folder.dart';
+import 'package:aetherdesk/features/project_management/domain/entities/project_management_view_mode.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/project_sort_option.dart';
 import 'package:aetherdesk/features/project_management/domain/entities/task_priority.dart';
+import 'package:aetherdesk/features/project_management/domain/entities/task_status.dart';
 import 'package:aetherdesk/features/project_management/presentation/providers/project_management_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,50 +12,70 @@ class ProjectManagementState {
   const ProjectManagementState({
     this.projects = const [],
     this.categories = const [],
+    this.folders = const [],
     this.searchQuery = '',
     this.sortOption = ProjectSortOption.dueDate,
+    this.viewMode = ProjectManagementViewMode.list,
     this.filterCategoryId,
     this.filterPriority,
+    this.filterFolderId,
+    this.filterTag,
     this.favoritesOnly = false,
   });
 
   final List<Project> projects;
   final List<ProjectCategory> categories;
+  final List<ProjectFolder> folders;
   final String searchQuery;
   final ProjectSortOption sortOption;
+  final ProjectManagementViewMode viewMode;
   final String? filterCategoryId;
   final TaskPriority? filterPriority;
+  final String? filterFolderId;
+  final String? filterTag;
   final bool favoritesOnly;
 
   ProjectManagementState copyWith({
     List<Project>? projects,
     List<ProjectCategory>? categories,
+    List<ProjectFolder>? folders,
     String? searchQuery,
     ProjectSortOption? sortOption,
+    ProjectManagementViewMode? viewMode,
     String? filterCategoryId,
     bool clearFilterCategory = false,
     TaskPriority? filterPriority,
     bool clearFilterPriority = false,
+    String? filterFolderId,
+    bool clearFilterFolder = false,
+    String? filterTag,
+    bool clearFilterTag = false,
     bool? favoritesOnly,
   }) {
     return ProjectManagementState(
       projects: projects ?? this.projects,
       categories: categories ?? this.categories,
+      folders: folders ?? this.folders,
       searchQuery: searchQuery ?? this.searchQuery,
       sortOption: sortOption ?? this.sortOption,
+      viewMode: viewMode ?? this.viewMode,
       filterCategoryId: clearFilterCategory
           ? null
           : (filterCategoryId ?? this.filterCategoryId),
       filterPriority: clearFilterPriority
           ? null
           : (filterPriority ?? this.filterPriority),
+      filterFolderId: clearFilterFolder
+          ? null
+          : (filterFolderId ?? this.filterFolderId),
+      filterTag: clearFilterTag ? null : (filterTag ?? this.filterTag),
       favoritesOnly: favoritesOnly ?? this.favoritesOnly,
     );
   }
 }
 
-/// Screen state for the whole `project_management` module: the raw project
-/// and category collections plus the dashboard's search/sort/filter
+/// Screen state for the whole `project_management` module: the raw project,
+/// category and folder collections plus the dashboard's search/sort/filter
 /// selections. Derived (filtered + sorted) results are exposed separately
 /// via [filteredProjectsProvider] rather than stored here, so the raw list
 /// stays the single source of truth.
@@ -63,6 +86,7 @@ class ProjectManagementController extends Notifier<ProjectManagementState> {
     return ProjectManagementState(
       projects: repository.getProjects(),
       categories: repository.getCategories(),
+      folders: repository.getFolders(),
     );
   }
 
@@ -70,7 +94,9 @@ class ProjectManagementController extends Notifier<ProjectManagementState> {
     required String name,
     String? description,
     String? categoryId,
+    String? folderId,
     required TaskPriority priority,
+    List<String> tags = const [],
     DateTime? dueDate,
   }) {
     final project = ref
@@ -79,7 +105,9 @@ class ProjectManagementController extends Notifier<ProjectManagementState> {
           name: name,
           description: description,
           categoryId: categoryId,
+          folderId: folderId,
           priority: priority,
+          tags: tags,
           dueDate: dueDate,
         );
     state = state.copyWith(projects: [...state.projects, project]);
@@ -90,7 +118,9 @@ class ProjectManagementController extends Notifier<ProjectManagementState> {
     required String name,
     String? description,
     String? categoryId,
+    String? folderId,
     required TaskPriority priority,
+    List<String> tags = const [],
     DateTime? dueDate,
   }) {
     final updated = ref
@@ -100,7 +130,9 @@ class ProjectManagementController extends Notifier<ProjectManagementState> {
           name: name,
           description: description,
           categoryId: categoryId,
+          folderId: folderId,
           priority: priority,
+          tags: tags,
           dueDate: dueDate,
         );
     state = state.copyWith(projects: _replaceProject(updated));
@@ -162,10 +194,14 @@ class ProjectManagementController extends Notifier<ProjectManagementState> {
     state = state.copyWith(projects: _replaceProject(updated));
   }
 
-  void setTaskDone(String projectId, String taskId, {required bool isDone}) {
+  void setTaskStatus(
+    String projectId,
+    String taskId, {
+    required TaskStatus status,
+  }) {
     final updated = ref
-        .read(setTaskDoneUseCaseProvider)
-        .call(projectId, taskId, isDone: isDone);
+        .read(setTaskStatusUseCaseProvider)
+        .call(projectId, taskId, status: status);
     state = state.copyWith(projects: _replaceProject(updated));
   }
 
@@ -227,12 +263,59 @@ class ProjectManagementController extends Notifier<ProjectManagementState> {
     );
   }
 
+  void createFolder({required String name, String? parentId}) {
+    final folder = ref
+        .read(createFolderUseCaseProvider)
+        .call(name: name, parentId: parentId);
+    state = state.copyWith(folders: [...state.folders, folder]);
+  }
+
+  void renameFolder(String folderId, {required String name}) {
+    final renamed = ref
+        .read(renameFolderUseCaseProvider)
+        .call(folderId, name: name);
+    state = state.copyWith(
+      folders: state.folders
+          .map((folder) => folder.id == folderId ? renamed : folder)
+          .toList(),
+    );
+  }
+
+  void deleteFolder(String folderId) {
+    ref.read(deleteFolderUseCaseProvider).call(folderId);
+    state = state.copyWith(
+      folders: state.folders
+          .where((folder) => folder.id != folderId)
+          .map(
+            (folder) => folder.parentId == folderId
+                ? ProjectFolder(id: folder.id, name: folder.name)
+                : folder,
+          )
+          .toList(),
+      projects: state.projects
+          .map(
+            (project) => project.folderId == folderId
+                ? project.withoutFolder()
+                : project,
+          )
+          .toList(),
+      filterFolderId: state.filterFolderId == folderId
+          ? null
+          : state.filterFolderId,
+      clearFilterFolder: state.filterFolderId == folderId,
+    );
+  }
+
   void setSearchQuery(String query) {
     state = state.copyWith(searchQuery: query);
   }
 
   void setSortOption(ProjectSortOption option) {
     state = state.copyWith(sortOption: option);
+  }
+
+  void setViewMode(ProjectManagementViewMode mode) {
+    state = state.copyWith(viewMode: mode);
   }
 
   void setCategoryFilter(String? categoryId) {
@@ -247,6 +330,17 @@ class ProjectManagementController extends Notifier<ProjectManagementState> {
       filterPriority: priority,
       clearFilterPriority: priority == null,
     );
+  }
+
+  void setFolderFilter(String? folderId) {
+    state = state.copyWith(
+      filterFolderId: folderId,
+      clearFilterFolder: folderId == null,
+    );
+  }
+
+  void setTagFilter(String? tag) {
+    state = state.copyWith(filterTag: tag, clearFilterTag: tag == null);
   }
 
   void setFavoritesOnly(bool value) {
@@ -265,11 +359,33 @@ final projectManagementControllerProvider =
       ProjectManagementController.new,
     );
 
+/// All folder ids nested under [rootId] (inclusive), so filtering by a
+/// folder also surfaces projects filed in its subfolders.
+Set<String> _folderAndDescendantIds(
+  List<ProjectFolder> folders,
+  String rootId,
+) {
+  final ids = {rootId};
+  var frontier = {rootId};
+  while (frontier.isNotEmpty) {
+    final children = folders
+        .where((folder) => frontier.contains(folder.parentId))
+        .map((folder) => folder.id)
+        .toSet();
+    ids.addAll(children);
+    frontier = children;
+  }
+  return ids;
+}
+
 /// Derived, read-only view of [projectManagementControllerProvider]'s
 /// projects after applying the current search/sort/filter selections.
 final filteredProjectsProvider = Provider<List<Project>>((ref) {
   final state = ref.watch(projectManagementControllerProvider);
   final query = state.searchQuery.trim().toLowerCase();
+  final folderScope = state.filterFolderId == null
+      ? null
+      : _folderAndDescendantIds(state.folders, state.filterFolderId!);
 
   final filtered = state.projects.where((project) {
     if (state.favoritesOnly && !project.isFavorite) return false;
@@ -281,14 +397,33 @@ final filteredProjectsProvider = Provider<List<Project>>((ref) {
         project.priority != state.filterPriority) {
       return false;
     }
+    if (folderScope != null && !folderScope.contains(project.folderId)) {
+      return false;
+    }
+    if (state.filterTag != null && !project.tags.contains(state.filterTag)) {
+      return false;
+    }
     if (query.isEmpty) return true;
     final description = project.description?.toLowerCase() ?? '';
     return project.name.toLowerCase().contains(query) ||
-        description.contains(query);
+        description.contains(query) ||
+        project.tags.any((tag) => tag.toLowerCase().contains(query));
   }).toList();
 
   filtered.sort(_comparatorFor(state.sortOption));
   return filtered;
+});
+
+/// Every distinct tag across all projects, sorted alphabetically, for the
+/// tag filter menu.
+final allProjectTagsProvider = Provider<List<String>>((ref) {
+  final projects = ref.watch(projectManagementControllerProvider).projects;
+  final tags = <String>{};
+  for (final project in projects) {
+    tags.addAll(project.tags);
+  }
+  final sorted = tags.toList()..sort();
+  return sorted;
 });
 
 int Function(Project, Project) _comparatorFor(ProjectSortOption option) {
