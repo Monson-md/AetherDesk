@@ -6,9 +6,10 @@ import 'package:aetherdesk/features/settings/presentation/widgets/settings_secti
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Local-only display name editor. Not connected to the separate
-/// `user_profile` module (which stays a placeholder) — this is purely a
-/// `settings` preference, in memory only.
+/// Local-only display name editor. Deliberately separate from the richer
+/// `user_profile` module's own identity fields (first/last name, username,
+/// bio, country, avatar) — this is purely a `settings` preference, in
+/// memory only, kept for anything that reads `AppSettings.displayName`.
 class ProfileSection extends ConsumerWidget {
   const ProfileSection({super.key});
 

@@ -1526,6 +1526,192 @@ abstract class AppLocalizations {
   /// **'Sélectionnez un objet dans la scène pour modifier ses propriétés.'**
   String get creation3dNoSelectionMessage;
 
+  /// No description provided for @userProfileEditTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier le profil'**
+  String get userProfileEditTooltip;
+
+  /// No description provided for @userProfileEditTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifier le profil'**
+  String get userProfileEditTitle;
+
+  /// No description provided for @userProfileAvatarLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Avatar'**
+  String get userProfileAvatarLabel;
+
+  /// No description provided for @userProfileAvatarColorLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Couleur de l\'avatar'**
+  String get userProfileAvatarColorLabel;
+
+  /// No description provided for @userProfileFirstNameLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Prénom'**
+  String get userProfileFirstNameLabel;
+
+  /// No description provided for @userProfileLastNameLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom'**
+  String get userProfileLastNameLabel;
+
+  /// No description provided for @userProfileUsernameLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pseudo'**
+  String get userProfileUsernameLabel;
+
+  /// No description provided for @userProfileBioLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bio'**
+  String get userProfileBioLabel;
+
+  /// No description provided for @userProfileBioHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Parlez un peu de vous…'**
+  String get userProfileBioHint;
+
+  /// No description provided for @userProfileNoBio.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune bio pour le moment.'**
+  String get userProfileNoBio;
+
+  /// No description provided for @userProfileNoName.
+  ///
+  /// In fr, this message translates to:
+  /// **'Utilisateur'**
+  String get userProfileNoName;
+
+  /// No description provided for @userProfileCountryLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pays'**
+  String get userProfileCountryLabel;
+
+  /// No description provided for @userProfileCountryNone.
+  ///
+  /// In fr, this message translates to:
+  /// **'Non renseigné'**
+  String get userProfileCountryNone;
+
+  /// No description provided for @userProfileCountryFrance.
+  ///
+  /// In fr, this message translates to:
+  /// **'France'**
+  String get userProfileCountryFrance;
+
+  /// No description provided for @userProfileCountryBelgium.
+  ///
+  /// In fr, this message translates to:
+  /// **'Belgique'**
+  String get userProfileCountryBelgium;
+
+  /// No description provided for @userProfileCountrySwitzerland.
+  ///
+  /// In fr, this message translates to:
+  /// **'Suisse'**
+  String get userProfileCountrySwitzerland;
+
+  /// No description provided for @userProfileCountryCanada.
+  ///
+  /// In fr, this message translates to:
+  /// **'Canada'**
+  String get userProfileCountryCanada;
+
+  /// No description provided for @userProfileCountryUnitedStates.
+  ///
+  /// In fr, this message translates to:
+  /// **'États-Unis'**
+  String get userProfileCountryUnitedStates;
+
+  /// No description provided for @userProfileCountryUnitedKingdom.
+  ///
+  /// In fr, this message translates to:
+  /// **'Royaume-Uni'**
+  String get userProfileCountryUnitedKingdom;
+
+  /// No description provided for @userProfileCountryGermany.
+  ///
+  /// In fr, this message translates to:
+  /// **'Allemagne'**
+  String get userProfileCountryGermany;
+
+  /// No description provided for @userProfileCountrySpain.
+  ///
+  /// In fr, this message translates to:
+  /// **'Espagne'**
+  String get userProfileCountrySpain;
+
+  /// No description provided for @userProfileCountryItaly.
+  ///
+  /// In fr, this message translates to:
+  /// **'Italie'**
+  String get userProfileCountryItaly;
+
+  /// No description provided for @userProfileCountryMorocco.
+  ///
+  /// In fr, this message translates to:
+  /// **'Maroc'**
+  String get userProfileCountryMorocco;
+
+  /// No description provided for @userProfileCountryAlgeria.
+  ///
+  /// In fr, this message translates to:
+  /// **'Algérie'**
+  String get userProfileCountryAlgeria;
+
+  /// No description provided for @userProfileCountryTunisia.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tunisie'**
+  String get userProfileCountryTunisia;
+
+  /// No description provided for @userProfileCountrySenegal.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sénégal'**
+  String get userProfileCountrySenegal;
+
+  /// No description provided for @userProfileCountryIvoryCoast.
+  ///
+  /// In fr, this message translates to:
+  /// **'Côte d\'Ivoire'**
+  String get userProfileCountryIvoryCoast;
+
+  /// No description provided for @userProfileCountryOther.
+  ///
+  /// In fr, this message translates to:
+  /// **'Autre'**
+  String get userProfileCountryOther;
+
+  /// No description provided for @userProfileMemberSinceLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Membre depuis {date}'**
+  String userProfileMemberSinceLabel(String date);
+
+  /// No description provided for @userProfilePrivacyTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Confidentialité'**
+  String get userProfilePrivacyTitle;
+
+  /// No description provided for @userProfileLocalOnlyNote.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ce profil est entièrement local : aucune donnée n\'est envoyée à un serveur. L\'architecture est prête à se connecter à Firebase plus tard sans changer cet écran.'**
+  String get userProfileLocalOnlyNote;
+
   /// No description provided for @settingsProfileTitle.
   ///
   /// In fr, this message translates to:

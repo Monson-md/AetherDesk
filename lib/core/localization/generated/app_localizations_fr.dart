@@ -760,6 +760,102 @@ class AppLocalizationsFr extends AppLocalizations {
       'Sélectionnez un objet dans la scène pour modifier ses propriétés.';
 
   @override
+  String get userProfileEditTooltip => 'Modifier le profil';
+
+  @override
+  String get userProfileEditTitle => 'Modifier le profil';
+
+  @override
+  String get userProfileAvatarLabel => 'Avatar';
+
+  @override
+  String get userProfileAvatarColorLabel => 'Couleur de l\'avatar';
+
+  @override
+  String get userProfileFirstNameLabel => 'Prénom';
+
+  @override
+  String get userProfileLastNameLabel => 'Nom';
+
+  @override
+  String get userProfileUsernameLabel => 'Pseudo';
+
+  @override
+  String get userProfileBioLabel => 'Bio';
+
+  @override
+  String get userProfileBioHint => 'Parlez un peu de vous…';
+
+  @override
+  String get userProfileNoBio => 'Aucune bio pour le moment.';
+
+  @override
+  String get userProfileNoName => 'Utilisateur';
+
+  @override
+  String get userProfileCountryLabel => 'Pays';
+
+  @override
+  String get userProfileCountryNone => 'Non renseigné';
+
+  @override
+  String get userProfileCountryFrance => 'France';
+
+  @override
+  String get userProfileCountryBelgium => 'Belgique';
+
+  @override
+  String get userProfileCountrySwitzerland => 'Suisse';
+
+  @override
+  String get userProfileCountryCanada => 'Canada';
+
+  @override
+  String get userProfileCountryUnitedStates => 'États-Unis';
+
+  @override
+  String get userProfileCountryUnitedKingdom => 'Royaume-Uni';
+
+  @override
+  String get userProfileCountryGermany => 'Allemagne';
+
+  @override
+  String get userProfileCountrySpain => 'Espagne';
+
+  @override
+  String get userProfileCountryItaly => 'Italie';
+
+  @override
+  String get userProfileCountryMorocco => 'Maroc';
+
+  @override
+  String get userProfileCountryAlgeria => 'Algérie';
+
+  @override
+  String get userProfileCountryTunisia => 'Tunisie';
+
+  @override
+  String get userProfileCountrySenegal => 'Sénégal';
+
+  @override
+  String get userProfileCountryIvoryCoast => 'Côte d\'Ivoire';
+
+  @override
+  String get userProfileCountryOther => 'Autre';
+
+  @override
+  String userProfileMemberSinceLabel(String date) {
+    return 'Membre depuis $date';
+  }
+
+  @override
+  String get userProfilePrivacyTitle => 'Confidentialité';
+
+  @override
+  String get userProfileLocalOnlyNote =>
+      'Ce profil est entièrement local : aucune donnée n\'est envoyée à un serveur. L\'architecture est prête à se connecter à Firebase plus tard sans changer cet écran.';
+
+  @override
   String get settingsProfileTitle => 'Profil';
 
   @override
