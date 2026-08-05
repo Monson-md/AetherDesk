@@ -48,8 +48,28 @@ class RealFileIoService implements FileIoService {
   Future<SavedTextFile?> saveTextFile({
     required String suggestedName,
     required String content,
+  }) {
+    return _saveBytes(
+      suggestedName: suggestedName,
+      bytes: Uint8List.fromList(utf8.encode(content)),
+    );
+  }
+
+  @override
+  Future<SavedTextFile?> saveBinaryFile({
+    required String suggestedName,
+    required List<int> bytes,
+  }) {
+    return _saveBytes(
+      suggestedName: suggestedName,
+      bytes: Uint8List.fromList(bytes),
+    );
+  }
+
+  Future<SavedTextFile?> _saveBytes({
+    required String suggestedName,
+    required Uint8List bytes,
   }) async {
-    final bytes = Uint8List.fromList(utf8.encode(content));
     final path = await FilePicker.platform.saveFile(
       fileName: suggestedName,
       bytes: bytes,

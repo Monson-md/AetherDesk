@@ -1,16 +1,13 @@
-import 'package:aetherdesk/core/services/graphics_2d/canvas_export_service.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_element.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_layer.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_project.dart';
 import 'package:aetherdesk/features/creation_2d/domain/repositories/creation_2d_repository.dart';
 
 /// In-memory [Creation2dRepository]: holds the single open [Canvas2dProject]
-/// for the lifetime of the app session. Export is delegated to the injected
-/// [CanvasExportService] swap point.
+/// for the lifetime of the app session. Real PNG export is a presentation
+/// concern (it needs a `RenderRepaintBoundary`) — see
+/// `creation_2d_home_page.dart`'s `_exportCanvas`.
 class Creation2dRepositoryImpl implements Creation2dRepository {
-  Creation2dRepositoryImpl(this._exportService);
-
-  final CanvasExportService _exportService;
   Canvas2dProject _project = Canvas2dProject.initial();
   int _nextLayerId = 2;
 
@@ -105,14 +102,5 @@ class Creation2dRepositoryImpl implements Creation2dRepository {
       layers: _mapLayers(layerId, (layer) => layer.clearElements()),
     );
     return _project;
-  }
-
-  @override
-  Future<String> exportProject() {
-    return _exportService.exportProject(
-      projectName: _project.name,
-      layerCount: _project.layers.length,
-      elementCount: _project.elementCount,
-    );
   }
 }

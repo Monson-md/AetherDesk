@@ -31,6 +31,8 @@ abstract interface class Creation3dRepository {
 
   Creation3dProject duplicateObject(String objectId);
 
-  /// Delegates to the injected `SceneRenderService` swap point.
-  Future<String> renderPreview();
+  /// Serializes the current scene graph to a JSON string, for real export
+  /// via `FileIoService` (a presentation-layer concern — see
+  /// `creation_3d_home_page.dart`).
+  String exportSceneAsJson();
 }

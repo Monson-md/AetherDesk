@@ -1,18 +1,16 @@
-import 'package:aetherdesk/core/services/graphics_2d/canvas_export_service_provider.dart';
 import 'package:aetherdesk/features/creation_2d/data/repositories/creation_2d_repository_impl.dart';
 import 'package:aetherdesk/features/creation_2d/domain/repositories/creation_2d_repository.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/add_canvas_element_usecase.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/add_layer_usecase.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/clear_layer_usecase.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/delete_layer_usecase.dart';
-import 'package:aetherdesk/features/creation_2d/domain/usecases/export_project_usecase.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/reorder_layers_usecase.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/undo_last_element_usecase.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/update_layer_usecase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final creation2dRepositoryProvider = Provider<Creation2dRepository>((ref) {
-  return Creation2dRepositoryImpl(ref.watch(canvasExportServiceProvider));
+  return Creation2dRepositoryImpl();
 });
 
 final addCanvasElementUseCaseProvider = Provider<AddCanvasElementUseCase>((
@@ -43,8 +41,4 @@ final reorderLayersUseCaseProvider = Provider<ReorderLayersUseCase>((ref) {
 
 final clearLayerUseCaseProvider = Provider<ClearLayerUseCase>((ref) {
   return ClearLayerUseCase(ref.watch(creation2dRepositoryProvider));
-});
-
-final exportProjectUseCaseProvider = Provider<ExportProjectUseCase>((ref) {
-  return ExportProjectUseCase(ref.watch(creation2dRepositoryProvider));
 });

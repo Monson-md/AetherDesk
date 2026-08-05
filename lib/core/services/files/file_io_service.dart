@@ -36,4 +36,12 @@ abstract interface class FileIoService {
     required String suggestedName,
     required String content,
   });
+
+  /// Opens a native save dialog pre-filled with [suggestedName] and writes
+  /// raw [bytes] to the chosen location (e.g. an exported PNG). Returns
+  /// `null` if the user cancels.
+  Future<SavedTextFile?> saveBinaryFile({
+    required String suggestedName,
+    required List<int> bytes,
+  });
 }

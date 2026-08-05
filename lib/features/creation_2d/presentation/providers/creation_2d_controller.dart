@@ -15,8 +15,6 @@ class Creation2dState {
     this.activeTool = Canvas2dTool.brush,
     this.colorValue = 0xFF1A1A1A,
     this.strokeWidth = 4,
-    this.isExporting = false,
-    this.lastExportMessage,
   });
 
   final Canvas2dProject project;
@@ -24,8 +22,6 @@ class Creation2dState {
   final Canvas2dTool activeTool;
   final int colorValue;
   final double strokeWidth;
-  final bool isExporting;
-  final String? lastExportMessage;
 
   Canvas2dLayer? get activeLayer {
     for (final layer in project.layers) {
@@ -40,8 +36,6 @@ class Creation2dState {
     Canvas2dTool? activeTool,
     int? colorValue,
     double? strokeWidth,
-    bool? isExporting,
-    String? lastExportMessage,
   }) {
     return Creation2dState(
       project: project ?? this.project,
@@ -49,14 +43,14 @@ class Creation2dState {
       activeTool: activeTool ?? this.activeTool,
       colorValue: colorValue ?? this.colorValue,
       strokeWidth: strokeWidth ?? this.strokeWidth,
-      isExporting: isExporting ?? this.isExporting,
-      lastExportMessage: lastExportMessage ?? this.lastExportMessage,
     );
   }
 }
 
 /// Holds the 2D creation workspace state and wires user actions to the
-/// `Creation2dRepository` usecases.
+/// `Creation2dRepository` usecases. PNG export lives in
+/// `creation_2d_home_page.dart` instead of here — it needs a
+/// `RenderRepaintBoundary`, which is a presentation-layer concept.
 class Creation2dController extends Notifier<Creation2dState> {
   int _nextElementId = 1;
 
@@ -198,25 +192,6 @@ class Creation2dController extends Notifier<Creation2dState> {
         .read(clearLayerUseCaseProvider)
         .call(state.activeLayerId);
     state = state.copyWith(project: project);
-  }
-
-  Future<void> exportProject() async {
-    state = state.copyWith(isExporting: true);
-    final message = await ref.read(exportProjectUseCaseProvider).call();
-    state = state.copyWith(isExporting: false, lastExportMessage: message);
-  }
-
-  /// Clears [Creation2dState.lastExportMessage] once the UI has shown it, so
-  /// the same message doesn't reappear on the next rebuild.
-  void acknowledgeExportMessage() {
-    state = Creation2dState(
-      project: state.project,
-      activeLayerId: state.activeLayerId,
-      activeTool: state.activeTool,
-      colorValue: state.colorValue,
-      strokeWidth: state.strokeWidth,
-      isExporting: state.isExporting,
-    );
   }
 }
 

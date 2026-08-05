@@ -5,21 +5,22 @@ import 'package:aetherdesk/features/creation_3d/domain/entities/scene_object_typ
 import 'package:aetherdesk/features/creation_3d/presentation/widgets/scene_object_type_widgets.dart';
 import 'package:flutter/material.dart';
 
-/// Simulated 3D viewport: a decorative top-down projection of the scene's
-/// visible objects (x/z mapped to the panel, size hinting at scale), not a
-/// real render. See `core/services/graphics_3d/`'s doc comment for the
-/// swap point that would host an actual renderer.
+/// Real-time top-down schematic of the scene's visible objects (x/z mapped
+/// to the panel, size hinting at scale) — not a real 3D render (this app
+/// has no 3D engine), but a genuine, live projection of the actual scene
+/// data. The export button writes the real scene graph to a JSON file, see
+/// `creation_3d_home_page.dart`'s `_exportScene`.
 class ScenePreviewPanel extends StatelessWidget {
   const ScenePreviewPanel({
     required this.objects,
-    required this.isRendering,
-    required this.onRenderPreview,
+    required this.isExporting,
+    required this.onExport,
     super.key,
   });
 
   final List<SceneObject3d> objects;
-  final bool isRendering;
-  final VoidCallback onRenderPreview;
+  final bool isExporting;
+  final VoidCallback onExport;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +92,7 @@ class ScenePreviewPanel extends StatelessWidget {
             left: AppDimensions.spacingSm,
             top: AppDimensions.spacingSm,
             child: Text(
-              l10n.creation3dSimulatedPreviewLabel,
+              l10n.creation3dSchematicPreviewLabel,
               style: Theme.of(
                 context,
               ).textTheme.labelSmall?.copyWith(color: Colors.white70),
@@ -101,7 +102,7 @@ class ScenePreviewPanel extends StatelessWidget {
             right: AppDimensions.spacingSm,
             bottom: AppDimensions.spacingSm,
             child: FilledButton.icon(
-              icon: isRendering
+              icon: isExporting
                   ? const SizedBox(
                       width: 16,
                       height: 16,
@@ -110,9 +111,9 @@ class ScenePreviewPanel extends StatelessWidget {
                         color: Colors.white,
                       ),
                     )
-                  : const Icon(Icons.play_circle_outline),
-              label: Text(l10n.creation3dRenderPreview),
-              onPressed: isRendering ? null : onRenderPreview,
+                  : const Icon(Icons.ios_share_outlined),
+              label: Text(l10n.creation3dExportScene),
+              onPressed: isExporting ? null : onExport,
             ),
           ),
         ],

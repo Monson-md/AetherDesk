@@ -1139,7 +1139,7 @@ abstract class AppLocalizations {
   /// No description provided for @cyberWorkspaceToolIpAnalysis.
   ///
   /// In fr, this message translates to:
-  /// **'Analyse IP'**
+  /// **'Analyse d\'hôte'**
   String get cyberWorkspaceToolIpAnalysis;
 
   /// No description provided for @cyberWorkspaceToolUrlAnalysis.
@@ -1160,16 +1160,10 @@ abstract class AppLocalizations {
   /// **'Terminal'**
   String get cyberWorkspaceToolTerminal;
 
-  /// No description provided for @cyberWorkspaceRiskScore.
-  ///
-  /// In fr, this message translates to:
-  /// **'Score de risque : {score}/100'**
-  String cyberWorkspaceRiskScore(int score);
-
   /// No description provided for @cyberWorkspaceIpAddressLabel.
   ///
   /// In fr, this message translates to:
-  /// **'Adresse IP'**
+  /// **'Hôte ou adresse IP'**
   String get cyberWorkspaceIpAddressLabel;
 
   /// No description provided for @cyberWorkspaceAnalyzeAction.
@@ -1178,23 +1172,35 @@ abstract class AppLocalizations {
   /// **'Analyser'**
   String get cyberWorkspaceAnalyzeAction;
 
-  /// No description provided for @cyberWorkspaceCountryLabel.
+  /// No description provided for @cyberWorkspaceResolvedAddressesLabel.
   ///
   /// In fr, this message translates to:
-  /// **'Pays'**
-  String get cyberWorkspaceCountryLabel;
+  /// **'Adresses résolues'**
+  String get cyberWorkspaceResolvedAddressesLabel;
 
-  /// No description provided for @cyberWorkspaceIspLabel.
+  /// No description provided for @cyberWorkspaceNoAddressesResolved.
   ///
   /// In fr, this message translates to:
-  /// **'Fournisseur'**
-  String get cyberWorkspaceIspLabel;
+  /// **'Aucune adresse résolue'**
+  String get cyberWorkspaceNoAddressesResolved;
 
-  /// No description provided for @cyberWorkspaceSuspiciousLabel.
+  /// No description provided for @cyberWorkspaceReachableLabel.
   ///
   /// In fr, this message translates to:
-  /// **'Suspecte'**
-  String get cyberWorkspaceSuspiciousLabel;
+  /// **'Joignable'**
+  String get cyberWorkspaceReachableLabel;
+
+  /// No description provided for @cyberWorkspaceUnreachableLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Injoignable'**
+  String get cyberWorkspaceUnreachableLabel;
+
+  /// No description provided for @cyberWorkspaceResponseTimeLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'{ms} ms'**
+  String cyberWorkspaceResponseTimeLabel(int ms);
 
   /// No description provided for @cyberWorkspaceUrlLabel.
   ///
@@ -1202,23 +1208,17 @@ abstract class AppLocalizations {
   /// **'URL'**
   String get cyberWorkspaceUrlLabel;
 
-  /// No description provided for @cyberWorkspaceCategoryLabel.
+  /// No description provided for @cyberWorkspaceUrlInvalidMessage.
   ///
   /// In fr, this message translates to:
-  /// **'Catégorie'**
-  String get cyberWorkspaceCategoryLabel;
+  /// **'URL invalide'**
+  String get cyberWorkspaceUrlInvalidMessage;
 
-  /// No description provided for @cyberWorkspaceSafeLabel.
+  /// No description provided for @cyberWorkspaceSchemeLabel.
   ///
   /// In fr, this message translates to:
-  /// **'Sûre'**
-  String get cyberWorkspaceSafeLabel;
-
-  /// No description provided for @cyberWorkspaceUnsafeLabel.
-  ///
-  /// In fr, this message translates to:
-  /// **'Non sûre'**
-  String get cyberWorkspaceUnsafeLabel;
+  /// **'Protocole'**
+  String get cyberWorkspaceSchemeLabel;
 
   /// No description provided for @cyberWorkspaceHostLabel.
   ///
@@ -1388,6 +1388,12 @@ abstract class AppLocalizations {
   /// **'Exporter'**
   String get creation2dExport;
 
+  /// No description provided for @creation2dExportedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Image exportée : {fileName}'**
+  String creation2dExportedMessage(String fileName);
+
   /// No description provided for @creation2dLayersTitle.
   ///
   /// In fr, this message translates to:
@@ -1538,17 +1544,23 @@ abstract class AppLocalizations {
   /// **'Champ de vision de la caméra'**
   String get creation3dCameraFovLabel;
 
-  /// No description provided for @creation3dSimulatedPreviewLabel.
+  /// No description provided for @creation3dSchematicPreviewLabel.
   ///
   /// In fr, this message translates to:
-  /// **'Aperçu simulé — aucun moteur 3D réel'**
-  String get creation3dSimulatedPreviewLabel;
+  /// **'Aperçu schématique — aucun moteur 3D réel'**
+  String get creation3dSchematicPreviewLabel;
 
-  /// No description provided for @creation3dRenderPreview.
+  /// No description provided for @creation3dExportScene.
   ///
   /// In fr, this message translates to:
-  /// **'Générer l\'aperçu'**
-  String get creation3dRenderPreview;
+  /// **'Exporter la scène'**
+  String get creation3dExportScene;
+
+  /// No description provided for @creation3dSceneExportedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Scène exportée : {fileName}'**
+  String creation3dSceneExportedMessage(String fileName);
 
   /// No description provided for @creation3dNoSelectionTitle.
   ///

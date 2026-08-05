@@ -8,8 +8,8 @@ import 'package:aetherdesk/features/cyber_workspace/domain/repositories/cyber_wo
 
 /// Adapts the module's [CyberWorkspaceRepository] contract onto the
 /// app-wide [CyberToolsService] — this is the seam: swap what
-/// `cyberToolsServiceProvider` resolves to (simulated today, a real
-/// security-tooling backend later) and this class stays exactly the same.
+/// `cyberToolsServiceProvider` resolves to (real `dart:io` sockets today, a
+/// full threat-intel backend later) and this class stays exactly the same.
 /// The local, in-memory [_history] log is this module's own state, kept
 /// here rather than in `presentation/` for the same reason every other
 /// module keeps its collections in its repository.
@@ -26,9 +26,9 @@ class CyberWorkspaceRepositoryImpl implements CyberWorkspaceRepository {
     _record(
       toolType: NetworkToolType.ipAnalysis,
       query: ip,
-      resultSummary:
-          '${result.country} · ${result.isp} · '
-          'risk ${result.riskScore}/100',
+      resultSummary: result.isReachable
+          ? '${result.resolvedAddresses.join(', ')} · reachable'
+          : 'unreachable',
     );
     return result;
   }
@@ -39,7 +39,11 @@ class CyberWorkspaceRepositoryImpl implements CyberWorkspaceRepository {
     _record(
       toolType: NetworkToolType.urlAnalysis,
       query: url,
-      resultSummary: '${result.category} · risk ${result.riskScore}/100',
+      resultSummary: !result.isValid
+          ? 'invalid URL'
+          : result.isReachable
+          ? '${result.host} · reachable'
+          : '${result.host} · unreachable',
     );
     return result;
   }

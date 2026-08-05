@@ -29,7 +29,4 @@ abstract interface class Creation2dRepository {
   Canvas2dProject reorderLayers({required int oldIndex, required int newIndex});
 
   Canvas2dProject clearLayer(String layerId);
-
-  /// Delegates to the injected `CanvasExportService` swap point.
-  Future<String> exportProject();
 }

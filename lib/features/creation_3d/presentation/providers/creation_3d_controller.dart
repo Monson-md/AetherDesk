@@ -13,15 +13,11 @@ class Creation3dState {
     required this.project,
     required this.assets,
     this.selectedObjectId,
-    this.isRendering = false,
-    this.lastPreviewMessage,
   });
 
   final Creation3dProject project;
   final List<SceneAsset> assets;
   final String? selectedObjectId;
-  final bool isRendering;
-  final String? lastPreviewMessage;
 
   SceneObject3d? get selectedObject {
     final id = selectedObjectId;
@@ -36,21 +32,20 @@ class Creation3dState {
     Creation3dProject? project,
     List<SceneAsset>? assets,
     String? selectedObjectId,
-    bool? isRendering,
-    String? lastPreviewMessage,
   }) {
     return Creation3dState(
       project: project ?? this.project,
       assets: assets ?? this.assets,
       selectedObjectId: selectedObjectId ?? this.selectedObjectId,
-      isRendering: isRendering ?? this.isRendering,
-      lastPreviewMessage: lastPreviewMessage ?? this.lastPreviewMessage,
     );
   }
 }
 
 /// Holds the 3D creation workspace state and wires user actions to the
-/// `Creation3dRepository` usecases.
+/// `Creation3dRepository` usecases. Real scene JSON export
+/// ([ExportSceneUseCase]) is triggered directly from
+/// `creation_3d_home_page.dart` since writing the file is a
+/// presentation-layer concern (`FileIoService`).
 class Creation3dController extends Notifier<Creation3dState> {
   @override
   Creation3dState build() {
@@ -72,8 +67,6 @@ class Creation3dController extends Notifier<Creation3dState> {
       project: state.project,
       assets: state.assets,
       selectedObjectId: objectId,
-      isRendering: state.isRendering,
-      lastPreviewMessage: state.lastPreviewMessage,
     );
   }
 
@@ -115,8 +108,6 @@ class Creation3dController extends Notifier<Creation3dState> {
       project: project,
       assets: state.assets,
       selectedObjectId: stillSelected ? state.selectedObjectId : null,
-      isRendering: state.isRendering,
-      lastPreviewMessage: state.lastPreviewMessage,
     );
   }
 
@@ -127,23 +118,6 @@ class Creation3dController extends Notifier<Creation3dState> {
     state = state.copyWith(
       project: project,
       selectedObjectId: project.objects.last.id,
-    );
-  }
-
-  Future<void> renderPreview() async {
-    state = state.copyWith(isRendering: true);
-    final message = await ref.read(renderScenePreviewUseCaseProvider).call();
-    state = state.copyWith(isRendering: false, lastPreviewMessage: message);
-  }
-
-  /// Clears [Creation3dState.lastPreviewMessage] once the UI has shown it,
-  /// so the same message doesn't reappear on the next rebuild.
-  void acknowledgePreviewMessage() {
-    state = Creation3dState(
-      project: state.project,
-      assets: state.assets,
-      selectedObjectId: state.selectedObjectId,
-      isRendering: state.isRendering,
     );
   }
 }

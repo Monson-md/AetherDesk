@@ -2,9 +2,10 @@ import 'package:aetherdesk/core/constants/app_dimensions.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-/// Simulated shell: a monospace scrollback of prior commands/output plus
-/// an input line. No real process is spawned — see
-/// `SimulatedCyberToolsService.runCommand`'s doc comment.
+/// Real-backed shell: a monospace scrollback of prior commands/output plus
+/// an input line. No arbitrary OS process is spawned — commands are
+/// answered by genuine `dart:io` network/system calls, see
+/// `RealCyberToolsService.runCommand`.
 class TerminalView extends StatefulWidget {
   const TerminalView({required this.lines, required this.onSubmit, super.key});
 

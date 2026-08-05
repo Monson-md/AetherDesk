@@ -217,25 +217,25 @@
       "count": { "type": "int" }
     }
   },
-  "cyberWorkspaceToolIpAnalysis": "Analyse IP",
+  "cyberWorkspaceToolIpAnalysis": "Analyse d'hôte",
   "cyberWorkspaceToolUrlAnalysis": "Analyse URL",
   "cyberWorkspaceToolPortScan": "Scanner de ports",
   "cyberWorkspaceToolTerminal": "Terminal",
-  "cyberWorkspaceRiskScore": "Score de risque : {score}/100",
-  "@cyberWorkspaceRiskScore": {
+  "cyberWorkspaceIpAddressLabel": "Hôte ou adresse IP",
+  "cyberWorkspaceAnalyzeAction": "Analyser",
+  "cyberWorkspaceResolvedAddressesLabel": "Adresses résolues",
+  "cyberWorkspaceNoAddressesResolved": "Aucune adresse résolue",
+  "cyberWorkspaceReachableLabel": "Joignable",
+  "cyberWorkspaceUnreachableLabel": "Injoignable",
+  "cyberWorkspaceResponseTimeLabel": "{ms} ms",
+  "@cyberWorkspaceResponseTimeLabel": {
     "placeholders": {
-      "score": { "type": "int" }
+      "ms": { "type": "int" }
     }
   },
-  "cyberWorkspaceIpAddressLabel": "Adresse IP",
-  "cyberWorkspaceAnalyzeAction": "Analyser",
-  "cyberWorkspaceCountryLabel": "Pays",
-  "cyberWorkspaceIspLabel": "Fournisseur",
-  "cyberWorkspaceSuspiciousLabel": "Suspecte",
   "cyberWorkspaceUrlLabel": "URL",
-  "cyberWorkspaceCategoryLabel": "Catégorie",
-  "cyberWorkspaceSafeLabel": "Sûre",
-  "cyberWorkspaceUnsafeLabel": "Non sûre",
+  "cyberWorkspaceUrlInvalidMessage": "URL invalide",
+  "cyberWorkspaceSchemeLabel": "Protocole",
   "cyberWorkspaceHostLabel": "Hôte",
   "cyberWorkspaceScanAction": "Scanner",
   "cyberWorkspacePortsOpenCount": "{open} sur {total} ports ouverts",
@@ -270,6 +270,12 @@
   "creation2dUndo": "Annuler",
   "creation2dClearLayer": "Vider le calque",
   "creation2dExport": "Exporter",
+  "creation2dExportedMessage": "Image exportée : {fileName}",
+  "@creation2dExportedMessage": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
   "creation2dLayersTitle": "Calques",
   "creation2dAddLayer": "Ajouter un calque",
   "creation2dRenameLayerTitle": "Renommer le calque",
@@ -300,8 +306,14 @@
   "creation3dMaterialLabel": "Matériau (simulé)",
   "creation3dLightIntensityLabel": "Intensité de la lumière",
   "creation3dCameraFovLabel": "Champ de vision de la caméra",
-  "creation3dSimulatedPreviewLabel": "Aperçu simulé — aucun moteur 3D réel",
-  "creation3dRenderPreview": "Générer l'aperçu",
+  "creation3dSchematicPreviewLabel": "Aperçu schématique — aucun moteur 3D réel",
+  "creation3dExportScene": "Exporter la scène",
+  "creation3dSceneExportedMessage": "Scène exportée : {fileName}",
+  "@creation3dSceneExportedMessage": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
   "creation3dNoSelectionTitle": "Aucun objet sélectionné",
   "creation3dNoSelectionMessage": "Sélectionnez un objet dans la scène pour modifier ses propriétés.",
   "userProfileEditTooltip": "Modifier le profil",

@@ -1,4 +1,5 @@
-import 'package:aetherdesk/core/services/graphics_3d/scene_render_service.dart';
+import 'dart:convert';
+
 import 'package:aetherdesk/features/creation_3d/domain/entities/creation_3d_project.dart';
 import 'package:aetherdesk/features/creation_3d/domain/entities/material_preset.dart';
 import 'package:aetherdesk/features/creation_3d/domain/entities/scene_asset.dart';
@@ -26,12 +27,10 @@ const _assetLibrary = [
 ];
 
 /// In-memory [Creation3dRepository]: holds the single open
-/// [Creation3dProject] for the lifetime of the app session. Preview
-/// rendering is delegated to the injected [SceneRenderService] swap point.
+/// [Creation3dProject] for the lifetime of the app session. There is no
+/// real 3D render engine — [exportSceneAsJson] is the honest real feature
+/// this scene graph supports today.
 class Creation3dRepositoryImpl implements Creation3dRepository {
-  Creation3dRepositoryImpl(this._renderService);
-
-  final SceneRenderService _renderService;
   Creation3dProject _project = Creation3dProject.initial();
   int _nextObjectId = 4;
 
@@ -131,13 +130,32 @@ class Creation3dRepositoryImpl implements Creation3dRepository {
   }
 
   @override
-  Future<String> renderPreview() {
-    return _renderService.renderPreview(
-      sceneName: _project.name,
-      objectCount: _project.objects.length,
-      lightCount: _project.objects
-          .where((object) => object.type == SceneObjectType.light)
-          .length,
-    );
+  String exportSceneAsJson() {
+    return const JsonEncoder.withIndent('  ').convert({
+      'id': _project.id,
+      'name': _project.name,
+      'objects': _project.objects.map(_objectToJson).toList(),
+    });
   }
+
+  Map<String, dynamic> _vectorToJson(Vector3 vector) => {
+    'x': vector.x,
+    'y': vector.y,
+    'z': vector.z,
+  };
+
+  Map<String, dynamic> _objectToJson(SceneObject3d object) => {
+    'id': object.id,
+    'name': object.name,
+    'type': object.type.name,
+    'position': _vectorToJson(object.position),
+    'rotation': _vectorToJson(object.rotation),
+    'scale': _vectorToJson(object.scale),
+    'colorValue': object.colorValue,
+    'material': object.material.name,
+    'isVisible': object.isVisible,
+    'isLocked': object.isLocked,
+    'lightIntensity': object.lightIntensity,
+    'cameraFov': object.cameraFov,
+  };
 }

@@ -2,8 +2,10 @@ import 'package:aetherdesk/core/constants/app_dimensions.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
 import 'package:aetherdesk/core/router/nav_destinations.dart';
 import 'package:aetherdesk/core/router/route_paths.dart';
+import 'package:aetherdesk/core/services/files/file_io_service_provider.dart';
 import 'package:aetherdesk/core/widgets/core_widgets.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/providers/creation_3d_controller.dart';
+import 'package:aetherdesk/features/creation_3d/presentation/providers/creation_3d_providers.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/widgets/asset_browser_panel.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/widgets/object_inspector_panel.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/widgets/scene_outliner.dart';
@@ -12,32 +14,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Home screen of the `creation_3d` module: a scene graph editor (asset
-/// browser, outliner, inspector) plus a simulated viewport, backed by an
-/// in-memory [Creation3dController] — see `core/services/graphics_3d/`'s
-/// doc comment for how rendering is wired so it can be swapped for a real
-/// engine later.
-class Creation3dHomePage extends ConsumerWidget {
+/// browser, outliner, inspector) plus a live schematic viewport, backed by
+/// an in-memory [Creation3dController]. [_exportScene] writes the real
+/// scene graph to a real JSON file via `FileIoService` — there is no real
+/// 3D render engine behind this module.
+class Creation3dHomePage extends ConsumerStatefulWidget {
   const Creation3dHomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<Creation3dHomePage> createState() => _Creation3dHomePageState();
+}
+
+class _Creation3dHomePageState extends ConsumerState<Creation3dHomePage> {
+  bool _isExporting = false;
+
+  Future<void> _exportScene() async {
+    setState(() => _isExporting = true);
+    try {
+      final json = ref.read(exportSceneUseCaseProvider).call();
+      final projectName = ref.read(creation3dControllerProvider).project.name;
+      final saved = await ref
+          .read(fileIoServiceProvider)
+          .saveTextFile(suggestedName: '$projectName.json', content: json);
+      if (!mounted || saved == null) return;
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(
+                context,
+              )!.creation3dSceneExportedMessage(saved.fileName),
+            ),
+          ),
+        );
+    } finally {
+      if (mounted) setState(() => _isExporting = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final destination = destinationFor(l10n, RoutePaths.creation3d);
     final state = ref.watch(creation3dControllerProvider);
     final controller = ref.read(creation3dControllerProvider.notifier);
-
-    if (state.lastPreviewMessage != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!context.mounted) return;
-        final message = state.lastPreviewMessage;
-        if (message == null) return;
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(message)));
-        controller.acknowledgePreviewMessage();
-      });
-    }
-
     final selected = state.selectedObject;
 
     return Scaffold(
@@ -78,8 +99,8 @@ class Creation3dHomePage extends ConsumerWidget {
                   height: 260,
                   child: ScenePreviewPanel(
                     objects: state.project.objects,
-                    isRendering: state.isRendering,
-                    onRenderPreview: controller.renderPreview,
+                    isExporting: _isExporting,
+                    onExport: _exportScene,
                   ),
                 ),
                 const SizedBox(height: AppDimensions.spacingMd),

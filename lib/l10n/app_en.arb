@@ -214,25 +214,25 @@
       "count": { "type": "int" }
     }
   },
-  "cyberWorkspaceToolIpAnalysis": "IP analysis",
+  "cyberWorkspaceToolIpAnalysis": "Host analysis",
   "cyberWorkspaceToolUrlAnalysis": "URL analysis",
   "cyberWorkspaceToolPortScan": "Port scanner",
   "cyberWorkspaceToolTerminal": "Terminal",
-  "cyberWorkspaceRiskScore": "Risk score: {score}/100",
-  "@cyberWorkspaceRiskScore": {
+  "cyberWorkspaceIpAddressLabel": "Host or IP address",
+  "cyberWorkspaceAnalyzeAction": "Analyze",
+  "cyberWorkspaceResolvedAddressesLabel": "Resolved addresses",
+  "cyberWorkspaceNoAddressesResolved": "No address resolved",
+  "cyberWorkspaceReachableLabel": "Reachable",
+  "cyberWorkspaceUnreachableLabel": "Unreachable",
+  "cyberWorkspaceResponseTimeLabel": "{ms} ms",
+  "@cyberWorkspaceResponseTimeLabel": {
     "placeholders": {
-      "score": { "type": "int" }
+      "ms": { "type": "int" }
     }
   },
-  "cyberWorkspaceIpAddressLabel": "IP address",
-  "cyberWorkspaceAnalyzeAction": "Analyze",
-  "cyberWorkspaceCountryLabel": "Country",
-  "cyberWorkspaceIspLabel": "ISP",
-  "cyberWorkspaceSuspiciousLabel": "Suspicious",
   "cyberWorkspaceUrlLabel": "URL",
-  "cyberWorkspaceCategoryLabel": "Category",
-  "cyberWorkspaceSafeLabel": "Safe",
-  "cyberWorkspaceUnsafeLabel": "Unsafe",
+  "cyberWorkspaceUrlInvalidMessage": "Invalid URL",
+  "cyberWorkspaceSchemeLabel": "Scheme",
   "cyberWorkspaceHostLabel": "Host",
   "cyberWorkspaceScanAction": "Scan",
   "cyberWorkspacePortsOpenCount": "{open} of {total} ports open",
@@ -267,6 +267,12 @@
   "creation2dUndo": "Undo",
   "creation2dClearLayer": "Clear layer",
   "creation2dExport": "Export",
+  "creation2dExportedMessage": "Image exported: {fileName}",
+  "@creation2dExportedMessage": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
   "creation2dLayersTitle": "Layers",
   "creation2dAddLayer": "Add layer",
   "creation2dRenameLayerTitle": "Rename layer",
@@ -297,8 +303,14 @@
   "creation3dMaterialLabel": "Material (simulated)",
   "creation3dLightIntensityLabel": "Light intensity",
   "creation3dCameraFovLabel": "Camera field of view",
-  "creation3dSimulatedPreviewLabel": "Simulated preview — no real 3D engine",
-  "creation3dRenderPreview": "Render preview",
+  "creation3dSchematicPreviewLabel": "Schematic preview — no real 3D engine",
+  "creation3dExportScene": "Export scene",
+  "creation3dSceneExportedMessage": "Scene exported: {fileName}",
+  "@creation3dSceneExportedMessage": {
+    "placeholders": {
+      "fileName": { "type": "String" }
+    }
+  },
   "creation3dNoSelectionTitle": "No object selected",
   "creation3dNoSelectionMessage": "Select an object in the scene to edit its properties.",
   "userProfileEditTooltip": "Edit profile",

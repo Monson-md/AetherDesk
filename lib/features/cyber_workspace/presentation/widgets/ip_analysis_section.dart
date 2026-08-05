@@ -2,10 +2,9 @@ import 'package:aetherdesk/core/constants/app_dimensions.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
 import 'package:aetherdesk/core/services/cyber_tools/models/ip_analysis_result.dart';
 import 'package:aetherdesk/core/widgets/core_widgets.dart';
-import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/risk_score_badge.dart';
 import 'package:flutter/material.dart';
 
-/// Card with an IP address field, a submit button and the last
+/// Card with a host field, a submit button and the last real
 /// [IpAnalysisResult] — a self-contained section of the "Network Tools"
 /// tab, mirroring [UrlAnalysisSection]/`PortScannerSection`'s shape.
 class IpAnalysisSection extends StatefulWidget {
@@ -80,27 +79,37 @@ class _IpAnalysisSectionState extends State<IpAnalysisSection> {
               const Divider(),
               const SizedBox(height: AppDimensions.spacingSm),
               _ResultRow(
-                label: l10n.cyberWorkspaceCountryLabel,
-                value: result.country,
+                label: l10n.cyberWorkspaceResolvedAddressesLabel,
+                value: result.resolvedAddresses.isEmpty
+                    ? l10n.cyberWorkspaceNoAddressesResolved
+                    : result.resolvedAddresses.join(', '),
               ),
-              _ResultRow(label: l10n.cyberWorkspaceIspLabel, value: result.isp),
               const SizedBox(height: AppDimensions.spacingXs),
               Row(
                 children: [
-                  RiskScoreBadge(score: result.riskScore),
-                  if (result.isSuspicious) ...[
+                  Icon(
+                    result.isReachable
+                        ? Icons.check_circle_outline
+                        : Icons.error_outline,
+                    size: 16,
+                    color: result.isReachable
+                        ? theme.colorScheme.primary
+                        : theme.colorScheme.error,
+                  ),
+                  const SizedBox(width: AppDimensions.spacingXs),
+                  Text(
+                    result.isReachable
+                        ? l10n.cyberWorkspaceReachableLabel
+                        : l10n.cyberWorkspaceUnreachableLabel,
+                    style: theme.textTheme.bodySmall,
+                  ),
+                  if (result.responseTime != null) ...[
                     const SizedBox(width: AppDimensions.spacingSm),
-                    Icon(
-                      Icons.warning_amber_outlined,
-                      size: 16,
-                      color: theme.colorScheme.error,
-                    ),
-                    const SizedBox(width: AppDimensions.spacingXs),
                     Text(
-                      l10n.cyberWorkspaceSuspiciousLabel,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.error,
+                      l10n.cyberWorkspaceResponseTimeLabel(
+                        result.responseTime!.inMilliseconds,
                       ),
+                      style: theme.textTheme.bodySmall,
                     ),
                   ],
                 ],

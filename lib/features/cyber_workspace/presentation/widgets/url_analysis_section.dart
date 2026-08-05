@@ -2,11 +2,11 @@ import 'package:aetherdesk/core/constants/app_dimensions.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
 import 'package:aetherdesk/core/services/cyber_tools/models/url_analysis_result.dart';
 import 'package:aetherdesk/core/widgets/core_widgets.dart';
-import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/risk_score_badge.dart';
 import 'package:flutter/material.dart';
 
-/// Card with a URL field, a submit button and the last [UrlAnalysisResult]
-/// — see [IpAnalysisSection]'s doc comment for the shared shape.
+/// Card with a URL field, a submit button and the last real
+/// [UrlAnalysisResult] — see [IpAnalysisSection]'s doc comment for the
+/// shared shape.
 class UrlAnalysisSection extends StatefulWidget {
   const UrlAnalysisSection({
     required this.isRunning,
@@ -76,40 +76,80 @@ class _UrlAnalysisSectionState extends State<UrlAnalysisSection> {
               const SizedBox(height: AppDimensions.spacingMd),
               const Divider(),
               const SizedBox(height: AppDimensions.spacingSm),
-              Row(
-                children: [
-                  Text(
-                    '${l10n.cyberWorkspaceCategoryLabel}: ',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
+              if (!result.isValid)
+                Row(
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 16,
+                      color: theme.colorScheme.error,
                     ),
-                  ),
-                  Text(result.category, style: theme.textTheme.bodyMedium),
-                ],
-              ),
-              const SizedBox(height: AppDimensions.spacingXs),
-              Row(
-                children: [
-                  RiskScoreBadge(score: result.riskScore),
-                  const SizedBox(width: AppDimensions.spacingSm),
-                  Icon(
-                    result.isSafe
-                        ? Icons.check_circle_outline
-                        : Icons.error_outline,
-                    size: 16,
-                    color: result.isSafe
-                        ? theme.colorScheme.primary
-                        : theme.colorScheme.error,
-                  ),
-                  const SizedBox(width: AppDimensions.spacingXs),
-                  Text(
-                    result.isSafe
-                        ? l10n.cyberWorkspaceSafeLabel
-                        : l10n.cyberWorkspaceUnsafeLabel,
-                    style: theme.textTheme.bodySmall,
-                  ),
-                ],
-              ),
+                    const SizedBox(width: AppDimensions.spacingXs),
+                    Text(
+                      l10n.cyberWorkspaceUrlInvalidMessage,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.error,
+                      ),
+                    ),
+                  ],
+                )
+              else ...[
+                Row(
+                  children: [
+                    Text(
+                      '${l10n.cyberWorkspaceSchemeLabel}: ',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                    Text(result.scheme, style: theme.textTheme.bodyMedium),
+                    const SizedBox(width: AppDimensions.spacingMd),
+                    Text(
+                      '${l10n.cyberWorkspaceHostLabel}: ',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        result.host,
+                        style: theme.textTheme.bodyMedium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppDimensions.spacingXs),
+                Row(
+                  children: [
+                    Icon(
+                      result.isReachable
+                          ? Icons.check_circle_outline
+                          : Icons.error_outline,
+                      size: 16,
+                      color: result.isReachable
+                          ? theme.colorScheme.primary
+                          : theme.colorScheme.error,
+                    ),
+                    const SizedBox(width: AppDimensions.spacingXs),
+                    Text(
+                      result.isReachable
+                          ? l10n.cyberWorkspaceReachableLabel
+                          : l10n.cyberWorkspaceUnreachableLabel,
+                      style: theme.textTheme.bodySmall,
+                    ),
+                    if (result.responseTime != null) ...[
+                      const SizedBox(width: AppDimensions.spacingSm),
+                      Text(
+                        l10n.cyberWorkspaceResponseTimeLabel(
+                          result.responseTime!.inMilliseconds,
+                        ),
+                        style: theme.textTheme.bodySmall,
+                      ),
+                    ],
+                  ],
+                ),
+              ],
             ],
           ],
         ),

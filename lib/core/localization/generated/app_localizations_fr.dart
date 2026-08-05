@@ -557,7 +557,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get cyberWorkspaceToolIpAnalysis => 'Analyse IP';
+  String get cyberWorkspaceToolIpAnalysis => 'Analyse d\'hôte';
 
   @override
   String get cyberWorkspaceToolUrlAnalysis => 'Analyse URL';
@@ -569,36 +569,36 @@ class AppLocalizationsFr extends AppLocalizations {
   String get cyberWorkspaceToolTerminal => 'Terminal';
 
   @override
-  String cyberWorkspaceRiskScore(int score) {
-    return 'Score de risque : $score/100';
-  }
-
-  @override
-  String get cyberWorkspaceIpAddressLabel => 'Adresse IP';
+  String get cyberWorkspaceIpAddressLabel => 'Hôte ou adresse IP';
 
   @override
   String get cyberWorkspaceAnalyzeAction => 'Analyser';
 
   @override
-  String get cyberWorkspaceCountryLabel => 'Pays';
+  String get cyberWorkspaceResolvedAddressesLabel => 'Adresses résolues';
 
   @override
-  String get cyberWorkspaceIspLabel => 'Fournisseur';
+  String get cyberWorkspaceNoAddressesResolved => 'Aucune adresse résolue';
 
   @override
-  String get cyberWorkspaceSuspiciousLabel => 'Suspecte';
+  String get cyberWorkspaceReachableLabel => 'Joignable';
+
+  @override
+  String get cyberWorkspaceUnreachableLabel => 'Injoignable';
+
+  @override
+  String cyberWorkspaceResponseTimeLabel(int ms) {
+    return '$ms ms';
+  }
 
   @override
   String get cyberWorkspaceUrlLabel => 'URL';
 
   @override
-  String get cyberWorkspaceCategoryLabel => 'Catégorie';
+  String get cyberWorkspaceUrlInvalidMessage => 'URL invalide';
 
   @override
-  String get cyberWorkspaceSafeLabel => 'Sûre';
-
-  @override
-  String get cyberWorkspaceUnsafeLabel => 'Non sûre';
+  String get cyberWorkspaceSchemeLabel => 'Protocole';
 
   @override
   String get cyberWorkspaceHostLabel => 'Hôte';
@@ -689,6 +689,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get creation2dExport => 'Exporter';
 
   @override
+  String creation2dExportedMessage(String fileName) {
+    return 'Image exportée : $fileName';
+  }
+
+  @override
   String get creation2dLayersTitle => 'Calques';
 
   @override
@@ -766,11 +771,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get creation3dCameraFovLabel => 'Champ de vision de la caméra';
 
   @override
-  String get creation3dSimulatedPreviewLabel =>
-      'Aperçu simulé — aucun moteur 3D réel';
+  String get creation3dSchematicPreviewLabel =>
+      'Aperçu schématique — aucun moteur 3D réel';
 
   @override
-  String get creation3dRenderPreview => 'Générer l\'aperçu';
+  String get creation3dExportScene => 'Exporter la scène';
+
+  @override
+  String creation3dSceneExportedMessage(String fileName) {
+    return 'Scène exportée : $fileName';
+  }
 
   @override
   String get creation3dNoSelectionTitle => 'Aucun objet sélectionné';
