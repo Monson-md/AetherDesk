@@ -41,12 +41,15 @@ dependencies:
     sdk: flutter
 
   # Real (non-simulated) local capabilities — see CLAUDE.md's "Hard
-  # constraints" for the Étape 1 real-only directive.
-  flutter_secure_storage: ^9.2.2 # encrypted key/value store (Vault master key)
-  local_auth: ^2.3.0 # real biometric/PIN gate
+  # constraints" for the Étape 1 real-only directive. Kept on recent major
+  # versions deliberately: this project's Android toolchain (AGP 9.0.1) is
+  # new enough that older federated plugin implementations (e.g.
+  # local_auth_android 1.x, pre-10.x flutter_secure_storage) fail to build.
+  flutter_secure_storage: ^10.3.1 # encrypted key/value store (Vault master key)
+  local_auth: ^3.0.2 # real biometric/PIN gate
   cryptography: ^2.7.0 # real AES-GCM encryption for the Vault
   shared_preferences: ^2.3.2 # real local persistence (Project Management)
-  file_picker: ^8.1.2 # real file open/save (Code Editor)
+  file_picker: ^11.0.3 # real file open/save (Code Editor)
 
 dev_dependencies:
   flutter_test:

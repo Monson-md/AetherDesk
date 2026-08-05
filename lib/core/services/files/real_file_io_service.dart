@@ -15,7 +15,7 @@ class RealFileIoService implements FileIoService {
 
   @override
   Future<PickedTextFile?> pickAndReadTextFile() async {
-    final result = await FilePicker.platform.pickFiles(
+    final result = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: const [
         'dart',
@@ -70,7 +70,7 @@ class RealFileIoService implements FileIoService {
     required String suggestedName,
     required Uint8List bytes,
   }) async {
-    final path = await FilePicker.platform.saveFile(
+    final path = await FilePicker.saveFile(
       fileName: suggestedName,
       bytes: bytes,
     );

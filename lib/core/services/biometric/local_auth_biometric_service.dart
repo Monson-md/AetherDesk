@@ -1,5 +1,4 @@
 import 'package:aetherdesk/core/services/biometric/biometric_auth_service.dart';
-import 'package:flutter/services.dart' show PlatformException;
 import 'package:local_auth/local_auth.dart';
 
 /// Real [BiometricAuthService] backed by `local_auth` (Android
@@ -16,7 +15,7 @@ class LocalAuthBiometricService implements BiometricAuthService {
       final canCheckBiometrics = await _localAuth.canCheckBiometrics;
       final isDeviceSupported = await _localAuth.isDeviceSupported();
       return canCheckBiometrics || isDeviceSupported;
-    } on PlatformException {
+    } on LocalAuthException {
       return false;
     }
   }
@@ -26,9 +25,9 @@ class LocalAuthBiometricService implements BiometricAuthService {
     try {
       return await _localAuth.authenticate(
         localizedReason: reason,
-        options: const AuthenticationOptions(stickyAuth: true),
+        persistAcrossBackgrounding: true,
       );
-    } on PlatformException {
+    } on LocalAuthException {
       return false;
     }
   }
