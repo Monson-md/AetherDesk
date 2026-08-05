@@ -534,6 +534,108 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get cyberWorkspaceToolIpAnalysis => 'Analyse IP';
+
+  @override
+  String get cyberWorkspaceToolUrlAnalysis => 'Analyse URL';
+
+  @override
+  String get cyberWorkspaceToolPortScan => 'Scanner de ports';
+
+  @override
+  String get cyberWorkspaceToolTerminal => 'Terminal';
+
+  @override
+  String cyberWorkspaceRiskScore(int score) {
+    return 'Score de risque : $score/100';
+  }
+
+  @override
+  String get cyberWorkspaceIpAddressLabel => 'Adresse IP';
+
+  @override
+  String get cyberWorkspaceAnalyzeAction => 'Analyser';
+
+  @override
+  String get cyberWorkspaceCountryLabel => 'Pays';
+
+  @override
+  String get cyberWorkspaceIspLabel => 'Fournisseur';
+
+  @override
+  String get cyberWorkspaceSuspiciousLabel => 'Suspecte';
+
+  @override
+  String get cyberWorkspaceUrlLabel => 'URL';
+
+  @override
+  String get cyberWorkspaceCategoryLabel => 'Catégorie';
+
+  @override
+  String get cyberWorkspaceSafeLabel => 'Sûre';
+
+  @override
+  String get cyberWorkspaceUnsafeLabel => 'Non sûre';
+
+  @override
+  String get cyberWorkspaceHostLabel => 'Hôte';
+
+  @override
+  String get cyberWorkspaceScanAction => 'Scanner';
+
+  @override
+  String cyberWorkspacePortsOpenCount(int open, int total) {
+    return '$open sur $total ports ouverts';
+  }
+
+  @override
+  String get cyberWorkspaceTerminalHint =>
+      'Tapez « help » pour voir les commandes disponibles.';
+
+  @override
+  String get cyberWorkspaceTerminalInputHint => 'Entrez une commande…';
+
+  @override
+  String get cyberWorkspaceFavoritesOnly => 'Favoris uniquement';
+
+  @override
+  String get cyberWorkspaceAllTools => 'Tous les outils';
+
+  @override
+  String get cyberWorkspaceTabDashboard => 'Tableau de bord';
+
+  @override
+  String get cyberWorkspaceTabTools => 'Outils réseau';
+
+  @override
+  String get cyberWorkspaceTabTerminal => 'Terminal';
+
+  @override
+  String get cyberWorkspaceTabHistory => 'Historique';
+
+  @override
+  String get cyberWorkspaceDashboardTitle => 'Aperçu';
+
+  @override
+  String get cyberWorkspaceStatTotalRuns => 'Analyses effectuées';
+
+  @override
+  String get cyberWorkspaceStatFavorites => 'Favoris';
+
+  @override
+  String get cyberWorkspaceQuickActionsTitle => 'Accès rapide';
+
+  @override
+  String get cyberWorkspaceClearHistory => 'Vider l\'historique';
+
+  @override
+  String get cyberWorkspaceEmptyHistoryTitle => 'Aucun historique';
+
+  @override
+  String get cyberWorkspaceEmptyHistoryMessage =>
+      'Les analyses effectuées apparaîtront ici.';
+
+  @override
   String get settingsProfileTitle => 'Profil';
 
   @override

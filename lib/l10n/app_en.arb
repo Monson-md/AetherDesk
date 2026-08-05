@@ -197,6 +197,49 @@
       "count": { "type": "int" }
     }
   },
+  "cyberWorkspaceToolIpAnalysis": "IP analysis",
+  "cyberWorkspaceToolUrlAnalysis": "URL analysis",
+  "cyberWorkspaceToolPortScan": "Port scanner",
+  "cyberWorkspaceToolTerminal": "Terminal",
+  "cyberWorkspaceRiskScore": "Risk score: {score}/100",
+  "@cyberWorkspaceRiskScore": {
+    "placeholders": {
+      "score": { "type": "int" }
+    }
+  },
+  "cyberWorkspaceIpAddressLabel": "IP address",
+  "cyberWorkspaceAnalyzeAction": "Analyze",
+  "cyberWorkspaceCountryLabel": "Country",
+  "cyberWorkspaceIspLabel": "ISP",
+  "cyberWorkspaceSuspiciousLabel": "Suspicious",
+  "cyberWorkspaceUrlLabel": "URL",
+  "cyberWorkspaceCategoryLabel": "Category",
+  "cyberWorkspaceSafeLabel": "Safe",
+  "cyberWorkspaceUnsafeLabel": "Unsafe",
+  "cyberWorkspaceHostLabel": "Host",
+  "cyberWorkspaceScanAction": "Scan",
+  "cyberWorkspacePortsOpenCount": "{open} of {total} ports open",
+  "@cyberWorkspacePortsOpenCount": {
+    "placeholders": {
+      "open": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "cyberWorkspaceTerminalHint": "Type \"help\" to see the available commands.",
+  "cyberWorkspaceTerminalInputHint": "Enter a command…",
+  "cyberWorkspaceFavoritesOnly": "Favorites only",
+  "cyberWorkspaceAllTools": "All tools",
+  "cyberWorkspaceTabDashboard": "Dashboard",
+  "cyberWorkspaceTabTools": "Network tools",
+  "cyberWorkspaceTabTerminal": "Terminal",
+  "cyberWorkspaceTabHistory": "History",
+  "cyberWorkspaceDashboardTitle": "Overview",
+  "cyberWorkspaceStatTotalRuns": "Scans run",
+  "cyberWorkspaceStatFavorites": "Favorites",
+  "cyberWorkspaceQuickActionsTitle": "Quick actions",
+  "cyberWorkspaceClearHistory": "Clear history",
+  "cyberWorkspaceEmptyHistoryTitle": "No history yet",
+  "cyberWorkspaceEmptyHistoryMessage": "Scans you run will show up here.",
   "settingsProfileTitle": "Profile",
   "settingsLanguageTitle": "Language",
   "settingsThemeTitle": "Theme",

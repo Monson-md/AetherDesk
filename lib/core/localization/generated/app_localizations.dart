@@ -1094,6 +1094,198 @@ abstract class AppLocalizations {
   /// **'{count} éléments'**
   String secureVaultItemsCount(int count);
 
+  /// No description provided for @cyberWorkspaceToolIpAnalysis.
+  ///
+  /// In fr, this message translates to:
+  /// **'Analyse IP'**
+  String get cyberWorkspaceToolIpAnalysis;
+
+  /// No description provided for @cyberWorkspaceToolUrlAnalysis.
+  ///
+  /// In fr, this message translates to:
+  /// **'Analyse URL'**
+  String get cyberWorkspaceToolUrlAnalysis;
+
+  /// No description provided for @cyberWorkspaceToolPortScan.
+  ///
+  /// In fr, this message translates to:
+  /// **'Scanner de ports'**
+  String get cyberWorkspaceToolPortScan;
+
+  /// No description provided for @cyberWorkspaceToolTerminal.
+  ///
+  /// In fr, this message translates to:
+  /// **'Terminal'**
+  String get cyberWorkspaceToolTerminal;
+
+  /// No description provided for @cyberWorkspaceRiskScore.
+  ///
+  /// In fr, this message translates to:
+  /// **'Score de risque : {score}/100'**
+  String cyberWorkspaceRiskScore(int score);
+
+  /// No description provided for @cyberWorkspaceIpAddressLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Adresse IP'**
+  String get cyberWorkspaceIpAddressLabel;
+
+  /// No description provided for @cyberWorkspaceAnalyzeAction.
+  ///
+  /// In fr, this message translates to:
+  /// **'Analyser'**
+  String get cyberWorkspaceAnalyzeAction;
+
+  /// No description provided for @cyberWorkspaceCountryLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pays'**
+  String get cyberWorkspaceCountryLabel;
+
+  /// No description provided for @cyberWorkspaceIspLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Fournisseur'**
+  String get cyberWorkspaceIspLabel;
+
+  /// No description provided for @cyberWorkspaceSuspiciousLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Suspecte'**
+  String get cyberWorkspaceSuspiciousLabel;
+
+  /// No description provided for @cyberWorkspaceUrlLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'URL'**
+  String get cyberWorkspaceUrlLabel;
+
+  /// No description provided for @cyberWorkspaceCategoryLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Catégorie'**
+  String get cyberWorkspaceCategoryLabel;
+
+  /// No description provided for @cyberWorkspaceSafeLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sûre'**
+  String get cyberWorkspaceSafeLabel;
+
+  /// No description provided for @cyberWorkspaceUnsafeLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Non sûre'**
+  String get cyberWorkspaceUnsafeLabel;
+
+  /// No description provided for @cyberWorkspaceHostLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Hôte'**
+  String get cyberWorkspaceHostLabel;
+
+  /// No description provided for @cyberWorkspaceScanAction.
+  ///
+  /// In fr, this message translates to:
+  /// **'Scanner'**
+  String get cyberWorkspaceScanAction;
+
+  /// No description provided for @cyberWorkspacePortsOpenCount.
+  ///
+  /// In fr, this message translates to:
+  /// **'{open} sur {total} ports ouverts'**
+  String cyberWorkspacePortsOpenCount(int open, int total);
+
+  /// No description provided for @cyberWorkspaceTerminalHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tapez « help » pour voir les commandes disponibles.'**
+  String get cyberWorkspaceTerminalHint;
+
+  /// No description provided for @cyberWorkspaceTerminalInputHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Entrez une commande…'**
+  String get cyberWorkspaceTerminalInputHint;
+
+  /// No description provided for @cyberWorkspaceFavoritesOnly.
+  ///
+  /// In fr, this message translates to:
+  /// **'Favoris uniquement'**
+  String get cyberWorkspaceFavoritesOnly;
+
+  /// No description provided for @cyberWorkspaceAllTools.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tous les outils'**
+  String get cyberWorkspaceAllTools;
+
+  /// No description provided for @cyberWorkspaceTabDashboard.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tableau de bord'**
+  String get cyberWorkspaceTabDashboard;
+
+  /// No description provided for @cyberWorkspaceTabTools.
+  ///
+  /// In fr, this message translates to:
+  /// **'Outils réseau'**
+  String get cyberWorkspaceTabTools;
+
+  /// No description provided for @cyberWorkspaceTabTerminal.
+  ///
+  /// In fr, this message translates to:
+  /// **'Terminal'**
+  String get cyberWorkspaceTabTerminal;
+
+  /// No description provided for @cyberWorkspaceTabHistory.
+  ///
+  /// In fr, this message translates to:
+  /// **'Historique'**
+  String get cyberWorkspaceTabHistory;
+
+  /// No description provided for @cyberWorkspaceDashboardTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aperçu'**
+  String get cyberWorkspaceDashboardTitle;
+
+  /// No description provided for @cyberWorkspaceStatTotalRuns.
+  ///
+  /// In fr, this message translates to:
+  /// **'Analyses effectuées'**
+  String get cyberWorkspaceStatTotalRuns;
+
+  /// No description provided for @cyberWorkspaceStatFavorites.
+  ///
+  /// In fr, this message translates to:
+  /// **'Favoris'**
+  String get cyberWorkspaceStatFavorites;
+
+  /// No description provided for @cyberWorkspaceQuickActionsTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Accès rapide'**
+  String get cyberWorkspaceQuickActionsTitle;
+
+  /// No description provided for @cyberWorkspaceClearHistory.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vider l\'historique'**
+  String get cyberWorkspaceClearHistory;
+
+  /// No description provided for @cyberWorkspaceEmptyHistoryTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun historique'**
+  String get cyberWorkspaceEmptyHistoryTitle;
+
+  /// No description provided for @cyberWorkspaceEmptyHistoryMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les analyses effectuées apparaîtront ici.'**
+  String get cyberWorkspaceEmptyHistoryMessage;
+
   /// No description provided for @settingsProfileTitle.
   ///
   /// In fr, this message translates to:

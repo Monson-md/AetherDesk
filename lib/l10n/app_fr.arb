@@ -200,6 +200,49 @@
       "count": { "type": "int" }
     }
   },
+  "cyberWorkspaceToolIpAnalysis": "Analyse IP",
+  "cyberWorkspaceToolUrlAnalysis": "Analyse URL",
+  "cyberWorkspaceToolPortScan": "Scanner de ports",
+  "cyberWorkspaceToolTerminal": "Terminal",
+  "cyberWorkspaceRiskScore": "Score de risque : {score}/100",
+  "@cyberWorkspaceRiskScore": {
+    "placeholders": {
+      "score": { "type": "int" }
+    }
+  },
+  "cyberWorkspaceIpAddressLabel": "Adresse IP",
+  "cyberWorkspaceAnalyzeAction": "Analyser",
+  "cyberWorkspaceCountryLabel": "Pays",
+  "cyberWorkspaceIspLabel": "Fournisseur",
+  "cyberWorkspaceSuspiciousLabel": "Suspecte",
+  "cyberWorkspaceUrlLabel": "URL",
+  "cyberWorkspaceCategoryLabel": "Catégorie",
+  "cyberWorkspaceSafeLabel": "Sûre",
+  "cyberWorkspaceUnsafeLabel": "Non sûre",
+  "cyberWorkspaceHostLabel": "Hôte",
+  "cyberWorkspaceScanAction": "Scanner",
+  "cyberWorkspacePortsOpenCount": "{open} sur {total} ports ouverts",
+  "@cyberWorkspacePortsOpenCount": {
+    "placeholders": {
+      "open": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "cyberWorkspaceTerminalHint": "Tapez « help » pour voir les commandes disponibles.",
+  "cyberWorkspaceTerminalInputHint": "Entrez une commande…",
+  "cyberWorkspaceFavoritesOnly": "Favoris uniquement",
+  "cyberWorkspaceAllTools": "Tous les outils",
+  "cyberWorkspaceTabDashboard": "Tableau de bord",
+  "cyberWorkspaceTabTools": "Outils réseau",
+  "cyberWorkspaceTabTerminal": "Terminal",
+  "cyberWorkspaceTabHistory": "Historique",
+  "cyberWorkspaceDashboardTitle": "Aperçu",
+  "cyberWorkspaceStatTotalRuns": "Analyses effectuées",
+  "cyberWorkspaceStatFavorites": "Favoris",
+  "cyberWorkspaceQuickActionsTitle": "Accès rapide",
+  "cyberWorkspaceClearHistory": "Vider l'historique",
+  "cyberWorkspaceEmptyHistoryTitle": "Aucun historique",
+  "cyberWorkspaceEmptyHistoryMessage": "Les analyses effectuées apparaîtront ici.",
   "settingsProfileTitle": "Profil",
   "settingsLanguageTitle": "Langue",
   "settingsThemeTitle": "Thème",

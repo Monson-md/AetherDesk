@@ -529,6 +529,108 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get cyberWorkspaceToolIpAnalysis => 'IP analysis';
+
+  @override
+  String get cyberWorkspaceToolUrlAnalysis => 'URL analysis';
+
+  @override
+  String get cyberWorkspaceToolPortScan => 'Port scanner';
+
+  @override
+  String get cyberWorkspaceToolTerminal => 'Terminal';
+
+  @override
+  String cyberWorkspaceRiskScore(int score) {
+    return 'Risk score: $score/100';
+  }
+
+  @override
+  String get cyberWorkspaceIpAddressLabel => 'IP address';
+
+  @override
+  String get cyberWorkspaceAnalyzeAction => 'Analyze';
+
+  @override
+  String get cyberWorkspaceCountryLabel => 'Country';
+
+  @override
+  String get cyberWorkspaceIspLabel => 'ISP';
+
+  @override
+  String get cyberWorkspaceSuspiciousLabel => 'Suspicious';
+
+  @override
+  String get cyberWorkspaceUrlLabel => 'URL';
+
+  @override
+  String get cyberWorkspaceCategoryLabel => 'Category';
+
+  @override
+  String get cyberWorkspaceSafeLabel => 'Safe';
+
+  @override
+  String get cyberWorkspaceUnsafeLabel => 'Unsafe';
+
+  @override
+  String get cyberWorkspaceHostLabel => 'Host';
+
+  @override
+  String get cyberWorkspaceScanAction => 'Scan';
+
+  @override
+  String cyberWorkspacePortsOpenCount(int open, int total) {
+    return '$open of $total ports open';
+  }
+
+  @override
+  String get cyberWorkspaceTerminalHint =>
+      'Type \"help\" to see the available commands.';
+
+  @override
+  String get cyberWorkspaceTerminalInputHint => 'Enter a command…';
+
+  @override
+  String get cyberWorkspaceFavoritesOnly => 'Favorites only';
+
+  @override
+  String get cyberWorkspaceAllTools => 'All tools';
+
+  @override
+  String get cyberWorkspaceTabDashboard => 'Dashboard';
+
+  @override
+  String get cyberWorkspaceTabTools => 'Network tools';
+
+  @override
+  String get cyberWorkspaceTabTerminal => 'Terminal';
+
+  @override
+  String get cyberWorkspaceTabHistory => 'History';
+
+  @override
+  String get cyberWorkspaceDashboardTitle => 'Overview';
+
+  @override
+  String get cyberWorkspaceStatTotalRuns => 'Scans run';
+
+  @override
+  String get cyberWorkspaceStatFavorites => 'Favorites';
+
+  @override
+  String get cyberWorkspaceQuickActionsTitle => 'Quick actions';
+
+  @override
+  String get cyberWorkspaceClearHistory => 'Clear history';
+
+  @override
+  String get cyberWorkspaceEmptyHistoryTitle => 'No history yet';
+
+  @override
+  String get cyberWorkspaceEmptyHistoryMessage =>
+      'Scans you run will show up here.';
+
+  @override
   String get settingsProfileTitle => 'Profile';
 
   @override
