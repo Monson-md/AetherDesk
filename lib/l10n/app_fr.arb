@@ -405,5 +405,15 @@
   "settingsAiApiKeyNote": "Non stockée de façon sécurisée pour le moment — à venir avec le vrai stockage sécurisé.",
   "settingsAppVersionLabel": "Version",
   "settingsAppBuildLabel": "Build",
-  "settingsAppBuiltWith": "Construit avec Flutter"
+  "settingsAppBuiltWith": "Construit avec Flutter",
+  "settingsCheckForUpdateButton": "Vérifier les mises à jour",
+  "settingsUpdateCheckFailedMessage": "Impossible de vérifier pour le moment (pas de version publiée ou pas de réseau).",
+  "settingsUpToDateMessage": "L'application est à jour.",
+  "settingsUpdateAvailableMessage": "Nouvelle version disponible : {version}",
+  "@settingsUpdateAvailableMessage": {
+    "placeholders": {
+      "version": { "type": "String" }
+    }
+  },
+  "settingsOpenReleaseButton": "Voir la version sur GitHub"
 }

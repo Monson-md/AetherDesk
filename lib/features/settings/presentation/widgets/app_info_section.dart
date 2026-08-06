@@ -1,20 +1,46 @@
 import 'package:aetherdesk/core/constants/app_dimensions.dart';
+import 'package:aetherdesk/core/constants/app_version.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
+import 'package:aetherdesk/core/services/updates/app_update_info.dart';
+import 'package:aetherdesk/core/services/updates/app_update_service_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-/// Kept in sync by hand with `pubspec.yaml`'s `version:` line — this app
-/// has no `package_info_plus` dependency to read it at runtime, and adding
-/// one just for this static display isn't worth it.
-const String _appVersion = '1.0.0';
-const String _appBuildNumber = '1';
-
-class AppInfoSection extends StatelessWidget {
+/// App identity/version display, plus a real "check for updates" action
+/// backed by `GithubAppUpdateService` (the public GitHub Releases API — no
+/// account or paid plan needed).
+class AppInfoSection extends ConsumerStatefulWidget {
   const AppInfoSection({super.key});
+
+  @override
+  ConsumerState<AppInfoSection> createState() => _AppInfoSectionState();
+}
+
+class _AppInfoSectionState extends ConsumerState<AppInfoSection> {
+  bool _isChecking = false;
+  AppUpdateInfo? _result;
+  bool _checkFailed = false;
+
+  Future<void> _checkForUpdate() async {
+    setState(() {
+      _isChecking = true;
+      _checkFailed = false;
+    });
+    final result = await ref.read(appUpdateServiceProvider).checkForUpdate();
+    if (!mounted) return;
+    setState(() {
+      _isChecking = false;
+      _result = result;
+      _checkFailed = result == null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    final result = _result;
 
     return Card(
       child: Padding(
@@ -42,7 +68,7 @@ class AppInfoSection extends StatelessWidget {
             Text('AetherDesk', style: theme.textTheme.bodyLarge),
             const SizedBox(height: AppDimensions.spacingXs),
             Text(
-              '${l10n.settingsAppVersionLabel} $_appVersion (${l10n.settingsAppBuildLabel} $_appBuildNumber)',
+              '${l10n.settingsAppVersionLabel} $appVersion (${l10n.settingsAppBuildLabel} $appBuildNumber)',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -54,6 +80,52 @@ class AppInfoSection extends StatelessWidget {
                 color: theme.colorScheme.onSurfaceVariant,
               ),
             ),
+            const SizedBox(height: AppDimensions.spacingMd),
+            OutlinedButton.icon(
+              onPressed: _isChecking ? null : _checkForUpdate,
+              icon: _isChecking
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.system_update_outlined, size: 18),
+              label: Text(l10n.settingsCheckForUpdateButton),
+            ),
+            if (_checkFailed) ...[
+              const SizedBox(height: AppDimensions.spacingSm),
+              Text(
+                l10n.settingsUpdateCheckFailedMessage,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.error,
+                ),
+              ),
+            ],
+            if (result != null && !result.isUpdateAvailable) ...[
+              const SizedBox(height: AppDimensions.spacingSm),
+              Text(
+                l10n.settingsUpToDateMessage,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+            ],
+            if (result != null && result.isUpdateAvailable) ...[
+              const SizedBox(height: AppDimensions.spacingSm),
+              Text(
+                l10n.settingsUpdateAvailableMessage(result.latestVersion),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.tertiary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: AppDimensions.spacingSm),
+              OutlinedButton.icon(
+                onPressed: () => launchUrl(Uri.parse(result.releaseUrl)),
+                icon: const Icon(Icons.open_in_new, size: 18),
+                label: Text(l10n.settingsOpenReleaseButton),
+              ),
+            ],
           ],
         ),
       ),

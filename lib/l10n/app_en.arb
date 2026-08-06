@@ -402,5 +402,15 @@
   "settingsAiApiKeyNote": "Not securely stored yet — coming with real secure storage.",
   "settingsAppVersionLabel": "Version",
   "settingsAppBuildLabel": "Build",
-  "settingsAppBuiltWith": "Built with Flutter"
+  "settingsAppBuiltWith": "Built with Flutter",
+  "settingsCheckForUpdateButton": "Check for updates",
+  "settingsUpdateCheckFailedMessage": "Couldn't check right now (no published release, or no network).",
+  "settingsUpToDateMessage": "The app is up to date.",
+  "settingsUpdateAvailableMessage": "New version available: {version}",
+  "@settingsUpdateAvailableMessage": {
+    "placeholders": {
+      "version": { "type": "String" }
+    }
+  },
+  "settingsOpenReleaseButton": "View release on GitHub"
 }

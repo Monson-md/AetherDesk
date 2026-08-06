@@ -1035,4 +1035,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsAppBuiltWith => 'Built with Flutter';
+
+  @override
+  String get settingsCheckForUpdateButton => 'Check for updates';
+
+  @override
+  String get settingsUpdateCheckFailedMessage =>
+      'Couldn\'t check right now (no published release, or no network).';
+
+  @override
+  String get settingsUpToDateMessage => 'The app is up to date.';
+
+  @override
+  String settingsUpdateAvailableMessage(String version) {
+    return 'New version available: $version';
+  }
+
+  @override
+  String get settingsOpenReleaseButton => 'View release on GitHub';
 }

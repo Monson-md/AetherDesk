@@ -2053,6 +2053,36 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Construit avec Flutter'**
   String get settingsAppBuiltWith;
+
+  /// No description provided for @settingsCheckForUpdateButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vérifier les mises à jour'**
+  String get settingsCheckForUpdateButton;
+
+  /// No description provided for @settingsUpdateCheckFailedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Impossible de vérifier pour le moment (pas de version publiée ou pas de réseau).'**
+  String get settingsUpdateCheckFailedMessage;
+
+  /// No description provided for @settingsUpToDateMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'L\'application est à jour.'**
+  String get settingsUpToDateMessage;
+
+  /// No description provided for @settingsUpdateAvailableMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvelle version disponible : {version}'**
+  String settingsUpdateAvailableMessage(String version);
+
+  /// No description provided for @settingsOpenReleaseButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Voir la version sur GitHub'**
+  String get settingsOpenReleaseButton;
 }
 
 class _AppLocalizationsDelegate

@@ -52,14 +52,20 @@ dependencies:
   file_picker: ^11.0.3 # real file open/save (Code Editor)
 
   # Étape 2: real Firebase (Auth, Firestore, FCM, Remote Config only — no
-  # Storage, which requires the paid Blaze plan). Actual initialization is
-  # gated behind lib/firebase_options.dart existing (generated from the
-  # user-provided google-services.json) — see main.dart.
+  # Storage, which requires the paid Blaze plan). Firebase.initializeApp()
+  # reads android/app/google-services.json directly (Android-only app, so
+  # no need for a hand-rolled firebase_options.dart) — see main.dart and
+  # android/app/build.gradle.kts for the Google Services Gradle plugin.
   firebase_core: ^4.4.1
   firebase_auth: ^6.5.1
   cloud_firestore: ^6.1.1
   firebase_messaging: ^16.0.6
   firebase_remote_config: ^6.1.1
+
+  # Étape 2: free GitHub Releases-based update checker (public API, no
+  # account/token needed) — see core/services/updates/.
+  http: ^1.6.0
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:
