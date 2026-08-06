@@ -1,8 +1,8 @@
 import 'package:aetherdesk/core/services/firebase/models/firebase_user.dart';
 
-/// Contract for Firebase Authentication. Intentionally NOT implemented yet
-/// — no `firebase_auth` dependency, no Firebase project configuration. See
-/// `core/services/firebase/firebase_service.dart` for the activation steps.
+/// Contract for Firebase Authentication. `RealFirebaseAuthService` is the
+/// real implementation, backed by the `firebase_auth` package and the
+/// Firebase project configured via `android/app/google-services.json`.
 abstract interface class FirebaseAuthService {
   Stream<FirebaseUser?> authStateChanges();
 

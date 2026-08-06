@@ -1,8 +1,7 @@
 import 'package:aetherdesk/core/services/firebase/models/firestore_document.dart';
 
-/// Contract for Cloud Firestore. Intentionally NOT implemented yet — no
-/// `cloud_firestore` dependency, no Firebase project configuration. See
-/// `core/services/firebase/firebase_service.dart` for the activation steps.
+/// Contract for Cloud Firestore. `RealFirestoreService` is the real
+/// implementation, backed by the `cloud_firestore` package.
 abstract interface class FirestoreService {
   Future<FirestoreDocument?> getDocument({
     required String collectionPath,

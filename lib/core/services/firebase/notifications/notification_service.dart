@@ -1,9 +1,8 @@
 import 'package:aetherdesk/core/services/firebase/models/push_notification.dart';
 
 /// Contract for push notifications (Firebase Cloud Messaging).
-/// Intentionally NOT implemented yet — no `firebase_messaging` dependency,
-/// no Firebase project configuration. See
-/// `core/services/firebase/firebase_service.dart` for activation steps.
+/// `RealNotificationService` is the real implementation, backed by the
+/// `firebase_messaging` package.
 ///
 /// Purely remote push, unrelated to `settings`' local notification
 /// preference toggles (`AppSettings.notificationsEnabled`), which will
