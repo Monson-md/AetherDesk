@@ -67,6 +67,14 @@ dependencies:
   http: ^1.6.0
   url_launcher: ^6.3.1
 
+  # Étape 3, batch 1: real device tools in cyber_workspace's new "Device"
+  # tab — no external hardware needed for any of these.
+  sensors_plus: ^7.0.0 # accelerometer/gyroscope/magnetometer dashboard
+  torch_light: ^1.1.0 # real flashlight control
+  mobile_scanner: ^7.1.2 # real camera QR/barcode scanning
+  qr_flutter: ^4.1.0 # real QR code generation (pure Dart, no native code)
+  flutter_blue_plus: ^1.36.5 # real BLE device scanner
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

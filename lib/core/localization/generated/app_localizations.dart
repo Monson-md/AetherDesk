@@ -1286,6 +1286,12 @@ abstract class AppLocalizations {
   /// **'Historique'**
   String get cyberWorkspaceTabHistory;
 
+  /// No description provided for @cyberWorkspaceTabDevice.
+  ///
+  /// In fr, this message translates to:
+  /// **'Appareil'**
+  String get cyberWorkspaceTabDevice;
+
   /// No description provided for @cyberWorkspaceDashboardTitle.
   ///
   /// In fr, this message translates to:
@@ -1327,6 +1333,138 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Les analyses effectuées apparaîtront ici.'**
   String get cyberWorkspaceEmptyHistoryMessage;
+
+  /// No description provided for @cyberWorkspaceSensorsTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Capteurs'**
+  String get cyberWorkspaceSensorsTitle;
+
+  /// No description provided for @cyberWorkspaceAccelerometerLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Accéléromètre'**
+  String get cyberWorkspaceAccelerometerLabel;
+
+  /// No description provided for @cyberWorkspaceGyroscopeLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Gyroscope'**
+  String get cyberWorkspaceGyroscopeLabel;
+
+  /// No description provided for @cyberWorkspaceMagnetometerLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Magnétomètre'**
+  String get cyberWorkspaceMagnetometerLabel;
+
+  /// No description provided for @cyberWorkspaceFlashlightTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Lampe torche'**
+  String get cyberWorkspaceFlashlightTitle;
+
+  /// No description provided for @cyberWorkspaceFlashlightUnavailableMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Lampe torche indisponible sur cet appareil.'**
+  String get cyberWorkspaceFlashlightUnavailableMessage;
+
+  /// No description provided for @cyberWorkspaceFlashlightOnButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Allumer'**
+  String get cyberWorkspaceFlashlightOnButton;
+
+  /// No description provided for @cyberWorkspaceFlashlightOffButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Éteindre'**
+  String get cyberWorkspaceFlashlightOffButton;
+
+  /// No description provided for @cyberWorkspaceFlashlightStrobeButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Stroboscope'**
+  String get cyberWorkspaceFlashlightStrobeButton;
+
+  /// No description provided for @cyberWorkspaceFlashlightStopStrobeButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Arrêter le stroboscope'**
+  String get cyberWorkspaceFlashlightStopStrobeButton;
+
+  /// No description provided for @cyberWorkspaceQrToolTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Outil QR code'**
+  String get cyberWorkspaceQrToolTitle;
+
+  /// No description provided for @cyberWorkspaceQrScanLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Scanner un code'**
+  String get cyberWorkspaceQrScanLabel;
+
+  /// No description provided for @cyberWorkspaceQrStartScanButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Démarrer le scan'**
+  String get cyberWorkspaceQrStartScanButton;
+
+  /// No description provided for @cyberWorkspaceQrScannedValueLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Valeur scannée : {value}'**
+  String cyberWorkspaceQrScannedValueLabel(String value);
+
+  /// No description provided for @cyberWorkspaceQrGenerateLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Générer un code'**
+  String get cyberWorkspaceQrGenerateLabel;
+
+  /// No description provided for @cyberWorkspaceQrTextToEncodeLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Texte à encoder'**
+  String get cyberWorkspaceQrTextToEncodeLabel;
+
+  /// No description provided for @cyberWorkspaceBleScannerTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Scanner Bluetooth (BLE)'**
+  String get cyberWorkspaceBleScannerTitle;
+
+  /// No description provided for @cyberWorkspaceBleUnsupportedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le Bluetooth Low Energy n\'est pas pris en charge sur cet appareil.'**
+  String get cyberWorkspaceBleUnsupportedMessage;
+
+  /// No description provided for @cyberWorkspaceBleStartScanButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Démarrer le scan'**
+  String get cyberWorkspaceBleStartScanButton;
+
+  /// No description provided for @cyberWorkspaceBleStopScanButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Arrêter le scan'**
+  String get cyberWorkspaceBleStopScanButton;
+
+  /// No description provided for @cyberWorkspaceBleNoDevicesMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun appareil détecté pour le moment.'**
+  String get cyberWorkspaceBleNoDevicesMessage;
+
+  /// No description provided for @cyberWorkspaceBleUnknownDeviceLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Appareil inconnu'**
+  String get cyberWorkspaceBleUnknownDeviceLabel;
 
   /// No description provided for @creation2dToolSelect.
   ///

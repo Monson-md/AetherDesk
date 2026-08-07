@@ -6,11 +6,15 @@ import 'package:aetherdesk/core/widgets/core_widgets.dart';
 import 'package:aetherdesk/features/cyber_workspace/domain/entities/cyber_history_entry.dart';
 import 'package:aetherdesk/features/cyber_workspace/domain/entities/network_tool_type.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/providers/cyber_workspace_controller.dart';
+import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/ble_scanner_section.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/dashboard_stat_card.dart';
+import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/flashlight_section.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/history_entry_tile.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/history_filter_bar.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/ip_analysis_section.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/port_scanner_section.dart';
+import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/qr_tool_section.dart';
+import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/sensors_section.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/terminal_view.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/url_analysis_section.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +35,7 @@ class CyberWorkspaceHomePage extends ConsumerStatefulWidget {
 class _CyberWorkspaceHomePageState extends ConsumerState<CyberWorkspaceHomePage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController = TabController(
-    length: 4,
+    length: 5,
     vsync: this,
   );
 
@@ -73,6 +77,10 @@ class _CyberWorkspaceHomePageState extends ConsumerState<CyberWorkspaceHomePage>
               icon: const Icon(Icons.history_outlined),
               text: l10n.cyberWorkspaceTabHistory,
             ),
+            Tab(
+              icon: const Icon(Icons.memory_outlined),
+              text: l10n.cyberWorkspaceTabDevice,
+            ),
           ],
         ),
       ),
@@ -89,6 +97,7 @@ class _CyberWorkspaceHomePageState extends ConsumerState<CyberWorkspaceHomePage>
               selectedToolType: state.historyToolFilter,
               controller: controller,
             ),
+            const _DeviceTab(),
           ],
         ),
       ),
@@ -289,6 +298,26 @@ class _HistoryTab extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _DeviceTab extends StatelessWidget {
+  const _DeviceTab();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(AppDimensions.spacingMd),
+      children: const [
+        SensorsSection(),
+        SizedBox(height: AppDimensions.spacingMd),
+        FlashlightSection(),
+        SizedBox(height: AppDimensions.spacingMd),
+        QrToolSection(),
+        SizedBox(height: AppDimensions.spacingMd),
+        BleScannerSection(),
+      ],
     );
   }
 }

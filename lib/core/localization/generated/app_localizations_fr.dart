@@ -637,6 +637,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get cyberWorkspaceTabHistory => 'Historique';
 
   @override
+  String get cyberWorkspaceTabDevice => 'Appareil';
+
+  @override
   String get cyberWorkspaceDashboardTitle => 'Aperçu';
 
   @override
@@ -657,6 +660,78 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get cyberWorkspaceEmptyHistoryMessage =>
       'Les analyses effectuées apparaîtront ici.';
+
+  @override
+  String get cyberWorkspaceSensorsTitle => 'Capteurs';
+
+  @override
+  String get cyberWorkspaceAccelerometerLabel => 'Accéléromètre';
+
+  @override
+  String get cyberWorkspaceGyroscopeLabel => 'Gyroscope';
+
+  @override
+  String get cyberWorkspaceMagnetometerLabel => 'Magnétomètre';
+
+  @override
+  String get cyberWorkspaceFlashlightTitle => 'Lampe torche';
+
+  @override
+  String get cyberWorkspaceFlashlightUnavailableMessage =>
+      'Lampe torche indisponible sur cet appareil.';
+
+  @override
+  String get cyberWorkspaceFlashlightOnButton => 'Allumer';
+
+  @override
+  String get cyberWorkspaceFlashlightOffButton => 'Éteindre';
+
+  @override
+  String get cyberWorkspaceFlashlightStrobeButton => 'Stroboscope';
+
+  @override
+  String get cyberWorkspaceFlashlightStopStrobeButton =>
+      'Arrêter le stroboscope';
+
+  @override
+  String get cyberWorkspaceQrToolTitle => 'Outil QR code';
+
+  @override
+  String get cyberWorkspaceQrScanLabel => 'Scanner un code';
+
+  @override
+  String get cyberWorkspaceQrStartScanButton => 'Démarrer le scan';
+
+  @override
+  String cyberWorkspaceQrScannedValueLabel(String value) {
+    return 'Valeur scannée : $value';
+  }
+
+  @override
+  String get cyberWorkspaceQrGenerateLabel => 'Générer un code';
+
+  @override
+  String get cyberWorkspaceQrTextToEncodeLabel => 'Texte à encoder';
+
+  @override
+  String get cyberWorkspaceBleScannerTitle => 'Scanner Bluetooth (BLE)';
+
+  @override
+  String get cyberWorkspaceBleUnsupportedMessage =>
+      'Le Bluetooth Low Energy n\'est pas pris en charge sur cet appareil.';
+
+  @override
+  String get cyberWorkspaceBleStartScanButton => 'Démarrer le scan';
+
+  @override
+  String get cyberWorkspaceBleStopScanButton => 'Arrêter le scan';
+
+  @override
+  String get cyberWorkspaceBleNoDevicesMessage =>
+      'Aucun appareil détecté pour le moment.';
+
+  @override
+  String get cyberWorkspaceBleUnknownDeviceLabel => 'Appareil inconnu';
 
   @override
   String get creation2dToolSelect => 'Sélection';
