@@ -66,6 +66,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get commonRename => 'Renommer';
 
   @override
+  String get commonUnknownError => 'Erreur inconnue';
+
+  @override
   String get errorGenericTitle => 'Une erreur est survenue';
 
   @override
@@ -1076,7 +1079,50 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get userProfileLocalOnlyNote =>
-      'Ce profil est entièrement local : aucune donnée n\'est envoyée à un serveur. L\'architecture est prête à se connecter à Firebase plus tard sans changer cet écran.';
+      'Ce profil est local par défaut : aucune donnée n\'est envoyée à un serveur tant que vous ne connectez pas de compte cloud ci-dessous.';
+
+  @override
+  String get userProfileCloudTitle => 'Compte cloud';
+
+  @override
+  String get userProfileCloudDescription =>
+      'Optionnel : connectez un compte pour sauvegarder et restaurer votre profil sur Firebase depuis n\'importe quel appareil.';
+
+  @override
+  String get userProfileCloudEmailLabel => 'Email';
+
+  @override
+  String get userProfileCloudPasswordLabel => 'Mot de passe';
+
+  @override
+  String get userProfileCloudSignInButton => 'Se connecter';
+
+  @override
+  String get userProfileCloudSignUpButton => 'Créer un compte';
+
+  @override
+  String get userProfileCloudForgotPasswordButton => 'Mot de passe oublié ?';
+
+  @override
+  String get userProfileCloudSignOutButton => 'Se déconnecter';
+
+  @override
+  String userProfileCloudSignedInAs(String email) {
+    return 'Connecté en tant que $email';
+  }
+
+  @override
+  String get userProfileCloudMissingFieldsMessage =>
+      'Renseignez un email et un mot de passe.';
+
+  @override
+  String get userProfileCloudPasswordResetSentMessage =>
+      'Email de réinitialisation envoyé.';
+
+  @override
+  String userProfileCloudErrorGeneric(String error) {
+    return 'Une erreur est survenue : $error';
+  }
 
   @override
   String get settingsProfileTitle => 'Profil';
@@ -1157,6 +1203,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settingsNotificationsSoundLabel => 'Son des notifications';
 
   @override
+  String get settingsNotificationsPermissionDeniedMessage =>
+      'Autorisation de notifications refusée. Activez-la dans les paramètres du téléphone.';
+
+  @override
+  String get settingsNotificationsErrorMessage =>
+      'Impossible de mettre à jour les notifications. Réessayez plus tard.';
+
+  @override
   String get settingsBackupNeverLabel => 'Aucune sauvegarde effectuée';
 
   @override
@@ -1168,8 +1222,26 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settingsBackupButton => 'Sauvegarder maintenant';
 
   @override
-  String get settingsBackupSimulatedMessage =>
-      'Sauvegarde simulée effectuée (aucun serveur réel).';
+  String get settingsRestoreButton => 'Restaurer';
+
+  @override
+  String get settingsBackupSuccessMessage => 'Profil sauvegardé sur le cloud.';
+
+  @override
+  String get settingsBackupSignInRequiredMessage =>
+      'Connectez un compte cloud depuis Profil pour sauvegarder ou restaurer.';
+
+  @override
+  String get settingsBackupFailedMessage =>
+      'L\'opération a échoué. Réessayez plus tard.';
+
+  @override
+  String get settingsRestoreSuccessMessage =>
+      'Profil restauré depuis le cloud.';
+
+  @override
+  String get settingsRestoreNotFoundMessage =>
+      'Aucune sauvegarde trouvée sur le cloud.';
 
   @override
   String get settingsBiometricLockLabel => 'Verrouillage biométrique';

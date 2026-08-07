@@ -3,6 +3,7 @@ import 'package:aetherdesk/core/constants/app_version.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
 import 'package:aetherdesk/core/services/updates/app_update_info.dart';
 import 'package:aetherdesk/core/services/updates/app_update_service_provider.dart';
+import 'package:aetherdesk/features/settings/presentation/providers/announcement_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -41,6 +42,7 @@ class _AppInfoSectionState extends ConsumerState<AppInfoSection> {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final result = _result;
+    final announcement = ref.watch(announcementProvider).value;
 
     return Card(
       child: Padding(
@@ -48,6 +50,34 @@ class _AppInfoSectionState extends ConsumerState<AppInfoSection> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (announcement != null) ...[
+              Container(
+                padding: const EdgeInsets.all(AppDimensions.spacingSm),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.campaign_outlined,
+                      color: theme.colorScheme.onPrimaryContainer,
+                      size: 18,
+                    ),
+                    const SizedBox(width: AppDimensions.spacingSm),
+                    Expanded(
+                      child: Text(
+                        announcement,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onPrimaryContainer,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: AppDimensions.spacingMd),
+            ],
             Row(
               children: [
                 Icon(

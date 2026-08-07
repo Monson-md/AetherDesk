@@ -22,6 +22,7 @@
   "commonSave": "Enregistrer",
   "commonDelete": "Supprimer",
   "commonRename": "Renommer",
+  "commonUnknownError": "Erreur inconnue",
   "errorGenericTitle": "Une erreur est survenue",
   "errorGenericMessage": "Veuillez réessayer plus tard.",
   "chatEmptyTitle": "Comment puis-je vous aider ?",
@@ -424,7 +425,29 @@
     }
   },
   "userProfilePrivacyTitle": "Confidentialité",
-  "userProfileLocalOnlyNote": "Ce profil est entièrement local : aucune donnée n'est envoyée à un serveur. L'architecture est prête à se connecter à Firebase plus tard sans changer cet écran.",
+  "userProfileLocalOnlyNote": "Ce profil est local par défaut : aucune donnée n'est envoyée à un serveur tant que vous ne connectez pas de compte cloud ci-dessous.",
+  "userProfileCloudTitle": "Compte cloud",
+  "userProfileCloudDescription": "Optionnel : connectez un compte pour sauvegarder et restaurer votre profil sur Firebase depuis n'importe quel appareil.",
+  "userProfileCloudEmailLabel": "Email",
+  "userProfileCloudPasswordLabel": "Mot de passe",
+  "userProfileCloudSignInButton": "Se connecter",
+  "userProfileCloudSignUpButton": "Créer un compte",
+  "userProfileCloudForgotPasswordButton": "Mot de passe oublié ?",
+  "userProfileCloudSignOutButton": "Se déconnecter",
+  "userProfileCloudSignedInAs": "Connecté en tant que {email}",
+  "@userProfileCloudSignedInAs": {
+    "placeholders": {
+      "email": { "type": "String" }
+    }
+  },
+  "userProfileCloudMissingFieldsMessage": "Renseignez un email et un mot de passe.",
+  "userProfileCloudPasswordResetSentMessage": "Email de réinitialisation envoyé.",
+  "userProfileCloudErrorGeneric": "Une erreur est survenue : {error}",
+  "@userProfileCloudErrorGeneric": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
   "settingsProfileTitle": "Profil",
   "settingsLanguageTitle": "Langue",
   "settingsThemeTitle": "Thème",
@@ -451,6 +474,8 @@
   "settingsTextScaleLarge": "Grand",
   "settingsNotificationsEnabledLabel": "Activer les notifications",
   "settingsNotificationsSoundLabel": "Son des notifications",
+  "settingsNotificationsPermissionDeniedMessage": "Autorisation de notifications refusée. Activez-la dans les paramètres du téléphone.",
+  "settingsNotificationsErrorMessage": "Impossible de mettre à jour les notifications. Réessayez plus tard.",
   "settingsBackupNeverLabel": "Aucune sauvegarde effectuée",
   "settingsBackupLastLabel": "Dernière sauvegarde : {date}",
   "@settingsBackupLastLabel": {
@@ -459,7 +484,12 @@
     }
   },
   "settingsBackupButton": "Sauvegarder maintenant",
-  "settingsBackupSimulatedMessage": "Sauvegarde simulée effectuée (aucun serveur réel).",
+  "settingsRestoreButton": "Restaurer",
+  "settingsBackupSuccessMessage": "Profil sauvegardé sur le cloud.",
+  "settingsBackupSignInRequiredMessage": "Connectez un compte cloud depuis Profil pour sauvegarder ou restaurer.",
+  "settingsBackupFailedMessage": "L'opération a échoué. Réessayez plus tard.",
+  "settingsRestoreSuccessMessage": "Profil restauré depuis le cloud.",
+  "settingsRestoreNotFoundMessage": "Aucune sauvegarde trouvée sur le cloud.",
   "settingsBiometricLockLabel": "Verrouillage biométrique",
   "settingsBiometricUnavailableMessage": "Non disponible sur cet appareil pour le moment.",
   "settingsPinCodeLabel": "Code PIN",

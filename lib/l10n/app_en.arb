@@ -19,6 +19,7 @@
   "commonSave": "Save",
   "commonDelete": "Delete",
   "commonRename": "Rename",
+  "commonUnknownError": "Unknown error",
   "errorGenericTitle": "Something went wrong",
   "errorGenericMessage": "Please try again later.",
   "chatEmptyTitle": "How can I help you?",
@@ -421,7 +422,29 @@
     }
   },
   "userProfilePrivacyTitle": "Privacy",
-  "userProfileLocalOnlyNote": "This profile is entirely local: no data leaves this device. The architecture is ready to connect to Firebase later without changing this screen.",
+  "userProfileLocalOnlyNote": "This profile is local by default: no data leaves this device unless you connect a cloud account below.",
+  "userProfileCloudTitle": "Cloud account",
+  "userProfileCloudDescription": "Optional: sign in to back up and restore your profile on Firebase from any device.",
+  "userProfileCloudEmailLabel": "Email",
+  "userProfileCloudPasswordLabel": "Password",
+  "userProfileCloudSignInButton": "Sign in",
+  "userProfileCloudSignUpButton": "Create account",
+  "userProfileCloudForgotPasswordButton": "Forgot password?",
+  "userProfileCloudSignOutButton": "Sign out",
+  "userProfileCloudSignedInAs": "Signed in as {email}",
+  "@userProfileCloudSignedInAs": {
+    "placeholders": {
+      "email": { "type": "String" }
+    }
+  },
+  "userProfileCloudMissingFieldsMessage": "Enter an email and a password.",
+  "userProfileCloudPasswordResetSentMessage": "Password reset email sent.",
+  "userProfileCloudErrorGeneric": "Something went wrong: {error}",
+  "@userProfileCloudErrorGeneric": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
   "settingsProfileTitle": "Profile",
   "settingsLanguageTitle": "Language",
   "settingsThemeTitle": "Theme",
@@ -448,6 +471,8 @@
   "settingsTextScaleLarge": "Large",
   "settingsNotificationsEnabledLabel": "Enable notifications",
   "settingsNotificationsSoundLabel": "Notification sound",
+  "settingsNotificationsPermissionDeniedMessage": "Notification permission denied. Enable it in the phone's settings.",
+  "settingsNotificationsErrorMessage": "Couldn't update notifications. Try again later.",
   "settingsBackupNeverLabel": "No backup yet",
   "settingsBackupLastLabel": "Last backup: {date}",
   "@settingsBackupLastLabel": {
@@ -456,7 +481,12 @@
     }
   },
   "settingsBackupButton": "Back up now",
-  "settingsBackupSimulatedMessage": "Simulated backup completed (no real server).",
+  "settingsRestoreButton": "Restore",
+  "settingsBackupSuccessMessage": "Profile backed up to the cloud.",
+  "settingsBackupSignInRequiredMessage": "Sign in to a cloud account from Profile to back up or restore.",
+  "settingsBackupFailedMessage": "The operation failed. Try again later.",
+  "settingsRestoreSuccessMessage": "Profile restored from the cloud.",
+  "settingsRestoreNotFoundMessage": "No backup found in the cloud.",
   "settingsBiometricLockLabel": "Biometric lock",
   "settingsBiometricUnavailableMessage": "Not available on this device yet.",
   "settingsPinCodeLabel": "PIN code",

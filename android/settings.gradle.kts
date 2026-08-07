@@ -31,6 +31,11 @@ plugins {
     // androidx dependencies and by Flutter's own deprecation warnings.
     id("com.android.application") version "8.11.1" apply false
     id("org.jetbrains.kotlin.android") version "2.2.20" apply false
+    // Étape 2: processes android/app/google-services.json at build time so
+    // Firebase.initializeApp() has real config to read (see firebase_core
+    // comment in pubspec.yaml) — must be declared here and applied in
+    // android/app/build.gradle.kts.
+    id("com.google.gms.google-services") version "4.4.4" apply false
 }
 
 include(":app")

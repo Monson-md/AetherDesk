@@ -66,6 +66,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonRename => 'Rename';
 
   @override
+  String get commonUnknownError => 'Unknown error';
+
+  @override
   String get errorGenericTitle => 'Something went wrong';
 
   @override
@@ -1069,7 +1072,50 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get userProfileLocalOnlyNote =>
-      'This profile is entirely local: no data leaves this device. The architecture is ready to connect to Firebase later without changing this screen.';
+      'This profile is local by default: no data leaves this device unless you connect a cloud account below.';
+
+  @override
+  String get userProfileCloudTitle => 'Cloud account';
+
+  @override
+  String get userProfileCloudDescription =>
+      'Optional: sign in to back up and restore your profile on Firebase from any device.';
+
+  @override
+  String get userProfileCloudEmailLabel => 'Email';
+
+  @override
+  String get userProfileCloudPasswordLabel => 'Password';
+
+  @override
+  String get userProfileCloudSignInButton => 'Sign in';
+
+  @override
+  String get userProfileCloudSignUpButton => 'Create account';
+
+  @override
+  String get userProfileCloudForgotPasswordButton => 'Forgot password?';
+
+  @override
+  String get userProfileCloudSignOutButton => 'Sign out';
+
+  @override
+  String userProfileCloudSignedInAs(String email) {
+    return 'Signed in as $email';
+  }
+
+  @override
+  String get userProfileCloudMissingFieldsMessage =>
+      'Enter an email and a password.';
+
+  @override
+  String get userProfileCloudPasswordResetSentMessage =>
+      'Password reset email sent.';
+
+  @override
+  String userProfileCloudErrorGeneric(String error) {
+    return 'Something went wrong: $error';
+  }
 
   @override
   String get settingsProfileTitle => 'Profile';
@@ -1150,6 +1196,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsNotificationsSoundLabel => 'Notification sound';
 
   @override
+  String get settingsNotificationsPermissionDeniedMessage =>
+      'Notification permission denied. Enable it in the phone\'s settings.';
+
+  @override
+  String get settingsNotificationsErrorMessage =>
+      'Couldn\'t update notifications. Try again later.';
+
+  @override
   String get settingsBackupNeverLabel => 'No backup yet';
 
   @override
@@ -1161,8 +1215,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsBackupButton => 'Back up now';
 
   @override
-  String get settingsBackupSimulatedMessage =>
-      'Simulated backup completed (no real server).';
+  String get settingsRestoreButton => 'Restore';
+
+  @override
+  String get settingsBackupSuccessMessage => 'Profile backed up to the cloud.';
+
+  @override
+  String get settingsBackupSignInRequiredMessage =>
+      'Sign in to a cloud account from Profile to back up or restore.';
+
+  @override
+  String get settingsBackupFailedMessage =>
+      'The operation failed. Try again later.';
+
+  @override
+  String get settingsRestoreSuccessMessage =>
+      'Profile restored from the cloud.';
+
+  @override
+  String get settingsRestoreNotFoundMessage => 'No backup found in the cloud.';
 
   @override
   String get settingsBiometricLockLabel => 'Biometric lock';

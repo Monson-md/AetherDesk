@@ -7,6 +7,7 @@ import 'package:aetherdesk/features/settings/presentation/widgets/app_info_secti
 import 'package:aetherdesk/features/settings/presentation/widgets/appearance_section.dart';
 import 'package:aetherdesk/features/settings/presentation/widgets/settings_section_card.dart';
 import 'package:aetherdesk/features/user_profile/presentation/providers/user_profile_controller.dart';
+import 'package:aetherdesk/features/user_profile/presentation/widgets/cloud_account_section.dart';
 import 'package:aetherdesk/features/user_profile/presentation/widgets/edit_profile_dialog.dart';
 import 'package:aetherdesk/features/user_profile/presentation/widgets/profile_header_card.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Home screen of the `user_profile` module: identity (name, username,
 /// bio, country, avatar), the cross-cutting language/theme preferences also
-/// surfaced here for convenience, and static app info — all local, no
-/// backend. See `UserProfileRepository`'s doc comment for the Firestore
-/// swap point this is architected for.
+/// surfaced here for convenience, an optional Firebase account for cloud
+/// backup (`CloudAccountSection`), and static app info. The profile itself
+/// stays local-first — see `UserProfileRepository`'s doc comment.
 class UserProfileHomePage extends ConsumerWidget {
   const UserProfileHomePage({super.key});
 
@@ -68,6 +69,8 @@ class UserProfileHomePage extends ConsumerWidget {
             const ThemeSection(),
             const SizedBox(height: AppDimensions.spacingMd),
             const AppearanceSection(),
+            const SizedBox(height: AppDimensions.spacingMd),
+            const CloudAccountSection(),
             const SizedBox(height: AppDimensions.spacingMd),
             SettingsSectionCard(
               title: l10n.userProfilePrivacyTitle,

@@ -212,6 +212,12 @@ abstract class AppLocalizations {
   /// **'Renommer'**
   String get commonRename;
 
+  /// No description provided for @commonUnknownError.
+  ///
+  /// In fr, this message translates to:
+  /// **'Erreur inconnue'**
+  String get commonUnknownError;
+
   /// No description provided for @errorGenericTitle.
   ///
   /// In fr, this message translates to:
@@ -2105,8 +2111,80 @@ abstract class AppLocalizations {
   /// No description provided for @userProfileLocalOnlyNote.
   ///
   /// In fr, this message translates to:
-  /// **'Ce profil est entièrement local : aucune donnée n\'est envoyée à un serveur. L\'architecture est prête à se connecter à Firebase plus tard sans changer cet écran.'**
+  /// **'Ce profil est local par défaut : aucune donnée n\'est envoyée à un serveur tant que vous ne connectez pas de compte cloud ci-dessous.'**
   String get userProfileLocalOnlyNote;
+
+  /// No description provided for @userProfileCloudTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Compte cloud'**
+  String get userProfileCloudTitle;
+
+  /// No description provided for @userProfileCloudDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Optionnel : connectez un compte pour sauvegarder et restaurer votre profil sur Firebase depuis n\'importe quel appareil.'**
+  String get userProfileCloudDescription;
+
+  /// No description provided for @userProfileCloudEmailLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Email'**
+  String get userProfileCloudEmailLabel;
+
+  /// No description provided for @userProfileCloudPasswordLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mot de passe'**
+  String get userProfileCloudPasswordLabel;
+
+  /// No description provided for @userProfileCloudSignInButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Se connecter'**
+  String get userProfileCloudSignInButton;
+
+  /// No description provided for @userProfileCloudSignUpButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Créer un compte'**
+  String get userProfileCloudSignUpButton;
+
+  /// No description provided for @userProfileCloudForgotPasswordButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mot de passe oublié ?'**
+  String get userProfileCloudForgotPasswordButton;
+
+  /// No description provided for @userProfileCloudSignOutButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Se déconnecter'**
+  String get userProfileCloudSignOutButton;
+
+  /// No description provided for @userProfileCloudSignedInAs.
+  ///
+  /// In fr, this message translates to:
+  /// **'Connecté en tant que {email}'**
+  String userProfileCloudSignedInAs(String email);
+
+  /// No description provided for @userProfileCloudMissingFieldsMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Renseignez un email et un mot de passe.'**
+  String get userProfileCloudMissingFieldsMessage;
+
+  /// No description provided for @userProfileCloudPasswordResetSentMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Email de réinitialisation envoyé.'**
+  String get userProfileCloudPasswordResetSentMessage;
+
+  /// No description provided for @userProfileCloudErrorGeneric.
+  ///
+  /// In fr, this message translates to:
+  /// **'Une erreur est survenue : {error}'**
+  String userProfileCloudErrorGeneric(String error);
 
   /// No description provided for @settingsProfileTitle.
   ///
@@ -2264,6 +2342,18 @@ abstract class AppLocalizations {
   /// **'Son des notifications'**
   String get settingsNotificationsSoundLabel;
 
+  /// No description provided for @settingsNotificationsPermissionDeniedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Autorisation de notifications refusée. Activez-la dans les paramètres du téléphone.'**
+  String get settingsNotificationsPermissionDeniedMessage;
+
+  /// No description provided for @settingsNotificationsErrorMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Impossible de mettre à jour les notifications. Réessayez plus tard.'**
+  String get settingsNotificationsErrorMessage;
+
   /// No description provided for @settingsBackupNeverLabel.
   ///
   /// In fr, this message translates to:
@@ -2282,11 +2372,41 @@ abstract class AppLocalizations {
   /// **'Sauvegarder maintenant'**
   String get settingsBackupButton;
 
-  /// No description provided for @settingsBackupSimulatedMessage.
+  /// No description provided for @settingsRestoreButton.
   ///
   /// In fr, this message translates to:
-  /// **'Sauvegarde simulée effectuée (aucun serveur réel).'**
-  String get settingsBackupSimulatedMessage;
+  /// **'Restaurer'**
+  String get settingsRestoreButton;
+
+  /// No description provided for @settingsBackupSuccessMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Profil sauvegardé sur le cloud.'**
+  String get settingsBackupSuccessMessage;
+
+  /// No description provided for @settingsBackupSignInRequiredMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Connectez un compte cloud depuis Profil pour sauvegarder ou restaurer.'**
+  String get settingsBackupSignInRequiredMessage;
+
+  /// No description provided for @settingsBackupFailedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'L\'opération a échoué. Réessayez plus tard.'**
+  String get settingsBackupFailedMessage;
+
+  /// No description provided for @settingsRestoreSuccessMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Profil restauré depuis le cloud.'**
+  String get settingsRestoreSuccessMessage;
+
+  /// No description provided for @settingsRestoreNotFoundMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune sauvegarde trouvée sur le cloud.'**
+  String get settingsRestoreNotFoundMessage;
 
   /// No description provided for @settingsBiometricLockLabel.
   ///

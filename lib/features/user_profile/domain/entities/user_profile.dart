@@ -1,8 +1,10 @@
 import 'package:aetherdesk/features/user_profile/domain/entities/country.dart';
 
-/// The local, single-user profile: no accounts, no sign-in server-side —
-/// identity fields plus a locally customizable avatar (color + icon, not a
-/// real uploaded picture, since this app does no real disk I/O yet).
+/// The local, single-user profile: identity fields plus a locally
+/// customizable avatar (color + icon, not a real uploaded picture). Stored
+/// locally by default; `CloudAccountSection`/`BackupSection` can optionally
+/// back this up to Firestore once the user signs in, but no account is
+/// required to use the app.
 ///
 /// Language and theme are deliberately **not** here, for the same reason
 /// `AppSettings` (in `features/settings`) excludes them: they're
@@ -50,6 +52,36 @@ class UserProfile {
 
   String get fullName =>
       [firstName, lastName].where((part) => part.trim().isNotEmpty).join(' ');
+
+  /// Plain-map form used by `BackupSection`/`CloudAccountSection` to
+  /// save/restore this profile through `FirestoreRepository`, which only
+  /// knows `Map<String, dynamic>` documents.
+  Map<String, dynamic> toJson() => {
+    'firstName': firstName,
+    'lastName': lastName,
+    'username': username,
+    'bio': bio,
+    'country': country.name,
+    'avatarColorValue': avatarColorValue,
+    'avatarIconIndex': avatarIconIndex,
+    'memberSince': memberSince.toIso8601String(),
+  };
+
+  factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
+    firstName: json['firstName'] as String? ?? '',
+    lastName: json['lastName'] as String? ?? '',
+    username: json['username'] as String? ?? '',
+    bio: json['bio'] as String? ?? '',
+    country: Country.values.firstWhere(
+      (value) => value.name == json['country'],
+      orElse: () => Country.none,
+    ),
+    avatarColorValue: json['avatarColorValue'] as int? ?? 0xFF7C6FF0,
+    avatarIconIndex: json['avatarIconIndex'] as int? ?? 0,
+    memberSince:
+        DateTime.tryParse(json['memberSince'] as String? ?? '') ??
+        DateTime.now(),
+  );
 
   UserProfile copyWith({
     String? firstName,

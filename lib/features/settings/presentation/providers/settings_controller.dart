@@ -40,10 +40,9 @@ class SettingsController extends Notifier<AppSettings> {
     }
   }
 
-  /// No real backend to back anything up to — this only stamps
-  /// [AppSettings.lastBackupAt] with the current time, the same way
-  /// `SimulatedAiService` fakes a response instead of calling a real API.
-  void simulateBackupNow() {
+  /// Stamps [AppSettings.lastBackupAt] after a real `CloudBackupController`
+  /// backup succeeds — see `BackupSection`.
+  void markBackedUpNow() {
     _save(state.copyWith(lastBackupAt: DateTime.now()));
   }
 
