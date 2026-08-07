@@ -40,6 +40,24 @@ class SettingsController extends Notifier<AppSettings> {
     }
   }
 
+  void setAiEndpointUrl(String? endpointUrl) {
+    final trimmed = endpointUrl?.trim();
+    if (trimmed == null || trimmed.isEmpty) {
+      _save(state.copyWith(clearAiEndpointUrl: true));
+    } else {
+      _save(state.copyWith(aiEndpointUrl: trimmed));
+    }
+  }
+
+  void setAiModel(String? model) {
+    final trimmed = model?.trim();
+    if (trimmed == null || trimmed.isEmpty) {
+      _save(state.copyWith(clearAiModel: true));
+    } else {
+      _save(state.copyWith(aiModel: trimmed));
+    }
+  }
+
   /// Stamps [AppSettings.lastBackupAt] after a real `CloudBackupController`
   /// backup succeeds — see `BackupSection`.
   void markBackedUpNow() {

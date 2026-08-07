@@ -11,10 +11,11 @@ import 'package:aetherdesk/features/ai_assistant/presentation/widgets/chat_think
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Home screen of the `ai_assistant` module: a premium chat interface with
-/// a simulated assistant. See `SimulatedAiService` / `aiServiceProvider`
-/// for the seam where a real AI provider plugs in later without touching
-/// anything in this file.
+/// Home screen of the `ai_assistant` module: a premium chat interface.
+/// Backed by a real OpenAI-compatible provider once one is configured in
+/// Settings, or `SimulatedAiService` otherwise — see
+/// `aiAssistantRepositoryProvider` for the seam; nothing in this file
+/// changes either way.
 class AiAssistantHomePage extends ConsumerStatefulWidget {
   const AiAssistantHomePage({super.key});
 

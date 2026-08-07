@@ -5,9 +5,11 @@ import 'package:aetherdesk/features/settings/presentation/widgets/settings_secti
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// `ai_assistant` still runs entirely on `SimulatedAiService` — this field
-/// only stores a key in memory (never logged, never sent anywhere) for the
-/// day a real provider is wired in behind `AiService`, per `ROADMAP.md`.
+/// Configures the real [AiService] used by `ai_assistant`: an
+/// OpenAI-compatible `/chat/completions` endpoint (self-hosted Ollama/LM
+/// Studio, OpenRouter, or any other provider speaking the same wire
+/// format). Leaving the endpoint empty keeps `ai_assistant` on
+/// `SimulatedAiService` — see `aiAssistantRepositoryProvider`.
 class AiSection extends ConsumerStatefulWidget {
   const AiSection({super.key});
 
@@ -16,6 +18,12 @@ class AiSection extends ConsumerStatefulWidget {
 }
 
 class _AiSectionState extends ConsumerState<AiSection> {
+  late final _endpointController = TextEditingController(
+    text: ref.read(settingsControllerProvider).aiEndpointUrl,
+  );
+  late final _modelController = TextEditingController(
+    text: ref.read(settingsControllerProvider).aiModel,
+  );
   late final _apiKeyController = TextEditingController(
     text: ref.read(settingsControllerProvider).aiApiKey,
   );
@@ -23,6 +31,8 @@ class _AiSectionState extends ConsumerState<AiSection> {
 
   @override
   void dispose() {
+    _endpointController.dispose();
+    _modelController.dispose();
     _apiKeyController.dispose();
     super.dispose();
   }
@@ -31,6 +41,9 @@ class _AiSectionState extends ConsumerState<AiSection> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    final isConfigured =
+        ref.watch(settingsControllerProvider).aiEndpointUrl?.isNotEmpty ??
+        false;
 
     return SettingsSectionCard(
       title: l10n.settingsAiTitle,
@@ -46,7 +59,9 @@ class _AiSectionState extends ConsumerState<AiSection> {
               ),
               const SizedBox(width: AppDimensions.spacingXs),
               Text(
-                l10n.settingsAiProviderValue,
+                isConfigured
+                    ? l10n.settingsAiProviderCustomValue
+                    : l10n.settingsAiProviderSimulatedValue,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
@@ -54,6 +69,23 @@ class _AiSectionState extends ConsumerState<AiSection> {
             ],
           ),
           const SizedBox(height: AppDimensions.spacingMd),
+          TextField(
+            controller: _endpointController,
+            keyboardType: TextInputType.url,
+            decoration: InputDecoration(
+              labelText: l10n.settingsAiEndpointLabel,
+              hintText: l10n.settingsAiEndpointHint,
+            ),
+          ),
+          const SizedBox(height: AppDimensions.spacingSm),
+          TextField(
+            controller: _modelController,
+            decoration: InputDecoration(
+              labelText: l10n.settingsAiModelLabel,
+              hintText: l10n.settingsAiModelHint,
+            ),
+          ),
+          const SizedBox(height: AppDimensions.spacingSm),
           TextField(
             controller: _apiKeyController,
             obscureText: _obscureKey,
@@ -69,7 +101,7 @@ class _AiSectionState extends ConsumerState<AiSection> {
                 onPressed: () => setState(() => _obscureKey = !_obscureKey),
               ),
             ),
-            onSubmitted: (_) => _saveKey(),
+            onSubmitted: (_) => _save(),
           ),
           const SizedBox(height: AppDimensions.spacingXs),
           Text(
@@ -81,21 +113,19 @@ class _AiSectionState extends ConsumerState<AiSection> {
           const SizedBox(height: AppDimensions.spacingSm),
           Align(
             alignment: Alignment.centerLeft,
-            child: FilledButton(
-              onPressed: _saveKey,
-              child: Text(l10n.commonSave),
-            ),
+            child: FilledButton(onPressed: _save, child: Text(l10n.commonSave)),
           ),
         ],
       ),
     );
   }
 
-  void _saveKey() {
+  void _save() {
     final l10n = AppLocalizations.of(context)!;
-    ref
-        .read(settingsControllerProvider.notifier)
-        .setAiApiKey(_apiKeyController.text);
+    final controller = ref.read(settingsControllerProvider.notifier);
+    controller.setAiEndpointUrl(_endpointController.text);
+    controller.setAiModel(_modelController.text);
+    controller.setAiApiKey(_apiKeyController.text);
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text(l10n.settingsAiApiKeySavedMessage)));

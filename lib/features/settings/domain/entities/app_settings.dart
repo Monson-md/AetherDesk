@@ -12,6 +12,8 @@ class AppSettings {
     required this.biometricLockEnabled,
     required this.analyticsEnabled,
     this.aiApiKey,
+    this.aiEndpointUrl,
+    this.aiModel,
     this.lastBackupAt,
   });
 
@@ -34,6 +36,15 @@ class AppSettings {
   /// on `flutter_secure_storage` being removed with the GitHub auth step
   /// and slated to come back for exactly this use case).
   final String? aiApiKey;
+
+  /// Base URL of a real, user-chosen OpenAI-compatible `/chat/completions`
+  /// API (self-hosted Ollama/LM Studio, OpenRouter, etc.) — `null`/empty
+  /// means `ai_assistant` keeps using `SimulatedAiService` (see
+  /// `aiAssistantRepositoryProvider`).
+  final String? aiEndpointUrl;
+
+  /// Model name sent in the request body to [aiEndpointUrl].
+  final String? aiModel;
   final DateTime? lastBackupAt;
 
   AppSettings copyWith({
@@ -44,6 +55,10 @@ class AppSettings {
     bool? analyticsEnabled,
     String? aiApiKey,
     bool clearAiApiKey = false,
+    String? aiEndpointUrl,
+    bool clearAiEndpointUrl = false,
+    String? aiModel,
+    bool clearAiModel = false,
     DateTime? lastBackupAt,
   }) {
     return AppSettings(
@@ -54,6 +69,10 @@ class AppSettings {
       biometricLockEnabled: biometricLockEnabled ?? this.biometricLockEnabled,
       analyticsEnabled: analyticsEnabled ?? this.analyticsEnabled,
       aiApiKey: clearAiApiKey ? null : (aiApiKey ?? this.aiApiKey),
+      aiEndpointUrl: clearAiEndpointUrl
+          ? null
+          : (aiEndpointUrl ?? this.aiEndpointUrl),
+      aiModel: clearAiModel ? null : (aiModel ?? this.aiModel),
       lastBackupAt: lastBackupAt ?? this.lastBackupAt,
     );
   }

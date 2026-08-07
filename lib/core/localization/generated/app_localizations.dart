@@ -242,6 +242,12 @@ abstract class AppLocalizations {
   /// **'Posez une question ou choisissez une suggestion pour commencer.'**
   String get chatEmptyMessage;
 
+  /// No description provided for @chatErrorMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Impossible de contacter le modèle. Vérifiez l\'endpoint IA dans Réglages.'**
+  String get chatErrorMessage;
+
   /// No description provided for @chatSuggestionGenerateCode.
   ///
   /// In fr, this message translates to:
@@ -2474,11 +2480,41 @@ abstract class AppLocalizations {
   /// **'Fournisseur IA'**
   String get settingsAiProviderLabel;
 
-  /// No description provided for @settingsAiProviderValue.
+  /// No description provided for @settingsAiProviderSimulatedValue.
   ///
   /// In fr, this message translates to:
   /// **'Simulé (local)'**
-  String get settingsAiProviderValue;
+  String get settingsAiProviderSimulatedValue;
+
+  /// No description provided for @settingsAiProviderCustomValue.
+  ///
+  /// In fr, this message translates to:
+  /// **'Personnalisé (compatible OpenAI)'**
+  String get settingsAiProviderCustomValue;
+
+  /// No description provided for @settingsAiEndpointLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'URL du endpoint'**
+  String get settingsAiEndpointLabel;
+
+  /// No description provided for @settingsAiEndpointHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'ex. http://localhost:11434/v1 ou https://openrouter.ai/api/v1'**
+  String get settingsAiEndpointHint;
+
+  /// No description provided for @settingsAiModelLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modèle'**
+  String get settingsAiModelLabel;
+
+  /// No description provided for @settingsAiModelHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'ex. llama3, gpt-4o-mini'**
+  String get settingsAiModelHint;
 
   /// No description provided for @settingsAiApiKeyLabel.
   ///
@@ -2489,7 +2525,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsAiApiKeyHint.
   ///
   /// In fr, this message translates to:
-  /// **'Coller votre clé API'**
+  /// **'Coller votre clé API (optionnelle pour un serveur local)'**
   String get settingsAiApiKeyHint;
 
   /// No description provided for @settingsAiApiKeySavedMessage.

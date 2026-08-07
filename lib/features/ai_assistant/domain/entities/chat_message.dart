@@ -8,6 +8,7 @@ class ChatMessage {
     required this.role,
     required this.content,
     required this.timestamp,
+    this.isError = false,
   });
 
   final String id;
@@ -15,12 +16,18 @@ class ChatMessage {
   final String content;
   final DateTime timestamp;
 
-  ChatMessage copyWith({String? content}) {
+  /// True when a real AI provider call failed while producing this
+  /// message — `ChatMessageBubble` shows a localized error notice instead
+  /// of [content] in that case.
+  final bool isError;
+
+  ChatMessage copyWith({String? content, bool? isError}) {
     return ChatMessage(
       id: id,
       role: role,
       content: content ?? this.content,
       timestamp: timestamp,
+      isError: isError ?? this.isError,
     );
   }
 }

@@ -82,6 +82,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Ask a question or pick a suggestion to get started.';
 
   @override
+  String get chatErrorMessage =>
+      'Couldn\'t reach the model. Check the AI endpoint in Settings.';
+
+  @override
   String get chatSuggestionGenerateCode => 'Generate code';
 
   @override
@@ -1272,13 +1276,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsAiProviderLabel => 'AI provider';
 
   @override
-  String get settingsAiProviderValue => 'Simulated (local)';
+  String get settingsAiProviderSimulatedValue => 'Simulated (local)';
+
+  @override
+  String get settingsAiProviderCustomValue => 'Custom (OpenAI-compatible)';
+
+  @override
+  String get settingsAiEndpointLabel => 'Endpoint URL';
+
+  @override
+  String get settingsAiEndpointHint =>
+      'e.g. http://localhost:11434/v1 or https://openrouter.ai/api/v1';
+
+  @override
+  String get settingsAiModelLabel => 'Model';
+
+  @override
+  String get settingsAiModelHint => 'e.g. llama3, gpt-4o-mini';
 
   @override
   String get settingsAiApiKeyLabel => 'Personal API key';
 
   @override
-  String get settingsAiApiKeyHint => 'Paste your API key';
+  String get settingsAiApiKeyHint =>
+      'Paste your API key (optional for local servers)';
 
   @override
   String get settingsAiApiKeySavedMessage => 'API key saved (in memory only).';

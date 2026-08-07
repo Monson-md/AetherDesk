@@ -1,4 +1,5 @@
 import 'package:aetherdesk/core/constants/app_dimensions.dart';
+import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
 import 'package:aetherdesk/features/ai_assistant/domain/entities/chat_message.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -13,12 +14,17 @@ class ChatMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final isUser = message.role == ChatMessageRole.user;
-    final bubbleColor = isUser
+    final bubbleColor = message.isError
+        ? theme.colorScheme.errorContainer
+        : isUser
         ? theme.colorScheme.primary
         : theme.colorScheme.surfaceContainerHighest;
-    final textColor = isUser
+    final textColor = message.isError
+        ? theme.colorScheme.onErrorContainer
+        : isUser
         ? theme.colorScheme.onPrimary
         : theme.colorScheme.onSurface;
 
@@ -61,7 +67,7 @@ class ChatMessageBubble extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    message.content,
+                    message.isError ? l10n.chatErrorMessage : message.content,
                     softWrap: true,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: textColor,

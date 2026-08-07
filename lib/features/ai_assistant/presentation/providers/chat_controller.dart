@@ -43,27 +43,60 @@ class ChatController extends Notifier<ChatState> {
     final sendMessage = ref.read(sendMessageUseCaseProvider);
     String? assistantMessageId;
 
-    await for (final chunk in sendMessage(text)) {
-      if (assistantMessageId == null) {
-        final assistantMessage = _newMessage(ChatMessageRole.assistant, chunk);
-        assistantMessageId = assistantMessage.id;
-        state = state.copyWith(
-          messages: [...state.messages, assistantMessage],
-          isAssistantThinking: false,
-        );
-      } else {
-        final id = assistantMessageId;
-        state = state.copyWith(
-          messages: [
-            for (final message in state.messages)
-              if (message.id == id)
-                message.copyWith(content: message.content + chunk)
-              else
-                message,
-          ],
-        );
+    try {
+      await for (final chunk in sendMessage(text)) {
+        if (assistantMessageId == null) {
+          final assistantMessage = _newMessage(
+            ChatMessageRole.assistant,
+            chunk,
+          );
+          assistantMessageId = assistantMessage.id;
+          state = state.copyWith(
+            messages: [...state.messages, assistantMessage],
+            isAssistantThinking: false,
+          );
+        } else {
+          final id = assistantMessageId;
+          state = state.copyWith(
+            messages: [
+              for (final message in state.messages)
+                if (message.id == id)
+                  message.copyWith(content: message.content + chunk)
+                else
+                  message,
+            ],
+          );
+        }
       }
+    } on Exception {
+      _markAsError(assistantMessageId);
     }
+  }
+
+  /// A real AI provider call can fail (bad endpoint, network, wrong model)
+  /// where `SimulatedAiService` never did — surface it as an error bubble
+  /// instead of leaving the "thinking" indicator stuck or crashing.
+  void _markAsError(String? assistantMessageId) {
+    if (assistantMessageId == null) {
+      state = state.copyWith(
+        messages: [
+          ...state.messages,
+          _newMessage(ChatMessageRole.assistant, '').copyWith(isError: true),
+        ],
+        isAssistantThinking: false,
+      );
+      return;
+    }
+    state = state.copyWith(
+      messages: [
+        for (final message in state.messages)
+          if (message.id == assistantMessageId)
+            message.copyWith(isError: true)
+          else
+            message,
+      ],
+      isAssistantThinking: false,
+    );
   }
 
   ChatMessage _newMessage(ChatMessageRole role, String content) {
