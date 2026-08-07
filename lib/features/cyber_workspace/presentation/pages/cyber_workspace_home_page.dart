@@ -9,12 +9,15 @@ import 'package:aetherdesk/features/cyber_workspace/presentation/providers/cyber
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/ble_scanner_section.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/dashboard_stat_card.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/flashlight_section.dart';
+import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/gps_section.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/history_entry_tile.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/history_filter_bar.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/ip_analysis_section.dart';
+import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/nfc_section.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/port_scanner_section.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/qr_tool_section.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/sensors_section.dart';
+import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/serial_console_section.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/terminal_view.dart';
 import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/url_analysis_section.dart';
 import 'package:flutter/material.dart';
@@ -317,6 +320,12 @@ class _DeviceTab extends StatelessWidget {
         QrToolSection(),
         SizedBox(height: AppDimensions.spacingMd),
         BleScannerSection(),
+        SizedBox(height: AppDimensions.spacingMd),
+        GpsSection(),
+        SizedBox(height: AppDimensions.spacingMd),
+        NfcSection(),
+        SizedBox(height: AppDimensions.spacingMd),
+        SerialConsoleSection(),
       ],
     );
   }

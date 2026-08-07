@@ -729,6 +729,101 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cyberWorkspaceBleUnknownDeviceLabel => 'Unknown device';
 
   @override
+  String get cyberWorkspaceGpsTitle => 'GPS';
+
+  @override
+  String get cyberWorkspaceGpsStartButton => 'Start tracking';
+
+  @override
+  String get cyberWorkspaceGpsStopButton => 'Stop tracking';
+
+  @override
+  String get cyberWorkspaceGpsNoFixMessage => 'No position yet.';
+
+  @override
+  String get cyberWorkspaceGpsServiceDisabledMessage =>
+      'Location services are disabled on this device.';
+
+  @override
+  String get cyberWorkspaceGpsPermissionDeniedMessage =>
+      'Location permission denied.';
+
+  @override
+  String get cyberWorkspaceGpsLatitudeLabel => 'Latitude';
+
+  @override
+  String get cyberWorkspaceGpsLongitudeLabel => 'Longitude';
+
+  @override
+  String get cyberWorkspaceGpsAccuracyLabel => 'Accuracy';
+
+  @override
+  String get cyberWorkspaceGpsAltitudeLabel => 'Altitude';
+
+  @override
+  String get cyberWorkspaceGpsSpeedLabel => 'Speed';
+
+  @override
+  String get cyberWorkspaceNfcTitle => 'NFC / badge reader';
+
+  @override
+  String get cyberWorkspaceNfcSubtitle =>
+      'Read-only: identifies the UID of a badge or NFC tag, without cloning or bypassing any access control.';
+
+  @override
+  String get cyberWorkspaceNfcScanButton => 'Scan a tag';
+
+  @override
+  String get cyberWorkspaceNfcStopButton => 'Stop';
+
+  @override
+  String get cyberWorkspaceNfcUnavailableMessage =>
+      'NFC is unavailable or disabled on this device.';
+
+  @override
+  String get cyberWorkspaceNfcNoTagMessage => 'No tag scanned yet.';
+
+  @override
+  String cyberWorkspaceNfcUidLabel(String uid) {
+    return 'UID: $uid';
+  }
+
+  @override
+  String cyberWorkspaceNfcTechListLabel(String techs) {
+    return 'Technologies: $techs';
+  }
+
+  @override
+  String get cyberWorkspaceSerialTitle => 'USB serial console';
+
+  @override
+  String get cyberWorkspaceSerialSubtitle =>
+      'A real serial connection to an Arduino/ESP32 over a USB-OTG cable: send commands or read data from an external sensor.';
+
+  @override
+  String get cyberWorkspaceSerialRefreshButton => 'Search for devices';
+
+  @override
+  String get cyberWorkspaceSerialNoDevicesMessage =>
+      'No USB device found. Plug in a USB-OTG cable.';
+
+  @override
+  String get cyberWorkspaceSerialConnectButton => 'Connect';
+
+  @override
+  String get cyberWorkspaceSerialConnectFailedMessage =>
+      'Failed to connect to the device.';
+
+  @override
+  String get cyberWorkspaceSerialConnectedMessage => 'Connected (9600 baud)';
+
+  @override
+  String get cyberWorkspaceSerialDisconnectButton => 'Disconnect';
+
+  @override
+  String get cyberWorkspaceSerialCommandHint => 'Command to send (e.g. LED_ON)';
+
+  @override
   String get creation2dToolSelect => 'Select';
 
   @override
@@ -768,6 +863,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get creation2dAddLayer => 'Add layer';
+
+  @override
+  String get creation2dDuplicateLayer => 'Duplicate layer';
+
+  @override
+  String get creation2dBlendModeNormal => 'Normal';
+
+  @override
+  String get creation2dBlendModeMultiply => 'Multiply';
+
+  @override
+  String get creation2dBlendModeScreen => 'Screen';
+
+  @override
+  String get creation2dBlendModeOverlay => 'Overlay';
+
+  @override
+  String get creation2dBlendModeDarken => 'Darken';
+
+  @override
+  String get creation2dBlendModeLighten => 'Lighten';
 
   @override
   String get creation2dRenameLayerTitle => 'Rename layer';
@@ -832,7 +948,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get creation3dScaleLabel => 'Scale';
 
   @override
-  String get creation3dMaterialLabel => 'Material (simulated)';
+  String get creation3dMaterialLabel => 'Material';
 
   @override
   String get creation3dLightIntensityLabel => 'Light intensity';
@@ -841,8 +957,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get creation3dCameraFovLabel => 'Camera field of view';
 
   @override
-  String get creation3dSchematicPreviewLabel =>
-      'Schematic preview — no real 3D engine';
+  String get creation3dViewportHintLabel =>
+      'Drag: orbit • Pinch: zoom • Tap: select';
 
   @override
   String get creation3dExportScene => 'Export scene';

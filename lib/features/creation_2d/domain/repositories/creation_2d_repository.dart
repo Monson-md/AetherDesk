@@ -1,3 +1,4 @@
+import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_blend_mode.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_element.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_project.dart';
 
@@ -22,9 +23,12 @@ abstract interface class Creation2dRepository {
     bool? isVisible,
     bool? isLocked,
     double? opacity,
+    Canvas2dBlendMode? blendMode,
   });
 
   Canvas2dProject deleteLayer(String layerId);
+
+  Canvas2dProject duplicateLayer(String layerId);
 
   Canvas2dProject reorderLayers({required int oldIndex, required int newIndex});
 

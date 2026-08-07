@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:aetherdesk/core/constants/app_dimensions.dart';
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
+import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_blend_mode.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_layer.dart';
+import 'package:aetherdesk/features/creation_2d/presentation/widgets/canvas_tool_widgets.dart';
 import 'package:flutter/material.dart';
 
 /// Reorderable list of a [Canvas2dProject]'s layers, with per-layer
-/// visibility/lock toggles, opacity slider and a rename/delete menu.
+/// visibility/lock toggles, opacity slider, a real compositing blend-mode
+/// picker, and a rename/duplicate/delete menu.
 class LayersPanel extends StatelessWidget {
   const LayersPanel({
     required this.layers,
@@ -17,6 +20,8 @@ class LayersPanel extends StatelessWidget {
     required this.onLayerVisibilityChanged,
     required this.onLayerLockChanged,
     required this.onLayerOpacityChanged,
+    required this.onLayerBlendModeChanged,
+    required this.onLayerDuplicated,
     required this.onLayerDeleted,
     required this.onReorder,
     super.key,
@@ -30,6 +35,9 @@ class LayersPanel extends StatelessWidget {
   final void Function(String layerId, bool isVisible) onLayerVisibilityChanged;
   final void Function(String layerId, bool isLocked) onLayerLockChanged;
   final void Function(String layerId, double opacity) onLayerOpacityChanged;
+  final void Function(String layerId, Canvas2dBlendMode blendMode)
+  onLayerBlendModeChanged;
+  final ValueChanged<String> onLayerDuplicated;
   final ValueChanged<String> onLayerDeleted;
   final void Function(int oldIndex, int newIndex) onReorder;
 
@@ -142,6 +150,8 @@ class LayersPanel extends StatelessWidget {
                             onSelected: (value) {
                               if (value == 'rename') {
                                 unawaited(_promptRename(context, layer));
+                              } else if (value == 'duplicate') {
+                                onLayerDuplicated(layer.id);
                               } else if (value == 'delete') {
                                 onLayerDeleted(layer.id);
                               }
@@ -152,6 +162,10 @@ class LayersPanel extends StatelessWidget {
                                 child: Text(l10n.commonRename),
                               ),
                               PopupMenuItem(
+                                value: 'duplicate',
+                                child: Text(l10n.creation2dDuplicateLayer),
+                              ),
+                              PopupMenuItem(
                                 value: 'delete',
                                 child: Text(l10n.commonDelete),
                               ),
@@ -159,10 +173,54 @@ class LayersPanel extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Slider(
-                        value: layer.opacity,
-                        onChanged: (value) =>
-                            onLayerOpacityChanged(layer.id, value),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Slider(
+                              value: layer.opacity,
+                              onChanged: (value) =>
+                                  onLayerOpacityChanged(layer.id, value),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 40,
+                            child: Text(
+                              '${(layer.opacity * 100).round()}%',
+                              style: Theme.of(context).textTheme.bodySmall,
+                              textAlign: TextAlign.end,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: AppDimensions.spacingXs,
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<Canvas2dBlendMode>(
+                            value: layer.blendMode,
+                            isDense: true,
+                            isExpanded: true,
+                            items: Canvas2dBlendMode.values
+                                .map(
+                                  (mode) => DropdownMenuItem(
+                                    value: mode,
+                                    child: Text(
+                                      mode.label(l10n),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodySmall,
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: (mode) {
+                              if (mode != null) {
+                                onLayerBlendModeChanged(layer.id, mode);
+                              }
+                            },
+                          ),
+                        ),
                       ),
                     ],
                   ),

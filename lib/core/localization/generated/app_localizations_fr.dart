@@ -734,6 +734,103 @@ class AppLocalizationsFr extends AppLocalizations {
   String get cyberWorkspaceBleUnknownDeviceLabel => 'Appareil inconnu';
 
   @override
+  String get cyberWorkspaceGpsTitle => 'GPS';
+
+  @override
+  String get cyberWorkspaceGpsStartButton => 'Démarrer le suivi';
+
+  @override
+  String get cyberWorkspaceGpsStopButton => 'Arrêter le suivi';
+
+  @override
+  String get cyberWorkspaceGpsNoFixMessage => 'Aucune position pour le moment.';
+
+  @override
+  String get cyberWorkspaceGpsServiceDisabledMessage =>
+      'Le service de localisation est désactivé sur cet appareil.';
+
+  @override
+  String get cyberWorkspaceGpsPermissionDeniedMessage =>
+      'Permission de localisation refusée.';
+
+  @override
+  String get cyberWorkspaceGpsLatitudeLabel => 'Latitude';
+
+  @override
+  String get cyberWorkspaceGpsLongitudeLabel => 'Longitude';
+
+  @override
+  String get cyberWorkspaceGpsAccuracyLabel => 'Précision';
+
+  @override
+  String get cyberWorkspaceGpsAltitudeLabel => 'Altitude';
+
+  @override
+  String get cyberWorkspaceGpsSpeedLabel => 'Vitesse';
+
+  @override
+  String get cyberWorkspaceNfcTitle => 'Lecteur NFC / badge';
+
+  @override
+  String get cyberWorkspaceNfcSubtitle =>
+      'Lecture seule : identifie l\'UID d\'un badge ou tag NFC, sans cloner ni contourner un contrôle d\'accès.';
+
+  @override
+  String get cyberWorkspaceNfcScanButton => 'Scanner un tag';
+
+  @override
+  String get cyberWorkspaceNfcStopButton => 'Arrêter';
+
+  @override
+  String get cyberWorkspaceNfcUnavailableMessage =>
+      'NFC indisponible ou désactivé sur cet appareil.';
+
+  @override
+  String get cyberWorkspaceNfcNoTagMessage =>
+      'Aucun tag scanné pour le moment.';
+
+  @override
+  String cyberWorkspaceNfcUidLabel(String uid) {
+    return 'UID : $uid';
+  }
+
+  @override
+  String cyberWorkspaceNfcTechListLabel(String techs) {
+    return 'Technologies : $techs';
+  }
+
+  @override
+  String get cyberWorkspaceSerialTitle => 'Console série USB';
+
+  @override
+  String get cyberWorkspaceSerialSubtitle =>
+      'Connexion série réelle à un Arduino/ESP32 via câble USB-OTG : envoyez des commandes ou lisez les données d\'un capteur externe.';
+
+  @override
+  String get cyberWorkspaceSerialRefreshButton => 'Rechercher les appareils';
+
+  @override
+  String get cyberWorkspaceSerialNoDevicesMessage =>
+      'Aucun appareil USB détecté. Branchez un câble USB-OTG.';
+
+  @override
+  String get cyberWorkspaceSerialConnectButton => 'Connecter';
+
+  @override
+  String get cyberWorkspaceSerialConnectFailedMessage =>
+      'Échec de la connexion à l\'appareil.';
+
+  @override
+  String get cyberWorkspaceSerialConnectedMessage => 'Connecté (9600 bauds)';
+
+  @override
+  String get cyberWorkspaceSerialDisconnectButton => 'Déconnecter';
+
+  @override
+  String get cyberWorkspaceSerialCommandHint =>
+      'Commande à envoyer (ex. LED_ON)';
+
+  @override
   String get creation2dToolSelect => 'Sélection';
 
   @override
@@ -773,6 +870,27 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get creation2dAddLayer => 'Ajouter un calque';
+
+  @override
+  String get creation2dDuplicateLayer => 'Dupliquer le calque';
+
+  @override
+  String get creation2dBlendModeNormal => 'Normal';
+
+  @override
+  String get creation2dBlendModeMultiply => 'Produit';
+
+  @override
+  String get creation2dBlendModeScreen => 'Écran';
+
+  @override
+  String get creation2dBlendModeOverlay => 'Incrustation';
+
+  @override
+  String get creation2dBlendModeDarken => 'Obscurcir';
+
+  @override
+  String get creation2dBlendModeLighten => 'Éclaircir';
 
   @override
   String get creation2dRenameLayerTitle => 'Renommer le calque';
@@ -837,7 +955,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get creation3dScaleLabel => 'Échelle';
 
   @override
-  String get creation3dMaterialLabel => 'Matériau (simulé)';
+  String get creation3dMaterialLabel => 'Matériau';
 
   @override
   String get creation3dLightIntensityLabel => 'Intensité de la lumière';
@@ -846,8 +964,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get creation3dCameraFovLabel => 'Champ de vision de la caméra';
 
   @override
-  String get creation3dSchematicPreviewLabel =>
-      'Aperçu schématique — aucun moteur 3D réel';
+  String get creation3dViewportHintLabel =>
+      'Glisser : orbiter • Pincer : zoomer • Toucher : sélectionner';
 
   @override
   String get creation3dExportScene => 'Exporter la scène';

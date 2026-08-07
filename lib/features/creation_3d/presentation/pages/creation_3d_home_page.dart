@@ -8,16 +8,16 @@ import 'package:aetherdesk/features/creation_3d/presentation/providers/creation_
 import 'package:aetherdesk/features/creation_3d/presentation/providers/creation_3d_providers.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/widgets/asset_browser_panel.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/widgets/object_inspector_panel.dart';
+import 'package:aetherdesk/features/creation_3d/presentation/widgets/scene_3d_viewport.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/widgets/scene_outliner.dart';
-import 'package:aetherdesk/features/creation_3d/presentation/widgets/scene_preview_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Home screen of the `creation_3d` module: a scene graph editor (asset
-/// browser, outliner, inspector) plus a live schematic viewport, backed by
-/// an in-memory [Creation3dController]. [_exportScene] writes the real
-/// scene graph to a real JSON file via `FileIoService` — there is no real
-/// 3D render engine behind this module.
+/// browser, outliner, inspector) plus a real, interactive 3D viewport (see
+/// `Scene3dViewport`), backed by an in-memory [Creation3dController].
+/// [_exportScene] writes the real scene graph to a real JSON file via
+/// `FileIoService`.
 class Creation3dHomePage extends ConsumerStatefulWidget {
   const Creation3dHomePage({super.key});
 
@@ -95,16 +95,19 @@ class _Creation3dHomePageState extends ConsumerState<Creation3dHomePage> {
 
             final workspaceColumn = Column(
               children: [
-                SizedBox(
-                  height: 260,
-                  child: ScenePreviewPanel(
+                Expanded(
+                  flex: 3,
+                  child: Scene3dViewport(
                     objects: state.project.objects,
+                    selectedObjectId: state.selectedObjectId,
+                    onObjectSelected: controller.selectObject,
                     isExporting: _isExporting,
                     onExport: _exportScene,
                   ),
                 ),
                 const SizedBox(height: AppDimensions.spacingMd),
                 Expanded(
+                  flex: 2,
                   child: selected == null
                       ? EmptyStateWidget(
                           icon: Icons.category_outlined,

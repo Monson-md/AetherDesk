@@ -1,6 +1,30 @@
 import 'package:aetherdesk/core/localization/generated/app_localizations.dart';
+import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_blend_mode.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_tool.dart';
 import 'package:flutter/material.dart';
+
+/// Real `dart:ui` [BlendMode] and label presentation for
+/// [Canvas2dBlendMode], kept in `presentation/` since the domain entity
+/// itself must stay free of Flutter imports.
+extension Canvas2dBlendModePresentation on Canvas2dBlendMode {
+  BlendMode get blendMode => switch (this) {
+    Canvas2dBlendMode.normal => BlendMode.srcOver,
+    Canvas2dBlendMode.multiply => BlendMode.multiply,
+    Canvas2dBlendMode.screen => BlendMode.screen,
+    Canvas2dBlendMode.overlay => BlendMode.overlay,
+    Canvas2dBlendMode.darken => BlendMode.darken,
+    Canvas2dBlendMode.lighten => BlendMode.lighten,
+  };
+
+  String label(AppLocalizations l10n) => switch (this) {
+    Canvas2dBlendMode.normal => l10n.creation2dBlendModeNormal,
+    Canvas2dBlendMode.multiply => l10n.creation2dBlendModeMultiply,
+    Canvas2dBlendMode.screen => l10n.creation2dBlendModeScreen,
+    Canvas2dBlendMode.overlay => l10n.creation2dBlendModeOverlay,
+    Canvas2dBlendMode.darken => l10n.creation2dBlendModeDarken,
+    Canvas2dBlendMode.lighten => l10n.creation2dBlendModeLighten,
+  };
+}
 
 /// Icon/label presentation for [Canvas2dTool], kept in `presentation/` since
 /// the domain entity itself must stay free of Flutter imports.

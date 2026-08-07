@@ -1,3 +1,4 @@
+import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_blend_mode.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_element.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_layer.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_point.dart';
@@ -166,6 +167,18 @@ class Creation2dController extends Notifier<Creation2dState> {
     final project = ref
         .read(updateLayerUseCaseProvider)
         .call(layerId: layerId, opacity: opacity);
+    state = state.copyWith(project: project);
+  }
+
+  void setLayerBlendMode(String layerId, Canvas2dBlendMode blendMode) {
+    final project = ref
+        .read(updateLayerUseCaseProvider)
+        .call(layerId: layerId, blendMode: blendMode);
+    state = state.copyWith(project: project);
+  }
+
+  void duplicateLayer(String layerId) {
+    final project = ref.read(duplicateLayerUseCaseProvider).call(layerId);
     state = state.copyWith(project: project);
   }
 

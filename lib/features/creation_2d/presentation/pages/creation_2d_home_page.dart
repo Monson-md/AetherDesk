@@ -150,6 +150,8 @@ class _Creation2dHomePageState extends ConsumerState<Creation2dHomePage> {
                     onLayerLockChanged: (id, isLocked) =>
                         controller.toggleLayerLock(id, isLocked: isLocked),
                     onLayerOpacityChanged: controller.setLayerOpacity,
+                    onLayerBlendModeChanged: controller.setLayerBlendMode,
+                    onLayerDuplicated: controller.duplicateLayer,
                     onLayerDeleted: controller.deleteLayer,
                     onReorder: controller.reorderLayers,
                   );

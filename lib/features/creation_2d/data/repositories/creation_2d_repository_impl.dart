@@ -1,3 +1,4 @@
+import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_blend_mode.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_element.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_layer.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_project.dart';
@@ -56,6 +57,7 @@ class Creation2dRepositoryImpl implements Creation2dRepository {
     bool? isVisible,
     bool? isLocked,
     double? opacity,
+    Canvas2dBlendMode? blendMode,
   }) {
     _project = _project.copyWith(
       layers: _mapLayers(
@@ -65,6 +67,7 @@ class Creation2dRepositoryImpl implements Creation2dRepository {
           isVisible: isVisible,
           isLocked: isLocked,
           opacity: opacity,
+          blendMode: blendMode,
         ),
       ),
     );
@@ -81,6 +84,25 @@ class Creation2dRepositoryImpl implements Creation2dRepository {
           ? [Canvas2dLayer(id: 'layer-${_nextLayerId++}', name: 'Calque 1')]
           : remaining,
     );
+    return _project;
+  }
+
+  @override
+  Canvas2dProject duplicateLayer(String layerId) {
+    final index = _project.layers.indexWhere((layer) => layer.id == layerId);
+    if (index == -1) return _project;
+    final source = _project.layers[index];
+    final copy = Canvas2dLayer(
+      id: 'layer-${_nextLayerId++}',
+      name: '${source.name} (copie)',
+      elements: source.elements,
+      isVisible: source.isVisible,
+      isLocked: source.isLocked,
+      opacity: source.opacity,
+      blendMode: source.blendMode,
+    );
+    final layers = [..._project.layers]..insert(index + 1, copy);
+    _project = _project.copyWith(layers: layers);
     return _project;
   }
 

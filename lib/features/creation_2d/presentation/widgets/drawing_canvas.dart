@@ -2,6 +2,7 @@ import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_element.d
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_layer.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_point.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_tool.dart';
+import 'package:aetherdesk/features/creation_2d/presentation/widgets/canvas_tool_widgets.dart';
 import 'package:flutter/material.dart';
 
 /// Interactive drawing surface: renders every visible [Canvas2dLayer] and
@@ -153,7 +154,9 @@ class _Canvas2dPainter extends CustomPainter {
       if (!layer.isVisible) continue;
       canvas.saveLayer(
         Offset.zero & size,
-        Paint()..color = Color.fromRGBO(0, 0, 0, layer.opacity),
+        Paint()
+          ..color = Color.fromRGBO(0, 0, 0, layer.opacity)
+          ..blendMode = layer.blendMode.blendMode,
       );
       for (final element in layer.elements) {
         _paintElement(canvas, element);

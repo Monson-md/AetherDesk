@@ -1466,6 +1466,174 @@ abstract class AppLocalizations {
   /// **'Appareil inconnu'**
   String get cyberWorkspaceBleUnknownDeviceLabel;
 
+  /// No description provided for @cyberWorkspaceGpsTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'GPS'**
+  String get cyberWorkspaceGpsTitle;
+
+  /// No description provided for @cyberWorkspaceGpsStartButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Démarrer le suivi'**
+  String get cyberWorkspaceGpsStartButton;
+
+  /// No description provided for @cyberWorkspaceGpsStopButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Arrêter le suivi'**
+  String get cyberWorkspaceGpsStopButton;
+
+  /// No description provided for @cyberWorkspaceGpsNoFixMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune position pour le moment.'**
+  String get cyberWorkspaceGpsNoFixMessage;
+
+  /// No description provided for @cyberWorkspaceGpsServiceDisabledMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le service de localisation est désactivé sur cet appareil.'**
+  String get cyberWorkspaceGpsServiceDisabledMessage;
+
+  /// No description provided for @cyberWorkspaceGpsPermissionDeniedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Permission de localisation refusée.'**
+  String get cyberWorkspaceGpsPermissionDeniedMessage;
+
+  /// No description provided for @cyberWorkspaceGpsLatitudeLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Latitude'**
+  String get cyberWorkspaceGpsLatitudeLabel;
+
+  /// No description provided for @cyberWorkspaceGpsLongitudeLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Longitude'**
+  String get cyberWorkspaceGpsLongitudeLabel;
+
+  /// No description provided for @cyberWorkspaceGpsAccuracyLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Précision'**
+  String get cyberWorkspaceGpsAccuracyLabel;
+
+  /// No description provided for @cyberWorkspaceGpsAltitudeLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Altitude'**
+  String get cyberWorkspaceGpsAltitudeLabel;
+
+  /// No description provided for @cyberWorkspaceGpsSpeedLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vitesse'**
+  String get cyberWorkspaceGpsSpeedLabel;
+
+  /// No description provided for @cyberWorkspaceNfcTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Lecteur NFC / badge'**
+  String get cyberWorkspaceNfcTitle;
+
+  /// No description provided for @cyberWorkspaceNfcSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Lecture seule : identifie l\'UID d\'un badge ou tag NFC, sans cloner ni contourner un contrôle d\'accès.'**
+  String get cyberWorkspaceNfcSubtitle;
+
+  /// No description provided for @cyberWorkspaceNfcScanButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Scanner un tag'**
+  String get cyberWorkspaceNfcScanButton;
+
+  /// No description provided for @cyberWorkspaceNfcStopButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Arrêter'**
+  String get cyberWorkspaceNfcStopButton;
+
+  /// No description provided for @cyberWorkspaceNfcUnavailableMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'NFC indisponible ou désactivé sur cet appareil.'**
+  String get cyberWorkspaceNfcUnavailableMessage;
+
+  /// No description provided for @cyberWorkspaceNfcNoTagMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun tag scanné pour le moment.'**
+  String get cyberWorkspaceNfcNoTagMessage;
+
+  /// No description provided for @cyberWorkspaceNfcUidLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'UID : {uid}'**
+  String cyberWorkspaceNfcUidLabel(String uid);
+
+  /// No description provided for @cyberWorkspaceNfcTechListLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Technologies : {techs}'**
+  String cyberWorkspaceNfcTechListLabel(String techs);
+
+  /// No description provided for @cyberWorkspaceSerialTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Console série USB'**
+  String get cyberWorkspaceSerialTitle;
+
+  /// No description provided for @cyberWorkspaceSerialSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Connexion série réelle à un Arduino/ESP32 via câble USB-OTG : envoyez des commandes ou lisez les données d\'un capteur externe.'**
+  String get cyberWorkspaceSerialSubtitle;
+
+  /// No description provided for @cyberWorkspaceSerialRefreshButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rechercher les appareils'**
+  String get cyberWorkspaceSerialRefreshButton;
+
+  /// No description provided for @cyberWorkspaceSerialNoDevicesMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun appareil USB détecté. Branchez un câble USB-OTG.'**
+  String get cyberWorkspaceSerialNoDevicesMessage;
+
+  /// No description provided for @cyberWorkspaceSerialConnectButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Connecter'**
+  String get cyberWorkspaceSerialConnectButton;
+
+  /// No description provided for @cyberWorkspaceSerialConnectFailedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Échec de la connexion à l\'appareil.'**
+  String get cyberWorkspaceSerialConnectFailedMessage;
+
+  /// No description provided for @cyberWorkspaceSerialConnectedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Connecté (9600 bauds)'**
+  String get cyberWorkspaceSerialConnectedMessage;
+
+  /// No description provided for @cyberWorkspaceSerialDisconnectButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Déconnecter'**
+  String get cyberWorkspaceSerialDisconnectButton;
+
+  /// No description provided for @cyberWorkspaceSerialCommandHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Commande à envoyer (ex. LED_ON)'**
+  String get cyberWorkspaceSerialCommandHint;
+
   /// No description provided for @creation2dToolSelect.
   ///
   /// In fr, this message translates to:
@@ -1543,6 +1711,48 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Ajouter un calque'**
   String get creation2dAddLayer;
+
+  /// No description provided for @creation2dDuplicateLayer.
+  ///
+  /// In fr, this message translates to:
+  /// **'Dupliquer le calque'**
+  String get creation2dDuplicateLayer;
+
+  /// No description provided for @creation2dBlendModeNormal.
+  ///
+  /// In fr, this message translates to:
+  /// **'Normal'**
+  String get creation2dBlendModeNormal;
+
+  /// No description provided for @creation2dBlendModeMultiply.
+  ///
+  /// In fr, this message translates to:
+  /// **'Produit'**
+  String get creation2dBlendModeMultiply;
+
+  /// No description provided for @creation2dBlendModeScreen.
+  ///
+  /// In fr, this message translates to:
+  /// **'Écran'**
+  String get creation2dBlendModeScreen;
+
+  /// No description provided for @creation2dBlendModeOverlay.
+  ///
+  /// In fr, this message translates to:
+  /// **'Incrustation'**
+  String get creation2dBlendModeOverlay;
+
+  /// No description provided for @creation2dBlendModeDarken.
+  ///
+  /// In fr, this message translates to:
+  /// **'Obscurcir'**
+  String get creation2dBlendModeDarken;
+
+  /// No description provided for @creation2dBlendModeLighten.
+  ///
+  /// In fr, this message translates to:
+  /// **'Éclaircir'**
+  String get creation2dBlendModeLighten;
 
   /// No description provided for @creation2dRenameLayerTitle.
   ///
@@ -1667,7 +1877,7 @@ abstract class AppLocalizations {
   /// No description provided for @creation3dMaterialLabel.
   ///
   /// In fr, this message translates to:
-  /// **'Matériau (simulé)'**
+  /// **'Matériau'**
   String get creation3dMaterialLabel;
 
   /// No description provided for @creation3dLightIntensityLabel.
@@ -1682,11 +1892,11 @@ abstract class AppLocalizations {
   /// **'Champ de vision de la caméra'**
   String get creation3dCameraFovLabel;
 
-  /// No description provided for @creation3dSchematicPreviewLabel.
+  /// No description provided for @creation3dViewportHintLabel.
   ///
   /// In fr, this message translates to:
-  /// **'Aperçu schématique — aucun moteur 3D réel'**
-  String get creation3dSchematicPreviewLabel;
+  /// **'Glisser : orbiter • Pincer : zoomer • Toucher : sélectionner'**
+  String get creation3dViewportHintLabel;
 
   /// No description provided for @creation3dExportScene.
   ///

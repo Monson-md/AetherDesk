@@ -75,6 +75,21 @@ dependencies:
   qr_flutter: ^4.1.0 # real QR code generation (pure Dart, no native code)
   flutter_blue_plus: ^1.36.5 # real BLE device scanner
 
+  # Étape 3, batch 2: hardware-adjacent real device tools. geolocator/
+  # nfc_manager use only the phone's own built-in radios (no external
+  # hardware); usb_serial is the one genuine external-hardware integration
+  # (Arduino/ESP32 over a real USB-OTG cable).
+  geolocator: ^14.0.2 # real device GPS (no paid IP-geolocation API)
+  nfc_manager: ^4.2.1 # real NFC tag/badge UID reader (read-only audit)
+  usb_serial: ^0.5.2 # real USB-serial link to an external microcontroller
+
+  # Creation 3D: a real (hand-rolled, pure Dart) 3D renderer — real mesh
+  # generation, model/view/projection matrices and per-face Lambertian
+  # shading via `vector_math`, painted with CustomPainter. No native/OpenGL
+  # plugin needed, which also sidesteps this project's AGP-toolchain
+  # fragility (see the Étape 1 CI notes above).
+  vector_math: ^2.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

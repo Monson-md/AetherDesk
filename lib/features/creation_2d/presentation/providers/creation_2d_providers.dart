@@ -4,6 +4,7 @@ import 'package:aetherdesk/features/creation_2d/domain/usecases/add_canvas_eleme
 import 'package:aetherdesk/features/creation_2d/domain/usecases/add_layer_usecase.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/clear_layer_usecase.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/delete_layer_usecase.dart';
+import 'package:aetherdesk/features/creation_2d/domain/usecases/duplicate_layer_usecase.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/reorder_layers_usecase.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/undo_last_element_usecase.dart';
 import 'package:aetherdesk/features/creation_2d/domain/usecases/update_layer_usecase.dart';
@@ -33,6 +34,10 @@ final updateLayerUseCaseProvider = Provider<UpdateLayerUseCase>((ref) {
 
 final deleteLayerUseCaseProvider = Provider<DeleteLayerUseCase>((ref) {
   return DeleteLayerUseCase(ref.watch(creation2dRepositoryProvider));
+});
+
+final duplicateLayerUseCaseProvider = Provider<DuplicateLayerUseCase>((ref) {
+  return DuplicateLayerUseCase(ref.watch(creation2dRepositoryProvider));
 });
 
 final reorderLayersUseCaseProvider = Provider<ReorderLayersUseCase>((ref) {

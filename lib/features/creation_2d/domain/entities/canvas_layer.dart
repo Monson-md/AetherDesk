@@ -1,8 +1,9 @@
+import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_blend_mode.dart';
 import 'package:aetherdesk/features/creation_2d/domain/entities/canvas_element.dart';
 
 /// One layer of a [Canvas2dProject]: an ordered stack of drawn elements plus
-/// visibility/lock/opacity state, matching how layers behave in real
-/// drawing tools.
+/// visibility/lock/opacity/blend-mode state, matching how layers behave in
+/// real drawing tools.
 class Canvas2dLayer {
   const Canvas2dLayer({
     required this.id,
@@ -11,6 +12,7 @@ class Canvas2dLayer {
     this.isVisible = true,
     this.isLocked = false,
     this.opacity = 1.0,
+    this.blendMode = Canvas2dBlendMode.normal,
   });
 
   final String id;
@@ -19,6 +21,7 @@ class Canvas2dLayer {
   final bool isVisible;
   final bool isLocked;
   final double opacity;
+  final Canvas2dBlendMode blendMode;
 
   Canvas2dLayer copyWith({
     String? name,
@@ -26,6 +29,7 @@ class Canvas2dLayer {
     bool? isVisible,
     bool? isLocked,
     double? opacity,
+    Canvas2dBlendMode? blendMode,
   }) {
     return Canvas2dLayer(
       id: id,
@@ -34,6 +38,7 @@ class Canvas2dLayer {
       isVisible: isVisible ?? this.isVisible,
       isLocked: isLocked ?? this.isLocked,
       opacity: opacity ?? this.opacity,
+      blendMode: blendMode ?? this.blendMode,
     );
   }
 
