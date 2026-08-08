@@ -21,5 +21,7 @@ abstract interface class UserProfileRepository {
     Country? country,
     int? avatarColorValue,
     int? avatarIconIndex,
+    String? avatarPhotoPath,
+    bool clearAvatarPhotoPath = false,
   });
 }

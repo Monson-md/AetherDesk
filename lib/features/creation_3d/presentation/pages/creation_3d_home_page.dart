@@ -4,10 +4,12 @@ import 'package:aetherdesk/core/router/nav_destinations.dart';
 import 'package:aetherdesk/core/router/route_paths.dart';
 import 'package:aetherdesk/core/services/files/file_io_service_provider.dart';
 import 'package:aetherdesk/core/widgets/core_widgets.dart';
+import 'package:aetherdesk/features/creation_3d/domain/entities/scene_object.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/providers/creation_3d_controller.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/providers/creation_3d_providers.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/widgets/asset_browser_panel.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/widgets/object_inspector_panel.dart';
+import 'package:aetherdesk/features/creation_3d/presentation/widgets/object_palette_rail.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/widgets/scene_3d_viewport.dart';
 import 'package:aetherdesk/features/creation_3d/presentation/widgets/scene_outliner.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +55,152 @@ class _Creation3dHomePageState extends ConsumerState<Creation3dHomePage> {
     }
   }
 
+  /// The transform/material inspector — shared verbatim between the
+  /// portrait workspace column and the landscape 3-column layout so there
+  /// is only ever one place that builds it.
+  Widget _buildTransformPanel(
+    AppLocalizations l10n,
+    Creation3dController controller,
+    SceneObject3d? selected,
+  ) {
+    if (selected == null) {
+      return EmptyStateWidget(
+        icon: Icons.category_outlined,
+        title: l10n.creation3dNoSelectionTitle,
+        message: l10n.creation3dNoSelectionMessage,
+      );
+    }
+    return Card(
+      child: ObjectInspectorPanel(
+        object: selected,
+        onNameChanged: (name) =>
+            controller.updateObject(objectId: selected.id, name: name),
+        onPositionChanged: (position) =>
+            controller.updateObject(objectId: selected.id, position: position),
+        onRotationChanged: (rotation) =>
+            controller.updateObject(objectId: selected.id, rotation: rotation),
+        onScaleChanged: (scale) =>
+            controller.updateObject(objectId: selected.id, scale: scale),
+        onMaterialChanged: (material) =>
+            controller.updateObject(objectId: selected.id, material: material),
+        onLightIntensityChanged: (value) => controller.updateObject(
+          objectId: selected.id,
+          lightIntensity: value,
+        ),
+        onCameraFovChanged: (value) =>
+            controller.updateObject(objectId: selected.id, cameraFov: value),
+      ),
+    );
+  }
+
+  Widget _buildPortraitLayout(
+    AppLocalizations l10n,
+    Creation3dController controller,
+    Creation3dState state,
+    SceneObject3d? selected,
+  ) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final outlinerColumn = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AssetBrowserPanel(
+              assets: state.assets,
+              onAssetSelected: controller.addObject,
+            ),
+            const SizedBox(height: AppDimensions.spacingMd),
+            Expanded(
+              child: SceneOutliner(
+                objects: state.project.objects,
+                selectedObjectId: state.selectedObjectId,
+                onSelected: controller.selectObject,
+                onVisibilityChanged: (id, isVisible) =>
+                    controller.updateObject(objectId: id, isVisible: isVisible),
+                onLockChanged: (id, isLocked) =>
+                    controller.updateObject(objectId: id, isLocked: isLocked),
+                onDuplicate: controller.duplicateObject,
+                onDelete: controller.deleteObject,
+              ),
+            ),
+          ],
+        );
+
+        final workspaceColumn = Column(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Scene3dViewport(
+                objects: state.project.objects,
+                selectedObjectId: state.selectedObjectId,
+                onObjectSelected: controller.selectObject,
+                isExporting: _isExporting,
+                onExport: _exportScene,
+              ),
+            ),
+            const SizedBox(height: AppDimensions.spacingMd),
+            Expanded(
+              flex: 2,
+              child: _buildTransformPanel(l10n, controller, selected),
+            ),
+          ],
+        );
+
+        if (constraints.maxWidth >= 900) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(width: 280, child: outlinerColumn),
+              const SizedBox(width: AppDimensions.spacingMd),
+              Expanded(child: workspaceColumn),
+            ],
+          );
+        }
+        return Column(
+          children: [
+            SizedBox(height: 220, child: outlinerColumn),
+            const SizedBox(height: AppDimensions.spacingMd),
+            Expanded(child: workspaceColumn),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildLandscapeLayout(
+    AppLocalizations l10n,
+    Creation3dController controller,
+    Creation3dState state,
+    SceneObject3d? selected,
+  ) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SizedBox(
+          width: 72,
+          child: ObjectPaletteRail(
+            assets: state.assets,
+            onAssetSelected: controller.addObject,
+          ),
+        ),
+        const SizedBox(width: AppDimensions.spacingMd),
+        Expanded(
+          child: Scene3dViewport(
+            objects: state.project.objects,
+            selectedObjectId: state.selectedObjectId,
+            onObjectSelected: controller.selectObject,
+            isExporting: _isExporting,
+            onExport: _exportScene,
+          ),
+        ),
+        const SizedBox(width: AppDimensions.spacingMd),
+        SizedBox(
+          width: 320,
+          child: _buildTransformPanel(l10n, controller, selected),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -65,114 +213,12 @@ class _Creation3dHomePageState extends ConsumerState<Creation3dHomePage> {
       appBar: AppBar(title: Text(destination.label)),
       body: Padding(
         padding: const EdgeInsets.all(AppDimensions.spacingMd),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final outlinerColumn = Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AssetBrowserPanel(
-                  assets: state.assets,
-                  onAssetSelected: controller.addObject,
-                ),
-                const SizedBox(height: AppDimensions.spacingMd),
-                Expanded(
-                  child: SceneOutliner(
-                    objects: state.project.objects,
-                    selectedObjectId: state.selectedObjectId,
-                    onSelected: controller.selectObject,
-                    onVisibilityChanged: (id, isVisible) => controller
-                        .updateObject(objectId: id, isVisible: isVisible),
-                    onLockChanged: (id, isLocked) => controller.updateObject(
-                      objectId: id,
-                      isLocked: isLocked,
-                    ),
-                    onDuplicate: controller.duplicateObject,
-                    onDelete: controller.deleteObject,
-                  ),
-                ),
-              ],
-            );
-
-            final workspaceColumn = Column(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Scene3dViewport(
-                    objects: state.project.objects,
-                    selectedObjectId: state.selectedObjectId,
-                    onObjectSelected: controller.selectObject,
-                    isExporting: _isExporting,
-                    onExport: _exportScene,
-                  ),
-                ),
-                const SizedBox(height: AppDimensions.spacingMd),
-                Expanded(
-                  flex: 2,
-                  child: selected == null
-                      ? EmptyStateWidget(
-                          icon: Icons.category_outlined,
-                          title: l10n.creation3dNoSelectionTitle,
-                          message: l10n.creation3dNoSelectionMessage,
-                        )
-                      : Card(
-                          child: ObjectInspectorPanel(
-                            object: selected,
-                            onNameChanged: (name) => controller.updateObject(
-                              objectId: selected.id,
-                              name: name,
-                            ),
-                            onPositionChanged: (position) =>
-                                controller.updateObject(
-                                  objectId: selected.id,
-                                  position: position,
-                                ),
-                            onRotationChanged: (rotation) =>
-                                controller.updateObject(
-                                  objectId: selected.id,
-                                  rotation: rotation,
-                                ),
-                            onScaleChanged: (scale) => controller.updateObject(
-                              objectId: selected.id,
-                              scale: scale,
-                            ),
-                            onMaterialChanged: (material) =>
-                                controller.updateObject(
-                                  objectId: selected.id,
-                                  material: material,
-                                ),
-                            onLightIntensityChanged: (value) =>
-                                controller.updateObject(
-                                  objectId: selected.id,
-                                  lightIntensity: value,
-                                ),
-                            onCameraFovChanged: (value) =>
-                                controller.updateObject(
-                                  objectId: selected.id,
-                                  cameraFov: value,
-                                ),
-                          ),
-                        ),
-                ),
-              ],
-            );
-
-            if (constraints.maxWidth >= 900) {
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(width: 280, child: outlinerColumn),
-                  const SizedBox(width: AppDimensions.spacingMd),
-                  Expanded(child: workspaceColumn),
-                ],
-              );
+        child: OrientationBuilder(
+          builder: (context, orientation) {
+            if (orientation == Orientation.landscape) {
+              return _buildLandscapeLayout(l10n, controller, state, selected);
             }
-            return Column(
-              children: [
-                SizedBox(height: 220, child: outlinerColumn),
-                const SizedBox(height: AppDimensions.spacingMd),
-                Expanded(child: workspaceColumn),
-              ],
-            );
+            return _buildPortraitLayout(l10n, controller, state, selected);
           },
         ),
       ),

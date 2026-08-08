@@ -23,10 +23,12 @@ import 'package:aetherdesk/features/cyber_workspace/presentation/widgets/url_ana
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Home screen of the `cyber_workspace` module: a dashboard summary plus
-/// three tabs for the simulated tools (IP/URL/port scan, terminal) and a
-/// history log — see `core/services/cyber_tools/`'s doc comment for how
-/// the simulations are wired so they can be swapped for real tools later.
+/// Home screen of the `cyber_workspace` module: a dashboard summary, tabs
+/// for the real `dart:io`-backed network tools (IP/URL/port scan, a small
+/// terminal) and the device tools, plus a history log — see
+/// `RealCyberToolsService`'s doc comment for exactly what's real (genuine
+/// DNS lookups and TCP connection attempts) and what's intentionally left
+/// out (no fabricated geolocation/ISP/threat data).
 class CyberWorkspaceHomePage extends ConsumerStatefulWidget {
   const CyberWorkspaceHomePage({super.key});
 

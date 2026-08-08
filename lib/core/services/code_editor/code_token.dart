@@ -9,6 +9,11 @@ enum CodeTokenType {
   type,
   punctuation,
   plain,
+
+  /// A `$name`/`${expr}` interpolation inside a Dart string or a
+  /// `${expr}` inside a JavaScript template literal — kept distinct from
+  /// [string] so it can be colored as code, not text.
+  interpolation,
 }
 
 /// A single slice of source code tagged with its [type], as produced by a

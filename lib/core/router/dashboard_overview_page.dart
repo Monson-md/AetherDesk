@@ -54,7 +54,13 @@ class DashboardOverviewPage extends ConsumerWidget {
                     final destination = destinations[index];
                     return _ModuleCard(
                       destination: destination,
-                      comingSoonLabel: l10n.comingSoonTitle,
+                      statusLabel: switch (destination.status) {
+                        ModuleStatus.comingSoon => l10n.comingSoonTitle,
+                        ModuleStatus.inProgress =>
+                          l10n.moduleStatusInProgressLabel,
+                        ModuleStatus.available =>
+                          l10n.moduleStatusAvailableLabel,
+                      },
                       onTap: () => context.go(destination.path),
                     );
                   },
@@ -71,17 +77,25 @@ class DashboardOverviewPage extends ConsumerWidget {
 class _ModuleCard extends StatelessWidget {
   const _ModuleCard({
     required this.destination,
-    required this.comingSoonLabel,
+    required this.statusLabel,
     required this.onTap,
   });
 
   final AppNavDestination destination;
-  final String comingSoonLabel;
+  final String statusLabel;
   final VoidCallback onTap;
+
+  static const _availableColor = Color(0xFF22C55E);
+  static const _inProgressColor = Color(0xFFC9962B);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final statusColor = switch (destination.status) {
+      ModuleStatus.available => _availableColor,
+      ModuleStatus.inProgress => _inProgressColor,
+      ModuleStatus.comingSoon => theme.colorScheme.outline,
+    };
     return Card(
       child: InkWell(
         borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
@@ -112,11 +126,22 @@ class _ModuleCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: AppDimensions.spacingXs),
-              Text(
-                comingSoonLabel,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.labelSmall?.copyWith(
-                  color: theme.colorScheme.outline,
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimensions.spacingSm,
+                  vertical: 2,
+                ),
+                decoration: BoxDecoration(
+                  color: statusColor.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusFull),
+                ),
+                child: Text(
+                  statusLabel,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: statusColor,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],

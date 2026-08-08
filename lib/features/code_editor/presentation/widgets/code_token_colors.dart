@@ -15,6 +15,8 @@ Color colorForCodeToken(CodeTokenType type, ColorScheme colorScheme) {
       return const Color(0xFFC9962B);
     case CodeTokenType.type:
       return const Color(0xFF00B8A9);
+    case CodeTokenType.interpolation:
+      return const Color(0xFFC9962B);
     case CodeTokenType.comment:
       return colorScheme.onSurfaceVariant;
     case CodeTokenType.punctuation:

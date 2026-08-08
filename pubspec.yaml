@@ -90,6 +90,14 @@ dependencies:
   # fragility (see the Étape 1 CI notes above).
   vector_math: ^2.2.0
 
+  # Settings' real storage-usage figure and user_profile's real avatar
+  # photo (copied into the app's own private storage) — reuses the
+  # existing file_picker for image selection rather than adding a second
+  # picker plugin.
+  path_provider: ^2.1.6
+  flutter_highlighting: ^0.9.0+11.8.0
+  highlighting: ^0.9.0+11.8.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

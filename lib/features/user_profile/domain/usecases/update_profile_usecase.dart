@@ -15,6 +15,8 @@ class UpdateProfileUseCase {
     Country? country,
     int? avatarColorValue,
     int? avatarIconIndex,
+    String? avatarPhotoPath,
+    bool clearAvatarPhotoPath = false,
   }) {
     return _repository.updateProfile(
       firstName: firstName,
@@ -24,6 +26,8 @@ class UpdateProfileUseCase {
       country: country,
       avatarColorValue: avatarColorValue,
       avatarIconIndex: avatarIconIndex,
+      avatarPhotoPath: avatarPhotoPath,
+      clearAvatarPhotoPath: clearAvatarPhotoPath,
     );
   }
 }

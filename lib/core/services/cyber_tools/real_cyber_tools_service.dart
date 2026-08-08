@@ -5,11 +5,13 @@ import 'package:aetherdesk/core/services/cyber_tools/cyber_tools_service.dart';
 import 'package:aetherdesk/core/services/cyber_tools/models/ip_analysis_result.dart';
 import 'package:aetherdesk/core/services/cyber_tools/models/port_scan_result.dart';
 import 'package:aetherdesk/core/services/cyber_tools/models/url_analysis_result.dart';
+import 'package:http/http.dart' as http;
 
-/// Real, `dart:io`-backed [CyberToolsService]: genuine DNS lookups and TCP
-/// connection attempts, no fabricated geolocation/ISP/threat data. See
-/// [CyberToolsService]'s doc comment for what's intentionally left out and
-/// why.
+/// Real, `dart:io`-backed [CyberToolsService]: genuine DNS lookups, TCP
+/// connection attempts, and a couple of small real HTTP calls to public,
+/// free, no-auth endpoints (`myip`/`speedtest`) — no fabricated
+/// geolocation/ISP/threat data. See [CyberToolsService]'s doc comment for
+/// what's intentionally left out and why.
 class RealCyberToolsService implements CyberToolsService {
   const RealCyberToolsService();
 
@@ -118,7 +120,8 @@ class RealCyberToolsService implements CyberToolsService {
 
     switch (firstWord) {
       case 'help':
-        return 'Available commands: help, whoami, ping <host>, ifconfig, '
+        return 'Available commands: help, whoami, ping <host>, dns <host>, '
+            'portcheck <host> <port>, myip, speedtest, ifconfig, '
             'echo <text>, clear';
       case 'whoami':
         return Platform.environment['USER'] ??
@@ -126,6 +129,14 @@ class RealCyberToolsService implements CyberToolsService {
             Platform.localHostname;
       case 'ping':
         return _ping(rest.isEmpty ? 'localhost' : rest);
+      case 'dns':
+        return _dns(rest);
+      case 'portcheck':
+        return _portCheck(rest);
+      case 'myip':
+        return _myIp();
+      case 'speedtest':
+        return _speedTest();
       case 'ifconfig':
       case 'ipconfig':
         return _ifconfig();
@@ -135,6 +146,66 @@ class RealCyberToolsService implements CyberToolsService {
         return '';
       default:
         return "Command not found: '$firstWord'. Type 'help' for a list.";
+    }
+  }
+
+  Future<String> _dns(String host) async {
+    if (host.isEmpty) return 'Usage: dns <host>';
+    try {
+      final addresses = await InternetAddress.lookup(host);
+      if (addresses.isEmpty) return 'No records found for $host.';
+      return addresses
+          .map((address) => '${address.type.name}\t${address.address}')
+          .join('\n');
+    } on Exception catch (error) {
+      return 'DNS lookup failed for $host: $error';
+    }
+  }
+
+  Future<String> _portCheck(String args) async {
+    final parts = args.split(' ').where((part) => part.isNotEmpty).toList();
+    if (parts.length != 2) return 'Usage: portcheck <host> <port>';
+    final port = int.tryParse(parts[1]);
+    if (port == null) return "Invalid port: '${parts[1]}'";
+    final responseTime = await _tryConnect(parts[0], port);
+    if (responseTime == null) {
+      return '${parts[0]}:$port is closed or unreachable.';
+    }
+    return '${parts[0]}:$port is open (${responseTime.inMilliseconds}ms).';
+  }
+
+  Future<String> _myIp() async {
+    try {
+      final response = await http
+          .get(Uri.parse('https://api.ipify.org'))
+          .timeout(_connectTimeout);
+      if (response.statusCode != 200) {
+        return 'Could not determine public IP (HTTP ${response.statusCode}).';
+      }
+      return 'Public IP: ${response.body.trim()}';
+    } on Exception catch (error) {
+      return 'Could not determine public IP: $error';
+    }
+  }
+
+  Future<String> _speedTest() async {
+    const testUrl = 'https://speed.cloudflare.com/__down?bytes=2000000';
+    final stopwatch = Stopwatch()..start();
+    try {
+      final response = await http
+          .get(Uri.parse(testUrl))
+          .timeout(const Duration(seconds: 15));
+      stopwatch.stop();
+      if (response.statusCode != 200) {
+        return 'Speed test failed (HTTP ${response.statusCode}).';
+      }
+      final seconds = stopwatch.elapsedMilliseconds / 1000;
+      final megabits = (response.bodyBytes.length * 8) / 1000000;
+      final mbps = seconds > 0 ? megabits / seconds : 0;
+      return 'Downloaded ${response.bodyBytes.length} bytes in '
+          '${stopwatch.elapsedMilliseconds}ms (${mbps.toStringAsFixed(2)} Mbps).';
+    } on Exception catch (error) {
+      return 'Speed test failed: $error';
     }
   }
 

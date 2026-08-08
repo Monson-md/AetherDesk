@@ -32,6 +32,7 @@ class UserProfileHomePage extends ConsumerWidget {
       initialCountry: profile.country,
       initialAvatarColorValue: profile.avatarColorValue,
       initialAvatarIconIndex: profile.avatarIconIndex,
+      initialAvatarPhotoPath: profile.avatarPhotoPath,
     );
     if (result == null) return;
     ref
@@ -44,6 +45,8 @@ class UserProfileHomePage extends ConsumerWidget {
           country: result.country,
           avatarColorValue: result.avatarColorValue,
           avatarIconIndex: result.avatarIconIndex,
+          avatarPhotoPath: result.avatarPhotoPath,
+          clearAvatarPhotoPath: result.avatarPhotoPath == null,
         );
   }
 

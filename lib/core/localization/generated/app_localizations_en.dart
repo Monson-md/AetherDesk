@@ -48,6 +48,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get comingSoonMessage => 'This module is under construction.';
 
   @override
+  String get moduleStatusInProgressLabel => 'In progress';
+
+  @override
+  String get moduleStatusAvailableLabel => 'Available';
+
+  @override
   String get commonRetry => 'Retry';
 
   @override
@@ -995,6 +1001,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userProfileAvatarColorLabel => 'Avatar color';
 
   @override
+  String get userProfileChoosePhotoButton => 'Choose photo';
+
+  @override
+  String get userProfileRemovePhotoButton => 'Remove photo';
+
+  @override
   String get userProfileFirstNameLabel => 'First name';
 
   @override
@@ -1257,7 +1269,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'No data leaves this device — there\'s no server or real analytics yet.';
 
   @override
-  String get settingsStorageUsageLabel => 'Simulated usage';
+  String get settingsStorageUsageLabel => 'Storage used by the app';
+
+  @override
+  String get settingsStorageErrorMessage =>
+      'Couldn\'t calculate storage usage.';
 
   @override
   String get settingsClearCacheButton => 'Clear cache';
@@ -1267,10 +1283,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsClearCacheConfirmMessage =>
-      'This action is simulated — no real data is stored on disk yet.';
+      'The app\'s temporary files will be deleted.';
 
   @override
-  String get settingsClearCacheDoneMessage => 'Cache cleared (simulated).';
+  String get settingsClearCacheDoneMessage => 'Cache cleared.';
 
   @override
   String get settingsAiProviderLabel => 'AI provider';

@@ -48,6 +48,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get comingSoonMessage => 'Ce module est en cours de construction.';
 
   @override
+  String get moduleStatusInProgressLabel => 'En cours';
+
+  @override
+  String get moduleStatusAvailableLabel => 'Disponible';
+
+  @override
   String get commonRetry => 'Réessayer';
 
   @override
@@ -1002,6 +1008,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get userProfileAvatarColorLabel => 'Couleur de l\'avatar';
 
   @override
+  String get userProfileChoosePhotoButton => 'Choisir une photo';
+
+  @override
+  String get userProfileRemovePhotoButton => 'Retirer la photo';
+
+  @override
   String get userProfileFirstNameLabel => 'Prénom';
 
   @override
@@ -1265,7 +1277,11 @@ class AppLocalizationsFr extends AppLocalizations {
       'Aucune donnée ne quitte cet appareil : il n\'y a pas encore de serveur ni d\'analytique réelle.';
 
   @override
-  String get settingsStorageUsageLabel => 'Utilisation simulée';
+  String get settingsStorageUsageLabel => 'Espace utilisé par l\'application';
+
+  @override
+  String get settingsStorageErrorMessage =>
+      'Impossible de calculer l\'espace utilisé.';
 
   @override
   String get settingsClearCacheButton => 'Vider le cache';
@@ -1275,10 +1291,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get settingsClearCacheConfirmMessage =>
-      'Cette action est simulée : aucune donnée réelle n\'est stockée sur le disque pour le moment.';
+      'Les fichiers temporaires de l\'application seront supprimés.';
 
   @override
-  String get settingsClearCacheDoneMessage => 'Cache vidé (simulé).';
+  String get settingsClearCacheDoneMessage => 'Cache vidé.';
 
   @override
   String get settingsAiProviderLabel => 'Fournisseur IA';

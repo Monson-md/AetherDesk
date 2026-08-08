@@ -1,10 +1,12 @@
 import 'package:aetherdesk/features/user_profile/domain/entities/country.dart';
 
 /// The local, single-user profile: identity fields plus a locally
-/// customizable avatar (color + icon, not a real uploaded picture). Stored
-/// locally by default; `CloudAccountSection`/`BackupSection` can optionally
-/// back this up to Firestore once the user signs in, but no account is
-/// required to use the app.
+/// customizable avatar — either the color+icon combo, or a real photo
+/// picked from the device and copied into this app's own private storage
+/// (see [avatarPhotoPath]). Stored locally by default;
+/// `CloudAccountSection`/`BackupSection` can optionally back this up to
+/// Firestore once the user signs in, but no account is required to use the
+/// app.
 ///
 /// Language and theme are deliberately **not** here, for the same reason
 /// `AppSettings` (in `features/settings`) excludes them: they're
@@ -21,6 +23,7 @@ class UserProfile {
     required this.avatarColorValue,
     required this.avatarIconIndex,
     required this.memberSince,
+    this.avatarPhotoPath,
   });
 
   factory UserProfile.initial() => UserProfile(
@@ -49,6 +52,14 @@ class UserProfile {
   /// reason as [avatarColorValue].
   final int avatarIconIndex;
   final DateTime memberSince;
+
+  /// Real absolute path to a photo copied into this app's own private
+  /// storage via `FileIoService.pickAndStoreImage`, or `null` to fall back
+  /// to the color+icon avatar. Deliberately excluded from [toJson]/cloud
+  /// backup: a local file path isn't meaningful on another device, and
+  /// uploading the actual image bytes would need Firebase Storage, which
+  /// this app doesn't use (free-plan constraint — see `firebase_service.dart`).
+  final String? avatarPhotoPath;
 
   String get fullName =>
       [firstName, lastName].where((part) => part.trim().isNotEmpty).join(' ');
@@ -91,6 +102,8 @@ class UserProfile {
     Country? country,
     int? avatarColorValue,
     int? avatarIconIndex,
+    String? avatarPhotoPath,
+    bool clearAvatarPhotoPath = false,
   }) {
     return UserProfile(
       firstName: firstName ?? this.firstName,
@@ -101,6 +114,9 @@ class UserProfile {
       avatarColorValue: avatarColorValue ?? this.avatarColorValue,
       avatarIconIndex: avatarIconIndex ?? this.avatarIconIndex,
       memberSince: memberSince,
+      avatarPhotoPath: clearAvatarPhotoPath
+          ? null
+          : (avatarPhotoPath ?? this.avatarPhotoPath),
     );
   }
 }

@@ -20,6 +20,8 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     Country? country,
     int? avatarColorValue,
     int? avatarIconIndex,
+    String? avatarPhotoPath,
+    bool clearAvatarPhotoPath = false,
   }) {
     _profile = _profile.copyWith(
       firstName: firstName,
@@ -29,6 +31,8 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       country: country,
       avatarColorValue: avatarColorValue,
       avatarIconIndex: avatarIconIndex,
+      avatarPhotoPath: avatarPhotoPath,
+      clearAvatarPhotoPath: clearAvatarPhotoPath,
     );
     return _profile;
   }

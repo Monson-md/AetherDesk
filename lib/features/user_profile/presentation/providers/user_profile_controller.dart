@@ -17,6 +17,8 @@ class UserProfileController extends Notifier<UserProfile> {
     Country? country,
     int? avatarColorValue,
     int? avatarIconIndex,
+    String? avatarPhotoPath,
+    bool clearAvatarPhotoPath = false,
   }) {
     state = ref
         .read(updateProfileUseCaseProvider)
@@ -28,6 +30,8 @@ class UserProfileController extends Notifier<UserProfile> {
           country: country,
           avatarColorValue: avatarColorValue,
           avatarIconIndex: avatarIconIndex,
+          avatarPhotoPath: avatarPhotoPath,
+          clearAvatarPhotoPath: clearAvatarPhotoPath,
         );
   }
 }

@@ -176,6 +176,18 @@ abstract class AppLocalizations {
   /// **'Ce module est en cours de construction.'**
   String get comingSoonMessage;
 
+  /// No description provided for @moduleStatusInProgressLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'En cours'**
+  String get moduleStatusInProgressLabel;
+
+  /// No description provided for @moduleStatusAvailableLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Disponible'**
+  String get moduleStatusAvailableLabel;
+
   /// No description provided for @commonRetry.
   ///
   /// In fr, this message translates to:
@@ -1958,6 +1970,18 @@ abstract class AppLocalizations {
   /// **'Couleur de l\'avatar'**
   String get userProfileAvatarColorLabel;
 
+  /// No description provided for @userProfileChoosePhotoButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Choisir une photo'**
+  String get userProfileChoosePhotoButton;
+
+  /// No description provided for @userProfileRemovePhotoButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retirer la photo'**
+  String get userProfileRemovePhotoButton;
+
   /// No description provided for @userProfileFirstNameLabel.
   ///
   /// In fr, this message translates to:
@@ -2447,8 +2471,14 @@ abstract class AppLocalizations {
   /// No description provided for @settingsStorageUsageLabel.
   ///
   /// In fr, this message translates to:
-  /// **'Utilisation simulée'**
+  /// **'Espace utilisé par l\'application'**
   String get settingsStorageUsageLabel;
+
+  /// No description provided for @settingsStorageErrorMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Impossible de calculer l\'espace utilisé.'**
+  String get settingsStorageErrorMessage;
 
   /// No description provided for @settingsClearCacheButton.
   ///
@@ -2465,13 +2495,13 @@ abstract class AppLocalizations {
   /// No description provided for @settingsClearCacheConfirmMessage.
   ///
   /// In fr, this message translates to:
-  /// **'Cette action est simulée : aucune donnée réelle n\'est stockée sur le disque pour le moment.'**
+  /// **'Les fichiers temporaires de l\'application seront supprimés.'**
   String get settingsClearCacheConfirmMessage;
 
   /// No description provided for @settingsClearCacheDoneMessage.
   ///
   /// In fr, this message translates to:
-  /// **'Cache vidé (simulé).'**
+  /// **'Cache vidé.'**
   String get settingsClearCacheDoneMessage;
 
   /// No description provided for @settingsAiProviderLabel.

@@ -19,6 +19,15 @@ class SavedTextFile {
   final String path;
 }
 
+/// The result of [FileIoService.pickAndStoreImage]: a real, stable path
+/// inside the app's own private storage, safe to read back later (unlike
+/// the picker's own temporary/cache path, which platforms may reclaim).
+class StoredImage {
+  const StoredImage({required this.path});
+
+  final String path;
+}
+
 /// Contract for real local file open/save dialogs, so `features/code_editor`
 /// (and any future module) can read/write real files without depending on
 /// `file_picker`/`dart:io` directly. This is the swap point: today's
@@ -44,4 +53,9 @@ abstract interface class FileIoService {
     required String suggestedName,
     required List<int> bytes,
   });
+
+  /// Opens a native image picker and copies the chosen image into this
+  /// app's own private storage under [fileName] (overwriting any previous
+  /// file with that name). Returns `null` if the user cancels.
+  Future<StoredImage?> pickAndStoreImage({required String fileName});
 }

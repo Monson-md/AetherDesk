@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:aetherdesk/core/services/files/file_io_service.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 /// Real [FileIoService] backed by `file_picker` (native open/save dialogs)
 /// and `dart:io` (actual reads/writes on desktop platforms — on
@@ -64,6 +65,18 @@ class RealFileIoService implements FileIoService {
       suggestedName: suggestedName,
       bytes: Uint8List.fromList(bytes),
     );
+  }
+
+  @override
+  Future<StoredImage?> pickAndStoreImage({required String fileName}) async {
+    final result = await FilePicker.pickFiles(type: FileType.image);
+    final pickedPath = result?.files.single.path;
+    if (pickedPath == null) return null;
+    final bytes = await File(pickedPath).readAsBytes();
+    final directory = await getApplicationDocumentsDirectory();
+    final storedFile = File('${directory.path}/$fileName');
+    await storedFile.writeAsBytes(bytes);
+    return StoredImage(path: storedFile.path);
   }
 
   Future<SavedTextFile?> _saveBytes({

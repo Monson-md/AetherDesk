@@ -37,6 +37,7 @@ class ProfileHeaderCard extends StatelessWidget {
                 ProfileAvatar(
                   colorValue: profile.avatarColorValue,
                   iconIndex: profile.avatarIconIndex,
+                  photoPath: profile.avatarPhotoPath,
                 ),
                 const SizedBox(width: AppDimensions.spacingMd),
                 Expanded(

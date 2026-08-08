@@ -11,7 +11,7 @@ const double _gutterWidth = 52;
 
 /// Professional code editing zone (requirements #1-4): monospace text,
 /// line-number gutter kept in sync by disabling line wrapping (one logical
-/// line = one visual line), and simulated syntax highlighting driven by
+/// line = one visual line), and real syntax highlighting driven by
 /// [HighlightingTextEditingController].
 class CodeField extends ConsumerStatefulWidget {
   const CodeField({
