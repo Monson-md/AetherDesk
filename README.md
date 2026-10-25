@@ -116,21 +116,3 @@ Le français (`lib/l10n/app_fr.arb`) est la langue de référence
 parallèle. `flutter gen-l10n` génère `AppLocalizations` dans
 `lib/core/localization/generated/`. Pour ajouter une langue : dupliquer un
 fichier `.arb`, changer `@@locale`, traduire les valeurs.
-
-## Ce qui n'est PAS fait (volontairement)
-
-- Aucune fonctionnalité métier dans aucun module.
-- Aucune dépendance Firebase, IA, ou de stockage chiffré n'est ajoutée —
-  seules les interfaces existent.
-- Aucun workflow CI/CD n'a été créé ou modifié.
-- Le projet n'a pas été compilé (`flutter run`/`flutter build`) : les APK
-  seront générés uniquement via GitHub Actions.
-
-## Commandes autorisées en local
-
-```
-flutter pub get       # résolution des dépendances
-flutter gen-l10n       # génération des classes de localisation
-flutter analyze        # analyse statique
-dart format .           # formatage
-```
